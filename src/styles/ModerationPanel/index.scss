@@ -1,0 +1,215 @@
+/* stylelint-disable declaration-no-important */
+/* .brn-moderation-panel *::-webkit-scrollbar {
+  width: 5.5px !important;
+}
+
+.brn-moderation-panel *::-webkit-scrollbar-track {
+  background: #525252 !important;
+  border-radius: 10px !important;
+}
+
+.brn-moderation-panel *::-webkit-scrollbar-thumb {
+  background: #1f1f1f !important;
+  border-radius: 10px !important;
+}
+
+nav {
+  display: block;
+}
+
+a {
+  background-color: transparent;
+
+  &:active,
+  &:hover {
+    outline: 0;
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.sg-button {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  white-space: nowrap;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 0 20px;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
+  box-sizing: border-box;
+  fill: #fff;
+}
+
+.sg-button__text {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sg-button--s {
+  border-radius: 16px;
+  height: 32px;
+  padding: 0 16px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.sg-button--s .sg-button__text {
+  top: 1px;
+}
+
+.sg-button--solid {
+  background-color: #000;
+}
+
+.sg-button--solid:hover:not([disabled]),
+.sg-button--solid:focus:not([disabled]),
+.sg-button--solid:active:not([disabled]),
+.sg-button--solid:active:focus:not([disabled]) {
+  background-color: #283037;
+}
+
+.sg-headline {
+  font-size: 21px;
+  line-height: 24px;
+  display: block;
+  color: #000;
+  font-weight: 700;
+  max-width: 100%;
+}
+
+.sg-headline--small {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.sg-menu-list {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5rem;
+  min-height: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sg-menu-list__element {
+  box-sizing: border-box;
+  height: 3rem;
+  line-height: 3rem;
+  border-bottom: 1px solid #c3d1dd;
+}
+
+.sg-menu-list__element:last-child {
+  border: none;
+}
+
+.sg-menu-list__link {
+  color: #0089e3;
+  text-decoration: none;
+  display: block;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  user-select: none;
+}
+
+.sg-menu-list__link:hover {
+  text-decoration: underline;
+}
+
+.sg-menu-list--small .sg-menu-list__element {
+  height: 2.25rem;
+  line-height: 2.25rem;
+}
+
+.sg-content-box__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 3rem;
+}
+
+.sg-content-box__content {
+  word-wrap: break-word;
+}
+
+.sg-content-box__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 3rem;
+}
+
+.sg-box--shadow {
+  box-shadow: 0 1px 12px 0 rgb(2 10 27 / 15%);
+}
+
+.extension-panel .sg-box--padding-m {
+  padding: 25px 25px 0;
+}
+
+@media screen {
+  .extension-panel {
+    width: 230px;
+  }
+
+  .extension-panel.brn-moderation-panel {
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    right: auto;
+    top: 6.6rem;
+    overflow-x: hidden;
+  }
+
+  .extension-panel .brn-moderation-panel__button {
+    margin-left: 0.75rem;
+    width: 36px;
+    user-select: none;
+  }
+
+  .extension-panel .brn-moderation-panel__content {
+    box-sizing: border-box;
+    box-shadow: 0 1px 12px 0 rgb(2 10 27 / 15%);
+    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: #fff;
+    max-width: 220px;
+  }
+
+  .extension-panel .brn-moderation-panel__list {
+    width: 170px;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 500px;
+  }
+}
+
+.brn-moderation-panel__list {
+  overflow: hidden !important;
+}
+*/

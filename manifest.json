@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "author": "andrewss <andrewss.krlv@gmail.com>",
+  "name": "Brainly++",
+  "description": "Полезные функции для модераторов сайта Znanija.com",
+  "icons": {
+    "128": "icons/icon.png"
+  },
+  "action": {
+    "default_icon": "icons/icon.png"
+  },
+  "host_permissions": [
+    "*://znanija.com/*",
+    "*://brainly-ru.brainly.tech/*"
+  ],
+  "permissions": ["storage", "scripting"],
+  "content_scripts": [{
+    "matches": ["*://znanija.com/*", "*://brainly-ru.brainly.tech/*"],
+    "js": ["scripts/jquery-3.6.0.min.js", "content-scripts/Inject.js"],
+    "run_at": "document_start"
+  }],
+  "background": {
+    "service_worker": "background/index.js"
+  },
+  "web_accessible_resources": [{
+    "resources": ["icons/*"],
+    "matches": ["<all_urls>"],
+    "use_dynamic_url": true
+  }]
+}

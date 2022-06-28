@@ -1,0 +1,45 @@
+@import "./mixins";
+
+.sg-toplayer .sg-visually-hidden,
+.sg-toplayer [aria-hidden="true"]:not(use, .sg-avatar__icon),
+.hidden:not(#profile-mod-panel),
+[hidden] {
+  /* stylelint-disable-next-line declaration-no-important */
+  display: none !important;
+}
+
+.opacity-0 {
+  @include disabled($opacity: 0);
+}
+
+@each $size, $gap in (
+  "xs": 3px,
+  "s": 5px,
+  "l": 12px,
+  "xl": 20px
+) {
+  .gap-#{$size} {
+    gap: $gap;
+  }
+}
+
+.sg-flex--margin-left-auto {
+  margin-left: auto;
+}
+
+.sg-button.sg-button--solid-peach {
+  background-color: $peach;
+
+  @include color-on-active($peach-dark);
+}
+
+.sg-button.sg-button--outline-green {
+  border: 2px solid $mint;
+  background-color: transparent;
+}
+
+.sg-button.sg-button--solid-orange {
+  background-color: $orange;
+
+  @include color-on-active($orange-dark);
+}

@@ -1,0 +1,54 @@
+@import "../mixins";
+@import "../colors";
+@import "../basics";
+@import "./question-log";
+@import "./attachments";
+@import "./header";
+@import "./ticket-item";
+@import "./comments";
+
+#moderation-ticket-back {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgb(74 74 74 / 30%);
+
+  & > .sg-toplayer {
+    margin: auto;
+    max-height: 90%;
+    min-height: auto;
+    max-width: 90%;
+    min-width: 900px;
+
+    .sg-content-box__content {
+      max-height: calc(90vh - 120px);
+
+      @include modern-overflow;
+
+      > .sg-horizontal-separator {
+        margin: 18px 0;
+      }
+
+      > .sg-headline {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  @include flex;
+}
+
+.moderation-ticket-flashes-container {
+  width: 100%;
+  z-index: 100;
+  max-height: inherit;
+
+  .sg-flash {
+    width: 100%;
+  }
+
+  @include flex(column);
+}

@@ -1,0 +1,33 @@
+.question-log {
+  .question-log-section-actions-count {
+    font-style: italic;
+    font-size: 13px;
+    color: #323c45;
+    font-weight: normal;
+    margin-right: 10px;
+  }
+
+  & .question-log-entry {
+    padding-top: 3px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #dfdfdf;
+      padding-bottom: 3px;
+    }
+  }
+
+  .question-log-entry-header {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 5% 1fr 5% 40px;
+    grid-template-rows: 1fr;
+
+    & > *:not(:nth-child(2)) {
+      justify-self: center;
+    }
+
+    & .question-log-entry-time {
+      font-size: 11px;
+    }
+  }
+}

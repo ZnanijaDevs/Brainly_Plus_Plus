@@ -1,0 +1,59 @@
+{
+  "name": "brainly_plus_plus",
+  "version": "1.0.0",
+  "description": "Ultimate extension for Znanija.com moderators",
+  "scripts": {
+    "watch": "webpack --mode=development --watch",
+    "dist": "del-cli build/ && webpack --mode=production && del-cli build/styles/*/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlaex/BrainlyPlusPlus.git"
+  },
+  "keywords": [
+    "znanija",
+    "знания"
+  ],
+  "author": "andrewss <andrewss.krlv@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vlaex/BrainlyPlusPlus/issues"
+  },
+  "homepage": "https://github.com/vlaex/BrainlyPlusPlus#readme",
+  "devDependencies": {
+    "@types/jquery": "^3.5.14",
+    "@types/react-dom": "^18.0.5",
+    "@types/webextension-polyfill": "^0.9.0",
+    "@types/webpack": "^5.28.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "del-cli": "^4.0.1",
+    "eslint": "^7.32.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "path": "^0.12.7",
+    "sass": "^1.52.3",
+    "sass-loader": "^13.0.0",
+    "stylelint": "^14.9.1",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-standard-scss": "^4.0.0",
+    "stylelint-scss": "^4.2.0",
+    "ts-loader": "^9.3.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "^4.7.3",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "brainly-style-guide": "^214.0.1",
+    "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-moment": "^1.1.2",
+    "react-scripts": "^5.0.1",
+    "react-timer-hook": "^3.0.5",
+    "webextension-polyfill": "^0.9.0"
+  }
+}

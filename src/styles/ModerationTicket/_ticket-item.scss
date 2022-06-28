@@ -1,0 +1,50 @@
+.moderation-ticket-item.sg-box {
+  border: 2px solid $gray-light;
+  margin-bottom: 10px;
+
+  &.is-approved {
+    background-color: #cfffd0;
+    border-color: rgb(8 221 50 / 18%);
+  }
+
+  &.is-reported {
+    background-color: rgb(255 65 65 / 25%);
+    border-color: #ff341a;
+  }
+
+  .sg-label.label-with-no-text {
+    padding-right: 0;
+  }
+
+  .sg-horizontal-separator {
+    margin-top: 12px;
+  }
+
+  .user-is-moderator.brn-placeholder__animation {
+    align-items: center;
+    border: 2px solid gold;
+    border-radius: 18px;
+    padding: 2px 8px;
+    position: relative;
+    background:
+      linear-gradient(
+        90deg,
+        hsl(56deg 100% 64% / 22%) 20%,
+        rgb(101 101 101 / 0%),
+        hsl(56deg 100% 64% / 23%) 59%
+      );
+    animation-timing-function: linear;
+    animation-duration: 20s;
+
+    &::before {
+      content: "★";
+      color: $orange;
+      margin-right: 5px;
+    }
+  }
+
+  .extra-data {
+    font-size: 14px;
+    line-height: 1;
+  }
+}

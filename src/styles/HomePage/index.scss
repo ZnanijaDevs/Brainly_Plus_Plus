@@ -1,0 +1,14 @@
+.brn-feed-item__points {
+  display: flex;
+  align-items: center;
+}
+
+.brn-feed-items .moderate-button {
+  margin-bottom: 16px;
+  margin-left: 10px;
+  transition-duration: 0.4s;
+
+  &[disabled] {
+    opacity: 0.6;
+  }
+}

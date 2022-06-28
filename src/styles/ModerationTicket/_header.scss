@@ -1,0 +1,19 @@
+.moderation-ticket-header.sg-content-box__header {
+  margin-bottom: 0.8rem;
+
+  .prolong-moderation-ticket-section {
+    margin-right: 5px;
+    margin-left: auto;
+
+    & .sg-button.sg-button--icon-only {
+      width: 0;
+      padding: 0 13px;
+      height: 30px;
+      margin-left: 6px;
+    }
+  }
+
+  .question-link {
+    margin-left: 5px;
+  }
+}
