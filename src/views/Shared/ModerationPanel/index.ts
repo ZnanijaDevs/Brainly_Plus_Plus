@@ -13,7 +13,7 @@ class ModerationPanel {
   }
 
   async Init() {
-    const modPanelEnabled = await storage.get<boolean>("newModPanelEnabled");
+    const modPanelEnabled = await storage.get("newModPanelEnabled");
     if (!modPanelEnabled) return;
 
     this.newPanel = document.querySelector(".brn-moderation-panel");

@@ -1,0 +1,13 @@
+.moderation-ticket-wrong-report > .sg-flex {
+  & > .sg-icon {
+    margin-right: 8px;
+  }
+
+  & > .sg-text:last-child {
+    margin-left: auto;
+  }
+
+  & a {
+    margin-left: 5px;
+  }
+}

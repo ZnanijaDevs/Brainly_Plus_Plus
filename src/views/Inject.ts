@@ -56,12 +56,6 @@ class Core {
 
   AddWindowLoadedListener() {
     window.onload = () => {
-      document.body.insertAdjacentHTML("beforeend", `
-        <div id="moderation-ticket-popup">
-          <div id="moderation-ticket-react-app"></div>
-        </div>
-      `);
-
       if (this.cssFiles.length) ToBackground("InjectStyles", this.cssFiles);
       ToBackground("InjectScripts", this.jsFiles);
 

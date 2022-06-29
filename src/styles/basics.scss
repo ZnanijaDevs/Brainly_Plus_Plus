@@ -1,10 +1,10 @@
-@import "./mixins";
+@use "sass:map";
+@use "./mixins";
 
 .sg-toplayer .sg-visually-hidden,
 .sg-toplayer [aria-hidden="true"]:not(use, .sg-avatar__icon),
 .hidden:not(#profile-mod-panel),
 [hidden] {
-  /* stylelint-disable-next-line declaration-no-important */
   display: none !important;
 }
 
@@ -27,19 +27,37 @@
   margin-left: auto;
 }
 
-.sg-button.sg-button--solid-peach {
-  background-color: $peach;
+// Buttons
+$new-button-styles: (
+  "peach": ("color": $peach, "onActive": $peach-dark),
+  "orange": ("color": $orange, "onActive": $orange-dark),
+  "green": ("color": $mint, "onActive": $mint-dark),
+);
 
-  @include color-on-active($peach-dark);
-}
+@each $name, $style in $new-button-styles {
+  $color: map.get($style, "color");
+  $on-active: map.get($style, "onActive");
 
-.sg-button.sg-button--outline-green {
-  border: 2px solid $mint;
-  background-color: transparent;
-}
+  .sg-button.sg-button--solid-#{$name} {
+    background-color: $color;
 
-.sg-button.sg-button--solid-orange {
-  background-color: $orange;
+    & .sg-icon {
+      color: $white !important;
+    }
 
-  @include color-on-active($orange-dark);
+    @include color-on-active($on-active);
+  }
+
+  .sg-button.sg-button--outline-#{$name} {
+    border: 2px solid $color;
+    background-color: transparent;
+
+    &:hover {
+      border-color: $on-active;
+    }
+
+    & .sg-icon {
+      color: $color;
+    }
+  }
 }

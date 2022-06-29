@@ -1,4 +1,4 @@
-import type { CommonDataInTicketType } from "@typings/";
+import type { CommonDataInTicketType, ReportDataInModerationTicket } from "@typings/";
 import type { UserDataType, Task, Comment, Response } from "@typings/Brainly";
 
 import transformAttachment from "./transformAttachment";
@@ -22,12 +22,28 @@ export function transformNodeInModerationTicket(
     modelTypeId = 45;
   }
 
+  // Find report and abuse details
+  let report: ReportDataInModerationTicket;
+  if (data.report) {
+    let abuseDetails = data.report.abuse.data;
+
+    if (/mobile/i.test(abuseDetails)) abuseDetails = "";
+
+    report = {
+      user: transformUser(usersData.find(user => user.id === data.report.user.id)),
+      date: data.report.created,
+      abuseName: data.report.abuse.name,
+      abuseDetails
+    };
+  }
+
   const transformedNode: CommonDataInTicketType = {
     modelType,
     modelTypeId,
     id: data.id,
     content: data.content
-      .replace(/(?<=<img src=')http/g, "https"),
+      .replace(/(?<=<img src=')http/g, "https")
+      .replace(/(<br\s?\/>){2,}(?=$|\u200B)/g, ""),
     created: data.created,
     isReported: !!data.report,
     author: {
@@ -35,10 +51,28 @@ export function transformNodeInModerationTicket(
         usersData.find(userData => userData.id === data.user_id)
       ),
     },
-    taskId: (data as Response).task_id || data.id,
     points: (data as Task).points?.ptsForTask,
-    deleted: (data as Comment).deleted ?? false
+    deleted: (data as Comment).deleted ?? false,
+    report
   };
+
+  if (modelType === "answer") {
+    let answer = data as Response;
+
+    transformedNode.taskId = answer.task_id;
+    transformedNode.edited = !!answer.edited;
+
+    let wrongReport = answer.wrong_report;
+    if (wrongReport) {
+      transformedNode.correction = {
+        moderator: transformUser(
+          usersData.find(user => user.id === wrongReport.user.id)
+        ),
+        reason: wrongReport.reason,
+        date: wrongReport.reported
+      };
+    }
+  }
 
   if (modelType !== "comment") {
     const attachmentsList = (data as Task | Response).attachments;

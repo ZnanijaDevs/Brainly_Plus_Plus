@@ -20,5 +20,4 @@ export default (
           ${decodedURL}
         </a>
       `;
-    })
-    .replace(/(<br\s?\/>){2,}(?=$|\u200B)/g, "");
+    });

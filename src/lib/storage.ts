@@ -1,15 +1,21 @@
 import ext from "webextension-polyfill";
 
-const get = async <T>(key: string): Promise<T> => {
-  const storage = await ext.storage.local.get(key);
+export type ExtensionConfigDataInStorage = {
+  searchEngine: "yandex" | "google";
+  newModPanelEnabled: boolean;
+  slackToken: string;
+}
+
+const get = async <K extends keyof ExtensionConfigDataInStorage>(
+  key: keyof ExtensionConfigDataInStorage
+): Promise<ExtensionConfigDataInStorage[K]> => {
+  const storage = await ext.storage.sync.get(key);
 
   return storage?.[key];
 };
 
-const set = async (key: string, data) => {
-  return await ext.storage.local.set({ 
-    [key]: data 
-  });
+const set = async (data: Partial<ExtensionConfigDataInStorage>) => {
+  return await ext.storage.sync.set(data);
 };
 
 export default { get, set };

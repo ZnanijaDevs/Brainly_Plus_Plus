@@ -1,5 +1,7 @@
-export const DisableButton = (button: HTMLButtonElement) => {
+export const disableButton = (button: HTMLButtonElement) => {
   button.disabled = true;
+  button.classList.add("sg-button--disabled", "sg-button--loading");
+
   button.innerHTML += `
     <div class="sg-spinner-container__overlay">
       <div class="sg-spinner sg-spinner--gray-900 sg-spinner--xsmall"></div>
@@ -7,7 +9,9 @@ export const DisableButton = (button: HTMLButtonElement) => {
   `;
 };
 
-export const EnableButton = (button: HTMLButtonElement) => {
+export const enableButton = (button: HTMLButtonElement) => {
   button.disabled = false;
+  button.classList.remove("sg-button--disabled", "sg-button--loading");
+
   button.querySelector(".sg-spinner-container__overlay").remove();
 };

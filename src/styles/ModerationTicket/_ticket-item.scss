@@ -1,4 +1,6 @@
 .moderation-ticket-item.sg-box {
+  @include smooth-transition;
+
   border: 2px solid $gray-light;
   margin-bottom: 10px;
 
@@ -8,8 +10,16 @@
   }
 
   &.is-reported {
-    background-color: rgb(255 65 65 / 25%);
-    border-color: #ff341a;
+    border-color: #ffa398;
+  }
+
+  &.sent-for-correction {
+    border-color: #8599ff;
+    background-color: rgb(133 153 255 / 12%);
+  }
+
+  & > div:last-child {
+    margin: 10px;
   }
 
   .sg-label.label-with-no-text {
@@ -46,5 +56,9 @@
   .extra-data {
     font-size: 14px;
     line-height: 1;
+  }
+
+  .check-for-plagiarism {
+    margin-left: 8px;
   }
 }

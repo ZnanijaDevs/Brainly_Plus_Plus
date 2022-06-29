@@ -3,7 +3,6 @@
   &:focus,
   &:active,
   &:active:focus {
-    /* stylelint-disable-next-line declaration-no-important */
     background-color: $background-color !important;
   }
 }

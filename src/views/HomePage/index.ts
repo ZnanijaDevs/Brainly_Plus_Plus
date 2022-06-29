@@ -1,7 +1,7 @@
 import Button from "@lib/styleguide/elements/Button";
 import OpenTicket from "@shared/ModerationTicket";
-import { DisableButton, EnableButton } from "@utils/ElementsVisibility";
-import FindQuestionIdInLink from "@utils/FindQuestionIdInLink";
+import { disableButton, enableButton } from "@utils/elementsVisibility";
+import findQuestionIdInLink from "@utils/findQuestionIdInLink";
 
 const updateFeedItems = () => {
   for (let item of document.querySelectorAll(".brn-feed-items > div")) {
@@ -12,18 +12,18 @@ const updateFeedItems = () => {
         icon: { type: "settings" }
       }, {
         classList: ["moderate-button"],
-        title: "Модерировать",
+        title: MESSAGES.moderate,
         onClick: async event => {
           const button = event.target as HTMLButtonElement;
           const taskLink = item.querySelector<HTMLLinkElement>(".brn-feed-item__content a");
 
-          DisableButton(button);
+          disableButton(button);
 
-          await OpenTicket(/*FindQuestionIdInLink(taskLink.href)*/49108350, {
+          await OpenTicket(findQuestionIdInLink(taskLink.href), {
             showFlashOnError: true
           });
 
-          EnableButton(button);
+          enableButton(button);
         }
       })
     );

@@ -5,7 +5,7 @@ import AdaptiveButton from "../common/AdaptiveButton";
 
 export default function Attachment(props: {
   onDelete: (attachmentId: number) => void;
-  data: AttachmentDataInModerationTicket
+  data: AttachmentDataInModerationTicket;
 }) {
   const attachment = props.data;
 
@@ -14,7 +14,7 @@ export default function Attachment(props: {
       <AdaptiveButton 
         type="solid-peach" 
         icon={{ type: "close", color: "icon-white" }}
-        title="Удалить вложение"
+        title={MESSAGES.deleteAttachment}
         onClick={_ => props.onDelete(attachment.id)}
       />
       {attachment.type === "IMAGE" ? <img src={attachment.thumbnailUrl} /> :

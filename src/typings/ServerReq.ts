@@ -85,18 +85,6 @@ export type QuestionNodeDataType = {
   grade: string;
 }>;
 
-/*export type AnswerDataType = QuestionNodeDataType & {
-  isBest: boolean;
-  rating: number;
-  thanksCount: number;
-}
-
-export type QuestionDataType = QuestionNodeDataType & {
-  subject: Subject;
-  points: number;
-  grade: string;
-};*/
-
 export interface QuestionWithExtraContentDataType {
   question: QuestionNodeDataType;
   answers: {

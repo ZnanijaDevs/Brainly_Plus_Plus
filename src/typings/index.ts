@@ -2,6 +2,19 @@ import type { EntriesByDateDataType } from "@lib/api/Brainly/transformData/trans
 
 export type ModelTypeID = 1 | 2 | 45;
 
+export type AnswerCorrectionDataType = {
+  date: string;
+  moderator: UserDataInModerationTicket;
+  reason: string;
+};
+
+export type ReportDataInModerationTicket = {
+  user: UserDataInModerationTicket;
+  abuseName: string;
+  abuseDetails?: string;
+  date: string;
+};
+
 export type AttachmentDataInModerationTicket = {
   extension: string;
   thumbnailUrl: string;
@@ -34,11 +47,14 @@ export type CommonDataInTicketType = {
   attachments?: AttachmentDataInModerationTicket[];
   comments?: CommonDataInTicketType[];
   deleted?: boolean;
+  report: ReportDataInModerationTicket;
 } & Partial<{
   isApproved: boolean;
   isBest: boolean;
   taskId: number;
   thanksCount: number;
+  edited?: boolean;
+  correction?: AnswerCorrectionDataType;
 }> & Partial<{
   points: number;
 }>;
@@ -56,5 +72,5 @@ export type ModerationTicketContextDataType = {
   subject: {
     name: string;
     icon: string;
-  }
+  };
 }

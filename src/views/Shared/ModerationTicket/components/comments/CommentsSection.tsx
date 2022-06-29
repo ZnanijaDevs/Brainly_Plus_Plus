@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Flex, Button, Headline, Icon } from "brainly-style-guide";
+import { Flex, Headline } from "brainly-style-guide";
 
 import type { CommonDataInTicketType } from "@typings/";
 import _API from "@lib/api/Brainly/Legacy";
 
 import Comment from "./Comment";
 import AdaptiveButton from "../common/AdaptiveButton";
-import Flash from "@utils/Flashes";
+import Flash from "@utils/flashes";
 
 export default function CommentsSection(props: {
   comments: CommonDataInTicketType[];
@@ -50,18 +50,17 @@ export default function CommentsSection(props: {
       <Flex justifyContent="space-between">
         <Flex className="gap-s" alignItems="center">
           <Headline color="text-indigo-60" extraBold size="small">
-            Комментарии [{notDeletedComments.length}]
+            {MESSAGES.comments} [{notDeletedComments.length}]
           </Headline>
-          <Button
+          <AdaptiveButton 
             type="solid-indigo-inverted"
-            size="s" 
+            size="s"
             onClick={_ => setHidden(prevState => !prevState)} 
-            iconOnly 
-            icon={<Icon size={16} color="icon-black" type={hidden ? "arrow_down" : "arrow_up"} />} 
+            icon={{ type: hidden ? "arrow_down" : "arrow_up" }}
           />
         </Flex>
         <AdaptiveButton disabled={isDeleting || !notDeletedComments.length} type="solid-peach" onClick={deleteAllComments}>
-          Удалить все комментарии
+          {MESSAGES.deleteAllComments}
         </AdaptiveButton>
       </Flex>
       <Flex className="moderation-ticket-comments-list" disabled={isDeleting} hidden={hidden} marginTop="xs" direction="column">

@@ -5,10 +5,6 @@ export type EntriesByDateDataType = {
   [x: string]: QuestionLogEntry[];
 }
 
-/*const beautifyLogEntryText = (text: string): string[] => {
-
-}*/
-
 export default (
   entries: QuestionLogEntry[],
   usersData: UserDataType[]
@@ -45,7 +41,9 @@ export default (
   
       if (entry.warn)
         textPieces.push(` 
-          <span class="sg-text sg-text--inherited sg-text--bold sg-text--text-red-60">с предупреждением</span>`
+          <span class="sg-text sg-text--inherited sg-text--bold sg-text--text-red-60">
+            ${MESSAGES.withWarn}
+          </span>`
         );
     }
 

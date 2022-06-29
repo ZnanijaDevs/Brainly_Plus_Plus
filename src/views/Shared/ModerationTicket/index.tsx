@@ -1,16 +1,14 @@
 import { createRoot } from "react-dom/client";
 
 import _API from "@lib/api/Brainly/Legacy";
-import Flash from "@utils/Flashes";
+import Flash from "@utils/flashes";
 
 import type { ModerationTicketContextDataType } from "@typings/";
 import { transformNodeInModerationTicket } from "@lib/api/Brainly/transformData";
 import transformQuestionLogEntries from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
-
-import Ticket from "./Ticket";
 import { gradeById, subjectById } from "@utils/getMarketConfig";
 
-const ticketRoot = createRoot(document.getElementById("moderation-ticket-react-app"));
+import Ticket from "./Ticket";
 
 export default async function OpenTicket(
   questionId: number,
@@ -26,9 +24,6 @@ export default async function OpenTicket(
       _API.OpenTicket(questionId),
       _API.GetQuestionLog(questionId)
     ]);
-    // const question = await ServerReq.GetQuestionContent(questionId);
-  
-    // setTimeout(() => _API.ExpireTicket(questionId), 5000);
 
     const {
       ticket,
@@ -57,7 +52,7 @@ export default async function OpenTicket(
           isApproved: questionLog.data.some(entry => 
             entry.owner_id === response.user_id &&
             /был принят/.test(entry.text) &&
-            entry.type === 92
+            entry.type === 90
           )
         })
       ),
@@ -68,8 +63,14 @@ export default async function OpenTicket(
 
     console.debug(`Moderation ticket context for #${questionId}`, context);
 
+    const ticketRootElement = document.createElement("div");
+    ticketRootElement.id = "moderation-ticket-popup";
+
+    const ticketRoot = createRoot(ticketRootElement);
+    document.body.appendChild(ticketRootElement);
+
     ticketRoot.render(
-      <Ticket questionId={questionId} context={context} expiryTime={time} />
+      <Ticket questionId={questionId} context={context} expiryTime={time} root={ticketRoot} />
     );
   } catch (err) {
     if (options.showFlashOnError) Flash("default", err.message);

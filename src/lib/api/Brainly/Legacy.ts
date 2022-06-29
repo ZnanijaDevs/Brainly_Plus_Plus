@@ -40,10 +40,7 @@ class BrainlyApi {
 
     const r = await fetch(requestUrl, requestOptions).then(r => r.json());
     if (!r.success) {
-      console.warn(
-        `An error has occured: ${r.message}`,
-        r
-      );
+      console.warn(`An error has occured: ${r.message}`, r);
 
       throw Error(r.message);
     }
@@ -51,12 +48,12 @@ class BrainlyApi {
     return r;
   }
 
-  async GetMe() {
-    if (!this.user) {
-      const userData = await this.Req<MeDataType>("GET", "api_users/me");
-      this.user = userData.data;
-    }
+  async FetchUser() {
+    const userData = await this.Req<MeDataType>("GET", "api_users/me");
+    this.user = userData.data;
+  }
 
+  async GetMe() {
     return this.user;
   }
 
@@ -71,6 +68,38 @@ class BrainlyApi {
     return await this.Req("POST", "moderate_tickets/expire", {
       model_id: questionId,
       model_type_id: 1
+    });
+  }
+
+  async ProlongTicket(
+    taskId: number,
+    ticketId: number
+  ) {
+    return await this.Req<{
+      id: number;
+      time_left: 300 | 600 | 900;
+      user_id: number;
+    }>("POST", "moderate_tickets/prolong", {
+      model_id: taskId,
+      model_type_id: 1,
+      ticket_id: ticketId,
+      time: 60 * 15 // 15 minutes
+    });
+  }
+
+  async DeleteAnswer(data: {
+    id: number;
+    giveWarn?: boolean;
+    takePoints?: number;
+    reason?: string;
+  }) {
+    return await this.Req("POST", "moderation_new/delete_response_content", {
+      "model_id": data.id,
+      "model_type_id": 2,
+      "give_warning": data.giveWarn ?? false,
+      "take_points": data.takePoints ?? true,
+      "reason_id": 0,
+      "reason": data.reason ?? ""
     });
   }
 
@@ -105,6 +134,13 @@ class BrainlyApi {
     });
   }
 
+  async AcceptContent(modelId: number, modelTypeId: ModelTypeID) {
+    return await this.Req("POST", "moderation_new/accept", {
+      model_id: modelId,
+      model_type_id: modelTypeId
+    });
+  }
+
   async ApproveAnswer(id: number) {
     return await this.Req("POST", "api_content_quality/confirm", {
       model_type: 2,
@@ -132,4 +168,7 @@ class BrainlyApi {
   }
 }
 
-export default new BrainlyApi();
+const _API = new BrainlyApi();
+_API.FetchUser();
+
+export default _API;

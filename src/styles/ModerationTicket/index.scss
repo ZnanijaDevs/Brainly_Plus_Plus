@@ -6,6 +6,8 @@
 @import "./header";
 @import "./ticket-item";
 @import "./comments";
+@import "./report";
+@import "./wrong-report";
 
 #moderation-ticket-back {
   width: 100%;
@@ -34,6 +36,10 @@
 
       > .sg-headline {
         margin-bottom: 10px;
+      }
+
+      .sg-subject-icon-box {
+        margin-right: 8px;
       }
     }
   }
