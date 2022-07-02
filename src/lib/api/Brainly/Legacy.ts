@@ -28,7 +28,9 @@ class BrainlyApi {
     apiMethod: string,
     data?
   ): Promise<LegacyApiSuccessResponse<T>> {
-    const requestUrl = `${this.apiEndpoint}/${apiMethod}`;
+    let requestUrl = `${this.apiEndpoint}/${apiMethod}`;
+    requestUrl += `${requestUrl.includes("?") ? "&" : "?"}client=moderator-extension`;
+
     const requestOptions: RequestInit = {
       method,
       credentials: "include",

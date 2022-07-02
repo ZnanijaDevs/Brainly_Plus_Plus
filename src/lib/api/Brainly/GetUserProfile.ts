@@ -20,6 +20,7 @@ export default async (
 ): Promise<UserDataInProfileType> => {
   const r = await fetch(`/profil/__NICK__-${userId}?client=moderator-extension`, {
     method: "GET",
+    credentials: "include"
   });
 
   if (r.status === 410) throw Error(MESSAGES.accountDeleted);

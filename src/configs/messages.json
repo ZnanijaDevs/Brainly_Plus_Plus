@@ -28,5 +28,6 @@
   "numberOfWrongReports": "Количество неверных отметок",
   "percentOfCorrectReports": "% верных отметок",
   "pts": "б.",
-  "warnShort": "пред."
+  "warnShort": "пред.",
+  "warnsV1": "предупреждений"
 }

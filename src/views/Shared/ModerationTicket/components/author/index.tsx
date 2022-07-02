@@ -12,10 +12,7 @@ export default function AuthorSection({ user }: {
 
   useEffect(() => {
     GetUserProfile(user.id)
-      .then(user => {
-        console.log(user);
-        setExtraData(user);
-      });
+      .then(user => setExtraData(user));
   }, []);
 
   return (
@@ -35,7 +32,7 @@ export default function AuthorSection({ user }: {
               {extraData.onlineStatus}
             </Text>,
             <Text inherited color="text-black">
-              предупреждений:
+              {MESSAGES.warnsV1}:
               <Link inherited href={`/users/view_user_warns/${user.id}`} target="_blank">
                 {extraData.warnsCount}
               </Link>

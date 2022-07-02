@@ -31,10 +31,6 @@ class ServerReq {
     return res;
   }
 
-  // async GetQuestionContent(id: number) {
-  //   return await this.Req<QuestionWithExtraContentDataType>("GET", `tickets/question/${id}`);
-  // }
-
   async DetectImagesFromCalculators(urlList: string[]) {
     return await this.Req("POST", "ai/predict/calculators", {
       urlList
