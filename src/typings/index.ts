@@ -73,4 +73,5 @@ export type ModerationTicketContextDataType = {
     name: string;
     icon: string;
   };
+  privileges: number[];
 }

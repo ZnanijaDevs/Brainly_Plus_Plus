@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "brainly-style-guide": "^214.0.1",
+    "chalk": "^5.0.1",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "react": "^18.2.0",

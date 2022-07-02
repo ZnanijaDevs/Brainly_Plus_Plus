@@ -1,14 +1,13 @@
 import ext from "webextension-polyfill";
 
-export type ExtensionConfigDataInStorage = {
+export interface ExtensionConfigDataInStorage {
   searchEngine: "yandex" | "google";
   newModPanelEnabled: boolean;
   slackToken: string;
+  authToken: string;
 }
 
-const get = async <K extends keyof ExtensionConfigDataInStorage>(
-  key: keyof ExtensionConfigDataInStorage
-): Promise<ExtensionConfigDataInStorage[K]> => {
+const get = async <T>(key: keyof ExtensionConfigDataInStorage): Promise<T> => {
   const storage = await ext.storage.sync.get(key);
 
   return storage?.[key];

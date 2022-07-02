@@ -28,13 +28,14 @@ class BrainlyApi {
     apiMethod: string,
     data?
   ): Promise<LegacyApiSuccessResponse<T>> {
-    const requestUrl = `${this.apiEndpoint}/${apiMethod}?client=moderator-extension`;
+    const requestUrl = `${this.apiEndpoint}/${apiMethod}`;
     const requestOptions: RequestInit = {
       method,
       credentials: "include",
       body: data ? JSON.stringify(data) : null,
       headers: new Headers({
-        "X-Extension-Used": `Brainly_Plus_Plus/${EXTENSION_VERSION}`
+        "X-Extension": `Brainly_Plus_Plus/${EXTENSION_VERSION}`,
+        "X-Extension-Version": EXTENSION_VERSION,
       })
     };
 

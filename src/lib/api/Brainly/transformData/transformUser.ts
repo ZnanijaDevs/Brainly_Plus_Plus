@@ -13,6 +13,6 @@ export default function transformUser(user: UserDataType): UserDataInModerationT
     avatar: user.avatars?.[100],
     ranks: user.ranks?.names || [],
     rankColor: user.ranks?.color,
-    isModerator: false // TODO: this
+    isModerator: RANKS.specialRanks.includes(user.ranks?.names?.[0])
   };
 }

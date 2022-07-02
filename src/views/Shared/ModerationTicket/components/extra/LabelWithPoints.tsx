@@ -10,7 +10,7 @@ export default function LabelWithPoints(props: {
       </Flex>
       <Flex alignItems="center">
         <Text type="span" size="small" weight="bold" className="sg-counter__text">
-          {props.text}
+          {props.text} {MESSAGES.pts}
         </Text>
       </Flex>
     </div>

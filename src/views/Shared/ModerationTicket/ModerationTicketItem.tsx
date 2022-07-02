@@ -15,7 +15,6 @@ import getUserPrivileges, { UserPrivilegesDataType } from "@utils/getUserPrivile
 import Flash from "@utils/flashes";
 import ToBackground from "@lib/ToBackground";
 
-import AuthorData from "./components/extra/AuthorData";
 import AttachmentsSection from "./components/attachments/AttachmentsSection";
 import DateTime from "./components/common/DateTime";
 import LabelWithPoints from "./components/extra/LabelWithPoints";
@@ -23,6 +22,7 @@ import CommentsSection from "./components/comments/CommentsSection";
 import AdaptiveButton from "./components/common/AdaptiveButton";
 import ReportSection from "./components/report";
 import AnswerCorrectionSection from "./components/correction";
+import AuthorSection from "./components/author";
 
 // TODO: refactor this component
 
@@ -50,6 +50,8 @@ export default function ModerationTicketNode({ data }: {
     itemClassName += " is-reported";
   else if (sentForCorrection)
     itemClassName += " sent-for-correction";
+  else if (data.isBest)
+    itemClassName += " is-best";
   
   return !userPrivileges ? null : (
     <Box className={itemClassName} border padding="xs" color={deleted ? "red-40" : "transparent"}>
@@ -63,13 +65,12 @@ export default function ModerationTicketNode({ data }: {
             <Avatar size="s" imgSrc={data.author.avatar} />
           </a>
           <Flex direction="column" marginLeft="xs">
-            <AuthorData user={data.author} />
+            <AuthorSection user={data.author} />
             <Text color="text-gray-70" className="extra-data">
               <DateTime fromNow date={data.created} />
             </Text>
           </Flex>
           <Flex className="sg-flex--margin-left-auto gap-s" alignItems="center">
-            {reported && <Icon type="report_flag" color="icon-red-50" size={32} />}
             {!!data.points && <LabelWithPoints text={data.points} />}
             {data.modelType === "answer" && <>
               <Label iconType="heart" color="red" type="solid">{data.thanksCount}</Label>

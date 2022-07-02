@@ -13,6 +13,11 @@
     border-color: #ffa398;
   }
 
+  &.is-best {
+    border-color: #fa0;
+    background-color: #fffffe;
+  }
+
   &.sent-for-correction {
     border-color: #8599ff;
     background-color: rgb(133 153 255 / 12%);
@@ -31,6 +36,7 @@
   }
 
   .user-is-moderator.brn-placeholder__animation {
+    margin-bottom: 3px;
     align-items: center;
     border: 2px solid gold;
     border-radius: 18px;
@@ -60,5 +66,19 @@
 
   .check-for-plagiarism {
     margin-left: 8px;
+  }
+
+  .open-user-preview {
+    margin-left: 10px;
+    align-self: center;
+  }
+
+  .user-extra-data {
+    margin-top: -6px;
+
+    a[href*="view_user_warns"] {
+      font-weight: bold;
+      margin-left: 3px;
+    }
   }
 }

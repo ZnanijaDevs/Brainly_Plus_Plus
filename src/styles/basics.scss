@@ -27,6 +27,12 @@
   margin-left: auto;
 }
 
+.sg-button.sg-button--xs {
+  width: 26px;
+  height: 26px;
+  padding: 1px;
+}
+
 // Buttons
 $new-button-styles: (
   "peach": ("color": $peach, "onActive": $peach-dark),

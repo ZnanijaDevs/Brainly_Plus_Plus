@@ -8,7 +8,8 @@
     "128": "icons/icon.png"
   },
   "action": {
-    "default_icon": "icons/icon.png"
+    "default_icon": "icons/icon.png",
+    "default_popup": "popup/index.html"
   },
   "host_permissions": [
     "*://znanija.com/*",
@@ -17,7 +18,10 @@
   "permissions": ["storage", "scripting"],
   "content_scripts": [{
     "matches": ["*://znanija.com/*", "*://brainly-ru.brainly.tech/*"],
-    "js": ["scripts/jquery-3.6.0.min.js", "content-scripts/Inject.js"],
+    "js": [
+      "scripts/jquery-3.6.0.min.js",
+      "content-scripts/Inject.js"
+    ],
     "run_at": "document_start"
   }],
   "background": {

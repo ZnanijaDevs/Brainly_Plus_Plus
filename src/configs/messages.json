@@ -1,7 +1,8 @@
 {
+  "youDoNotHavePermissionToUseThisExt": "Нет разрешения на использование этого расширения",
   "doYouWantToDeleteAllComments": "Вы уверены, что хотите удалить все комментарии без предупреждения?",
   "doYouWantToDeleteThisAnswerAsSpam": "Вы действительно хотите удалить этот ответ как спам с предупреждением?",
-  "accountDeleted": "Аккаунт удалён",
+  "accountDeleted": "Аккаунт удален",
   "approvedAnswers": "Принятые ответы",
   "deleteAttachment": "Удалить вложение",
   "questionLog": "История вопроса",
@@ -21,5 +22,11 @@
   "accept": "Принять",
   "bestAnswer": "Лучший ответ",
   "withWarn": "с предупреждением",
-  "moderate": "Модерировать"
+  "moderate": "Модерировать",
+  "viewUserProfile": "Смотреть профиль пользователя",
+  "numberOfAllReports": "Количество всех отметок",
+  "numberOfWrongReports": "Количество неверных отметок",
+  "percentOfCorrectReports": "% верных отметок",
+  "pts": "б.",
+  "warnShort": "пред."
 }

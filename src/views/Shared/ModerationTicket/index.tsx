@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { createRoot } from "react-dom/client";
 
 import _API from "@lib/api/Brainly/Legacy";
@@ -7,6 +8,7 @@ import type { ModerationTicketContextDataType } from "@typings/";
 import { transformNodeInModerationTicket } from "@lib/api/Brainly/transformData";
 import transformQuestionLogEntries from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
 import { gradeById, subjectById } from "@utils/getMarketConfig";
+import getViewer from "@utils/getViewer";
 
 import Ticket from "./Ticket";
 
@@ -19,10 +21,12 @@ export default async function OpenTicket(
   try {
     const [
       data,
-      questionLog
+      questionLog,
+      user
     ] = await Promise.all([
       _API.OpenTicket(questionId),
-      _API.GetQuestionLog(questionId)
+      _API.GetQuestionLog(questionId),
+      getViewer()
     ]);
 
     const {
@@ -58,10 +62,14 @@ export default async function OpenTicket(
       ),
       logEntries: transformQuestionLogEntries(questionLog.data, questionLog.users_data),
       grade: gradeById(task.grade_id),
-      subject: subjectById(task.subject_id)
+      subject: subjectById(task.subject_id),
+      privileges: user.privileges
     };
 
-    console.debug(`Moderation ticket context for #${questionId}`, context);
+    console.log(
+      chalk.black.bgCyan(`Moderation ticket context for #${questionId}`), 
+      context
+    );
 
     const ticketRootElement = document.createElement("div");
     ticketRootElement.id = "moderation-ticket-popup";

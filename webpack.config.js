@@ -21,6 +21,7 @@ const config = {
     ...makeEntries("views/*/index.t{s,sx}", "content-scripts", true),
     ...makeEntries("views/Inject.ts", "content-scripts"),
     ...makeEntries("background/index.ts", "background"),
+    ...makeEntries("popup/scripts/index.ts", "popup")
   },
   output: {
     path: path.resolve(__dirname, BUILD_DIR),
@@ -52,7 +53,8 @@ const config = {
     new webpack.ProvidePlugin({
       MESSAGES: getConfigFile("messages.json"),
       SUBJECTS: getConfigFile("subjects.json"),
-      GRADES: getConfigFile("grades.json")
+      GRADES: getConfigFile("grades.json"),
+      RANKS: getConfigFile("ranks.json")
     }),
     new webpack.DefinePlugin({
       EXTENSION_VERSION: JSON.stringify(version)
@@ -73,7 +75,8 @@ const config = {
             return JSON.stringify(newData);
           }
         },
-        { from: "./src/scripts/", to: "scripts/" }
+        { from: "./src/scripts/", to: "scripts/" },
+        { from: "./src/popup/index.html", to: "popup/" }
       ]
     })
   ]

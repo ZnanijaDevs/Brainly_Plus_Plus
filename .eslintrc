@@ -30,11 +30,7 @@
     "prefer-const": "off",
     "linebreak-style": ["error", "windows"],
     "semi": ["error", "always"],
-    "no-console": [
-      "warn", { 
-        "allow": ["debug", "error"]
-      }
-    ],
+    "no-console": "off",
     "max-len": ["warn", { 
       "code": 105,
       "ignorePattern": "^\\s*<[A-Za-z].+>"

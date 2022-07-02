@@ -7,8 +7,25 @@
 
   & > .sg-flex {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr auto auto;
     align-items: center;
     gap: 10px;
+  }
+
+  & .reporter-extra-data {
+    .sg-vertical-separator {
+      margin: 0;
+      padding: 0;
+      margin-right: 8px;
+    }
+
+    .sg-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .sg-text {
+      font-size: 14px;
+    }
   }
 }
