@@ -22,6 +22,7 @@
   "homepage": "https://github.com/vlaex/BrainlyPlusPlus#readme",
   "devDependencies": {
     "@types/jquery": "^3.5.14",
+    "@types/js-cookie": "^3.0.2",
     "@types/react-dom": "^18.0.5",
     "@types/webextension-polyfill": "^0.9.0",
     "@types/webpack": "^5.28.0",
@@ -48,6 +49,7 @@
   "dependencies": {
     "brainly-style-guide": "^214.0.1",
     "chalk": "^5.0.1",
+    "js-cookie": "^3.0.1",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "react": "^18.2.0",

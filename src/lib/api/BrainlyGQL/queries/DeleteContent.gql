@@ -1,0 +1,8 @@
+mutation DeleteModerationReportContent($input: DeleteModerationReportContentInput!) {
+  deleteModerationReportContent(input: $input) {
+    validationErrors {
+      type
+      error
+    }
+  }
+}

@@ -3,12 +3,15 @@ import { Flex, Text, Breadcrumb, Link } from "brainly-style-guide";
 
 import GetUserProfile, { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
 import type { UserDataInModerationTicket } from "@typings/";
+
 import AdaptiveButton from "../common/AdaptiveButton";
+import AuthorPreviewBox from "./AuthorPreviewBox";
 
 export default function AuthorSection({ user }: {
   user: UserDataInModerationTicket;
 }) {
   const [extraData, setExtraData] = useState<UserDataInProfileType>(null);
+  const [authorPreviewOpened, setAuthorPreviewOpened] = useState(false);
 
   useEffect(() => {
     GetUserProfile(user.id)
@@ -47,7 +50,9 @@ export default function AuthorSection({ user }: {
         title={MESSAGES.viewUserProfile}
         classList="open-user-preview"
         disabled={!extraData}
+        onClick={() => setAuthorPreviewOpened(prevState => !prevState)}
       />
+      {(authorPreviewOpened && extraData) && <AuthorPreviewBox user={extraData} />}
     </Flex>
   );
 }

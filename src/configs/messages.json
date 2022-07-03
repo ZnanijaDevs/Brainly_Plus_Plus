@@ -29,5 +29,7 @@
   "percentOfCorrectReports": "% верных отметок",
   "pts": "б.",
   "warnShort": "пред.",
-  "warnsV1": "предупреждений"
+  "warnsV1": "предупреждений",
+  "warnsV2": "Предупреждения",
+  "deleted": "Удалено"
 }

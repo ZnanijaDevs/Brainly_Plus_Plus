@@ -1,0 +1,65 @@
+.author-preview-box.sg-bubble {
+  padding: 10px;
+  position: fixed;
+  top: 20vh;
+  width: fit-content;
+  max-width: 60vw;
+  right: 1vw;
+  min-height: 30vh;
+  max-height: 70vh;
+  z-index: 90;
+  left: 50%;
+
+  & > div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+
+  & .author-is-banned {
+    background: #ff8e8e;
+    padding: 5px;
+    border-radius: 5px;
+
+    .sg-breadcrumb-list {
+      line-height: 1;
+    }
+
+    .ban-label {
+      margin-top: -5px;
+    }
+  }
+
+  & .author-warns {
+    max-height: 45vh;
+    margin-top: 5px;
+
+    @include modern-overflow;
+
+    & .warn-content,
+    & .warn-reason {
+      font-size: 14px;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+
+    & .sg-accordion-item {
+      width: 350px;
+
+      .sg-accordion-item__icon {
+        width: 30px;
+        height: 30px;
+
+        > .sg-icon {
+          height: 16px;
+          width: 16px;
+        }
+      }
+
+      &.warn-inactive .sg-accordion-item__button {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+    }
+  }
+}

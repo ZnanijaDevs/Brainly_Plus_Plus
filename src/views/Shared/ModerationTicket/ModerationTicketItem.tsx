@@ -5,8 +5,7 @@ import {
   Flex,
   Avatar,
   Label,
-  SeparatorHorizontal,
-  Icon
+  SeparatorHorizontal
 } from "brainly-style-guide";
 
 import type { CommonDataInTicketType } from "@typings/";
@@ -130,7 +129,7 @@ export default function ModerationTicketNode({ data }: {
               />
             }
             {data.modelType === "answer" && <>
-              <AdaptiveButton 
+              {!data.author.isModerator && <AdaptiveButton 
                 title={MESSAGES.deleteAsSpamWithWarn}
                 size="m" 
                 type="solid-orange"
@@ -146,7 +145,7 @@ export default function ModerationTicketNode({ data }: {
 
                   setDeleted(true);
                 }}
-              />
+              />}
               {!sentForCorrection && <AdaptiveButton 
                 title={MESSAGES.sendForCorrection}
                 size="m" 

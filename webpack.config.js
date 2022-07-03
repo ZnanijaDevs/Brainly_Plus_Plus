@@ -17,7 +17,7 @@ const getConfigFile = (src) => path.resolve(path.join(__dirname, `src/configs/${
 const config = {
   entry: {
     ...makeEntries("styles/*/index.scss", "styles", true),
-    ...makeEntries("views/Shared/*/index.t{s,sx}", "content-scripts", true),
+    // ...makeEntries("views/Shared/*/index.t{s,sx}", "content-scripts", true),
     ...makeEntries("views/*/index.t{s,sx}", "content-scripts", true),
     ...makeEntries("views/Inject.ts", "content-scripts"),
     ...makeEntries("background/index.ts", "background"),

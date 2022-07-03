@@ -1,5 +1,14 @@
 import type { EntriesByDateDataType } from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
 
+export interface Warn {
+  time: string;
+  reason: string;
+  content: string;
+  taskId: number;
+  warner: string;
+  active: boolean;
+}
+
 export type ModelTypeID = 1 | 2 | 45;
 
 export type AnswerCorrectionDataType = {

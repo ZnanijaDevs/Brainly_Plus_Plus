@@ -2,7 +2,7 @@
 @use "./mixins";
 
 .sg-toplayer .sg-visually-hidden,
-.sg-toplayer [aria-hidden="true"]:not(use, .sg-avatar__icon),
+.sg-toplayer [aria-hidden="true"]:not(use, .sg-avatar__icon, .sg-icon),
 .hidden:not(#profile-mod-panel),
 [hidden] {
   display: none !important;
