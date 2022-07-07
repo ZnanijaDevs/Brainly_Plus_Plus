@@ -42,7 +42,7 @@ export default (
       if (entry.warn)
         textPieces.push(` 
           <span class="sg-text sg-text--inherited sg-text--bold sg-text--text-red-60">
-            ${MESSAGES.withWarn}
+            ${locales.withWarn}
           </span>`
         );
     }

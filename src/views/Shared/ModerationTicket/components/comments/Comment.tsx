@@ -14,11 +14,12 @@ export default function Comment(props: {
   const author = comment.author;
 
   const [reported, setReported] = useState(comment.isReported);
+  const [commentIgnored, setCommentIgnored] = useState(false);
 
   return (
     <Box border borderColor={reported ? "red-40" : "gray-20"} padding="xs" color={
       reported ? "red-20" : comment.deleted ? "red-40" : "transparent"
-    } className="moderation-ticket-comment">
+    } className={`moderation-ticket-comment ${commentIgnored ? "comment-with-stripes" : ""}`}>
       <div>
         <a href={author.profileLink} title={author.nick} target="_blank">
           <Avatar imgSrc={author.avatar} size="xs" />
@@ -27,11 +28,11 @@ export default function Comment(props: {
         <Text color="text-gray-70" size="xsmall">
           <DateTime fromNow date={comment.created} />
         </Text>
-        <Flex className="gap-s">
+        <Flex className="gap-s" alignItems="center">
           {reported && 
             <AdaptiveButton 
               type="outline-green" 
-              title={MESSAGES.accept}
+              title={locales.accept}
               icon={{ type: "check", size: 16, color: "icon-green-50" }}
               size="s"
               disabled={comment.deleted}
@@ -43,11 +44,18 @@ export default function Comment(props: {
           }
           <AdaptiveButton 
             type="solid-peach"
-            title={MESSAGES.deleteComment}
+            title={locales.deleteComment}
             icon={{ type: "trash", size: 16, color: "icon-white" }}
             size="s"
             disabled={comment.deleted}
             onClick={e => props.onDelete(comment.id, e.ctrlKey)}
+          />
+          <AdaptiveButton
+            type="solid"
+            size="xs"
+            icon={{ type: "dot", size: 24, color: "icon-white" }}
+            onClick={_ => setCommentIgnored(prevState => !prevState)}
+            classList="ignore-comment"
           />
         </Flex>
       </div>

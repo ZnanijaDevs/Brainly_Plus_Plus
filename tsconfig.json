@@ -1,6 +1,6 @@
 {
   "include": ["./src"],
-  "exclude": ["node_modules/", "build/"],
+  "exclude": ["node_modules/", "build/", "dist/"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
@@ -10,7 +10,16 @@
     "outDir": "./build",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["ES5", "ES6", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES5", 
+      "ES6", 
+      "DOM", 
+      "DOM.Iterable", 
+      "ES2016.Array.Include", 
+      "ES2016",
+      "ESNext.String",
+      "ESNext"
+    ],
     "paths": {
       "@lib/*": ["./lib/*"],
       "@utils/*": ["./utils/*"],

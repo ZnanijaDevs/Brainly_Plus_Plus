@@ -6,7 +6,7 @@ export default async (
     credentials: "include"
   });
 
-  if (r.status === 410) throw Error(MESSAGES.deleted);
+  if (r.status === 410) throw Error(locales.deleted);
 
   const text = await r.text();
   const doc = new DOMParser().parseFromString(text, "text/html");

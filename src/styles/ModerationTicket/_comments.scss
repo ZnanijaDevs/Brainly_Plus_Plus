@@ -12,6 +12,10 @@
 .moderation-ticket-comment {
   @include smooth-transition;
 
+  &.comment-with-stripes {
+    background: repeating-linear-gradient(45deg, $white, $white 10px, #ececec 10px, #e0e0e0 20px);
+  }
+
   & > div {
     display: grid;
     grid-template-columns: auto 1fr auto auto;
@@ -24,5 +28,9 @@
 
       @include modern-overflow;
     }
+  }
+
+  & .ignore-comment.sg-button.sg-button--solid {
+    background: #7a7a7a;
   }
 }

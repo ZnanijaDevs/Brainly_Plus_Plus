@@ -31,7 +31,7 @@ export default function CommentsSection(props: {
   };
 
   const deleteAllComments = () => {
-    if (!confirm(MESSAGES.doYouWantToDeleteAllComments)) return;
+    if (!confirm(locales.doYouWantToDeleteAllComments)) return;
 
     setIsDeleting(true);
   
@@ -50,7 +50,7 @@ export default function CommentsSection(props: {
       <Flex justifyContent="space-between">
         <Flex className="gap-s" alignItems="center">
           <Headline color="text-indigo-60" extraBold size="small">
-            {MESSAGES.comments} [{notDeletedComments.length}]
+            {locales.comments} [{notDeletedComments.length}]
           </Headline>
           <AdaptiveButton 
             type="solid-indigo-inverted"
@@ -60,7 +60,7 @@ export default function CommentsSection(props: {
           />
         </Flex>
         <AdaptiveButton disabled={isDeleting || !notDeletedComments.length} type="solid-peach" onClick={deleteAllComments}>
-          {MESSAGES.deleteAllComments}
+          {locales.deleteAllComments}
         </AdaptiveButton>
       </Flex>
       <Flex className="moderation-ticket-comments-list" disabled={isDeleting} hidden={hidden} marginTop="xs" direction="column">

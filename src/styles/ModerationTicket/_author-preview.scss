@@ -1,19 +1,17 @@
+// TODO: add responsive styles
 .author-preview-box.sg-bubble {
   padding: 10px;
   position: fixed;
   top: 20vh;
-  width: fit-content;
-  max-width: 60vw;
   right: 1vw;
   min-height: 30vh;
   max-height: 70vh;
   z-index: 90;
-  left: 50%;
+  left: 45%;
 
   & > div {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
+    grid-template-columns: 1fr 125vh;
   }
 
   & .author-is-banned {
@@ -44,7 +42,7 @@
     }
 
     & .sg-accordion-item {
-      width: 350px;
+      width: 280px;
 
       .sg-accordion-item__icon {
         width: 30px;
@@ -60,6 +58,32 @@
         text-decoration: line-through;
         opacity: 0.6;
       }
+    }
+  }
+
+  & .author-user-content {
+    border-left: 1px solid #dadada;
+    padding-left: 10px;
+    margin-left: 5px;
+  }
+
+  & .author-user-content-items {
+    max-height: 55vh;
+
+    @include modern-overflow;
+  }
+
+  & .author-user-content-item {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    gap: 5px;
+    width: 112vh;
+
+    a {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }

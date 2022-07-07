@@ -81,6 +81,7 @@ export default async function OpenTicket(
       <Ticket questionId={questionId} context={context} expiryTime={time} root={ticketRoot} />
     );
   } catch (err) {
+    console.error(err);
     if (options.showFlashOnError) Flash("default", err.message);
   }
 }

@@ -73,7 +73,7 @@ export default function ModerationTicketNode({ data }: {
             {!!data.points && <LabelWithPoints text={data.points} />}
             {data.modelType === "answer" && <>
               <Label iconType="heart" color="red" type="solid">{data.thanksCount}</Label>
-              <Label hidden={!data.isBest} className="label-with-no-text" title={MESSAGES.bestAnswer} iconType="crown" color="yellow" type="solid"> </Label>
+              <Label hidden={!data.isBest} className="label-with-no-text" title={locales.bestAnswer} iconType="crown" color="yellow" type="solid"> </Label>
               <AdaptiveButton classList="check-for-plagiarism" onClick={_ => {
                 let answerContent = data.content;
                 let windowSelection = window.getSelection().toString();
@@ -113,11 +113,11 @@ export default function ModerationTicketNode({ data }: {
               size="m" 
               type="outline-peach"
               icon={{ type: "trash", size: 24 }}
-              title={MESSAGES.delete}
+              title={locales.delete}
             />
             {((reported || sentForCorrection) && userPrivileges.canAccept) && 
               <AdaptiveButton
-                title={MESSAGES.accept}
+                title={locales.accept}
                 size="m"
                 type="solid-green"
                 icon={{ type: "check", size: 24 }}
@@ -130,24 +130,24 @@ export default function ModerationTicketNode({ data }: {
             }
             {data.modelType === "answer" && <>
               {!data.author.isModerator && <AdaptiveButton 
-                title={MESSAGES.deleteAsSpamWithWarn}
+                title={locales.deleteAsSpamWithWarn}
                 size="m" 
                 type="solid-orange"
                 icon={{ type: "close", size: 24 }} 
                 onClick={async _ => {
-                  if (!confirm(MESSAGES.doYouWantToDeleteThisAnswerAsSpam)) return;
+                  if (!confirm(locales.doYouWantToDeleteThisAnswerAsSpam)) return;
 
                   await _API.DeleteAnswer({
                     id: data.id,
                     giveWarn: true,
-                    reason: MESSAGES.spamAnswerDeletionReason,
+                    reason: locales.spamAnswerDeletionReason,
                   });
 
                   setDeleted(true);
                 }}
               />}
               {!sentForCorrection && <AdaptiveButton 
-                title={MESSAGES.sendForCorrection}
+                title={locales.sendForCorrection}
                 size="m" 
                 type="outline-indigo"
                 icon={{ type: "pencil", color: "icon-indigo-50", size: 24 }} 
@@ -156,7 +156,7 @@ export default function ModerationTicketNode({ data }: {
                 <AdaptiveButton 
                   size="m" 
                   icon={{ type: "verified", color: "icon-white", size: 24 }}
-                  title={MESSAGES.approve}
+                  title={locales.approve}
                   onClick={async _ => {
                     await _API.ApproveAnswer(data.id);
                     setApproved(true);

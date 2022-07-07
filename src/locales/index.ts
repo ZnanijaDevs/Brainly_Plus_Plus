@@ -1,4 +1,5 @@
-{
+/* eslint-disable max-len */
+export const locales = {
   "youDoNotHavePermissionToUseThisExt": "Нет разрешения на использование этого расширения",
   "doYouWantToDeleteAllComments": "Вы уверены, что хотите удалить все комментарии без предупреждения?",
   "doYouWantToDeleteThisAnswerAsSpam": "Вы действительно хотите удалить этот ответ как спам с предупреждением?",
@@ -8,13 +9,11 @@
   "questionLog": "История вопроса",
   "spamAnswerDeletionReason": "*Нарушение! Ваша запись не является ответом на заданный вопрос. Баллы не засчитываются. Предупреждаем, что за неоднократные нарушения правил сообщества Ваш аккаунт может быть удалён.",
   "deleteComment": "Удалить комментарий. Удерживайте Ctrl, чтобы удалить с предупреждением",
-  "comments": "Комментарии",
   "deleteAllComments": "Удалить все комментарии",
   "prolongTicket": "Продлить билет",
   "sentForCorrection": "Отправлено на исправление",
   "answerWasCorrected": "Решение исправлено. Отправлено модератором",
   "moderation": "Модерация",
-  "answers": "Ответы",
   "delete": "Удалить",
   "approve": "Принять в архив",
   "deleteAsSpamWithWarn": "Удалить как спам с предупреждением",
@@ -30,6 +29,10 @@
   "pts": "б.",
   "warnShort": "пред.",
   "warnsV1": "предупреждений",
-  "warnsV2": "Предупреждения",
-  "deleted": "Удалено"
-}
+  "warnsV2": "Предупреждения", 
+  "deleted": "Удалено",
+  "answers": "Ответы",
+  "questions": "Вопросы",
+  "comments": "Комментарии",
+  "minutes": "минут"
+};

@@ -12,6 +12,7 @@ import type { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
 import createProfileLink from "@utils/createProfileLink";
 
 import WarnsSection from "../warns/WarnsSection";
+import AuthorUserContent from "./AuthorContent";
 
 export default function AuthorPreviewBox(props: {
   user: UserDataInProfileType;
@@ -42,8 +43,8 @@ export default function AuthorPreviewBox(props: {
           </Flex>
           <WarnsSection userId={user.id} />
         </Flex>
-        <Flex>
-          Some user content
+        <Flex alignItems="center" className="author-user-content">
+          {<AuthorUserContent userId={user.id} />}
         </Flex>
       </div>
     </Bubble>

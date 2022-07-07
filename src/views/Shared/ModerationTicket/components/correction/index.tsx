@@ -15,7 +15,7 @@ export default function AnswerCorrectionSection(props: {
         <Icon type="pencil" color={props.edited ? "icon-green-50" : "icon-indigo-50"} size={32} />
         <Flex direction="column">
           <Text size="small" weight="bold">
-            {props.edited ? MESSAGES.answerWasCorrected : MESSAGES.sentForCorrection}
+            {props.edited ? locales.answerWasCorrected : locales.sentForCorrection}
             <Link target="_blank" size="small" href={moderator.profileLink}>{moderator.nick}</Link>
           </Text>
           <Text size="small">{reason}</Text>

@@ -35,7 +35,7 @@ export default function AuthorSection({ user }: {
               {extraData.onlineStatus}
             </Text>,
             <Text inherited color="text-black">
-              {MESSAGES.warnsV1}:
+              {locales.warnsV1}:
               <Link inherited href={`/users/view_user_warns/${user.id}`} target="_blank">
                 {extraData.warnsCount}
               </Link>
@@ -47,7 +47,7 @@ export default function AuthorSection({ user }: {
         size="xs"
         icon={{ type: "profile_view", color: "icon-white" }}
         type="facebook"
-        title={MESSAGES.viewUserProfile}
+        title={locales.viewUserProfile}
         classList="open-user-preview"
         disabled={!extraData}
         onClick={() => setAuthorPreviewOpened(prevState => !prevState)}

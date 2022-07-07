@@ -17,6 +17,21 @@ export interface User {
   status: UserStatus;
 }
 
+export type AnswerDataInUserContent = {
+  content: string;
+  has_attachments: boolean;
+  is_approved: boolean;
+  is_reported: boolean;
+  task_id: number;
+}
+
+export type QuestionDataInUserContent = {
+  content: string;
+  has_attachments: boolean;
+  id: number;
+  is_reported: boolean;
+}
+
 /* export interface Report {
   created: string;
   reason: string;

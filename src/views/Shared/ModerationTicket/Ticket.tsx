@@ -43,7 +43,7 @@ export default function Ticket(props: {
       <TopLayer splashScreen size="medium" onClick={e => e.stopPropagation()}>
         <ContentBox>
           <ContentBoxHeader spacedBottom="large" className="moderation-ticket-header">
-            <Headline>{MESSAGES.moderation}</Headline>
+            <Headline>{locales.moderation}</Headline>
             <Link href={context.taskLink} size="medium" target="_blank" className="question-link">
               #{questionId}
             </Link>
@@ -74,13 +74,13 @@ export default function Ticket(props: {
                 </Text>
               </Flex>
               {context.answers.some(answer => answer.isApproved) && 
-                <Label iconType="verified" color="green">{MESSAGES.approvedAnswers.toLowerCase()}</Label>
+                <Label iconType="verified" color="green">{locales.approvedAnswers.toLowerCase()}</Label>
               }
             </Flex>
             <ModerationTicketItem data={context.task} />
             {!!context.answers.length && <>
               <SeparatorHorizontal color="gray-50" />
-              <Headline extraBold>{MESSAGES.answers} ({context.answers.length})</Headline>
+              <Headline extraBold>{locales.answers} ({context.answers.length})</Headline>
               {context.answers.map(answer => <ModerationTicketItem data={answer} key={answer.id} />)}
             </>}
             <QuestionLogSection entries={context.logEntries} />

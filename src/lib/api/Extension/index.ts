@@ -1,8 +1,23 @@
-import type { User } from "@typings/ServerReq";
+import type { 
+  User,
+  AnswerDataInUserContent,
+  QuestionDataInUserContent
+} from "@typings/ServerReq";
 import { getUserAuthToken } from "@utils/getViewer";
 
+export type UserContentDataType = {
+  answers: {
+    count: number;
+    items: AnswerDataInUserContent[];
+  };
+  questions: {
+    count: number;
+    items: QuestionDataInUserContent[];
+  }
+};
+
 class ServerReq {
-  private readonly serverApiURL = "http://localhost:8000/api"; // "https://ext.br-helper.com/api"
+  private readonly serverApiURL = "https://ext.br-helper.com/api";
 
   private me: User;
   private authToken: string;
@@ -85,6 +100,10 @@ class ServerReq {
 
   async GetUserByBrainlyID(id: number) {
     return await this.Req<User>("GET", `users/get_by_brainly_id?id=${id}`);
+  }
+
+  async GetUserContent(userId: number) {
+    return await this.Req<UserContentDataType>("GET", `brainly/user_content/${userId}`);
   }
 }
 

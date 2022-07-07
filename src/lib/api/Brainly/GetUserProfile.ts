@@ -125,7 +125,7 @@ export default async (
     onlineStatus,
     nick: userNick,
     isOnline: /онлайн/.test(onlineStatus),
-    deleted: userNick === MESSAGES.accountDeleted,
+    deleted: userNick === locales.accountDeleted,
     avatar: userAvatar,
     answersCount: +moderationPanelText.match(/(?<=решенных задач:\s)\d+/i),
     warnsCount: +moderationPanelText.match(/(?<=предупреждений:\s)\d+/i),
@@ -133,7 +133,7 @@ export default async (
     bestAnswersCount: +moderationPanelText.match(/(?<=лучшие решения:\s)\d+/i),
     registered: moderationPanelText.match(/(?<=зарегистрирован\s:\s).+/i).toString(),
     correctReportsPercent: Math.round(correctReportsPercent * 1e1) / 1e1,
-    isModerator: userNick !== MESSAGES.accountDeleted && !userBanForm,
+    isModerator: userNick !== locales.accountDeleted && !userBanForm,
     canBeBanned: !!userBanForm,
     ranks: userRanks,
     id: userId

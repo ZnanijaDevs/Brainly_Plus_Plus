@@ -31,7 +31,7 @@ export default function ReportSection(props: {
             <Text type="span" size="small" style={{ color: reporter.rankColor }}>
               {reporter.ranks.join(", ")}
             </Text>,
-            reporterData && <Text size="xsmall">{MESSAGES.warnShort}: {reporterData.warnsCount}</Text>
+            reporterData && <Text size="xsmall">{locales.warnShort}: {reporterData.warnsCount}</Text>
           ]} />
           <Text weight="bold" size="small">{report.abuseName}</Text>
           {!!report.abuseDetails && 
@@ -47,17 +47,17 @@ export default function ReportSection(props: {
             <ReportIconWithText 
               text={reporterData.reportsCount} 
               iconColor="icon-black" 
-              title={MESSAGES.numberOfAllReports}
+              title={locales.numberOfAllReports}
             />
             <ReportIconWithText 
               text={reporterData.reportsCount} 
               iconColor="icon-red-50"
-              title={MESSAGES.numberOfWrongReports}
+              title={locales.numberOfWrongReports}
             />
             <ReportIconWithText 
               text={`${reporterData.correctReportsPercent}%`} 
               iconColor="icon-green-50"
-              title={MESSAGES.percentOfCorrectReports}
+              title={locales.percentOfCorrectReports}
             />
           </>}
         </Flex>

@@ -44,7 +44,7 @@ class Core {
     }
 
     this.addInjectedFiles([
-      "content-scripts/Shared/ModerationPanel/index.js",
+      // "content-scripts/Shared/ModerationPanel/index.js",
       "styles/ModerationTicket/index.css"
     ]);
 
@@ -81,7 +81,7 @@ class Core {
     const userToken = await getUserAuthToken();
     if (!userToken) {
       addWindowLoadedListener(() => 
-        Flash("error", MESSAGES.youDoNotHavePermissionToUseThisExt, {
+        Flash("error", locales.youDoNotHavePermissionToUseThisExt, {
           sticky: true,
           withIcon: true
         })

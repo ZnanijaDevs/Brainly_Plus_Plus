@@ -14,7 +14,7 @@ export default function Attachment(props: {
       <AdaptiveButton 
         type="solid-peach" 
         icon={{ type: "close", color: "icon-white" }}
-        title={MESSAGES.deleteAttachment}
+        title={locales.deleteAttachment}
         onClick={_ => props.onDelete(attachment.id)}
       />
       {attachment.type === "IMAGE" ? <img src={attachment.thumbnailUrl} /> :

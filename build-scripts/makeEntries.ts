@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { glob } = require("glob");
+import { glob } from "glob";
 
 /**
- * Search for files by pattern and make entries for Webpack build
+ * Search for files by pattern and make entries for ESBuild build
  * @param {string} src 
  * @param {string} bundleDir 
  * @param {boolean} withSubfolders 
  * @returns {{[x: string]: string[]}} An object of entries
  */
-const makeEntries = (src, bundleDir, withSubfolders = false) => {
+export default (
+  src: string,
+  bundleDir: string, 
+  withSubfolders = false
+) => {
   let sourcePath = `./src/${src}`;
   let foundFiles = glob.sync(sourcePath);
 
@@ -30,5 +34,3 @@ const makeEntries = (src, bundleDir, withSubfolders = false) => {
 
   return entries;
 };
-
-module.exports = makeEntries;

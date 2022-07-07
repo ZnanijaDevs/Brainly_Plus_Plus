@@ -12,7 +12,7 @@ const updateFeedItems = () => {
         icon: { type: "settings" }
       }, {
         classList: ["moderate-button"],
-        title: MESSAGES.moderate,
+        title: locales.moderate,
         onClick: async event => {
           const button = event.target as HTMLButtonElement;
           const taskLink = item.querySelector<HTMLLinkElement>(".brn-feed-item__content a");

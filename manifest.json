@@ -1,7 +1,5 @@
 {
-  "version": "1.0.0",
   "manifest_version": 3,
-  "author": "andrewss <andrewss.krlv@gmail.com>",
   "name": "Brainly++",
   "description": "Полезные функции для модераторов сайта Znanija.com",
   "icons": {

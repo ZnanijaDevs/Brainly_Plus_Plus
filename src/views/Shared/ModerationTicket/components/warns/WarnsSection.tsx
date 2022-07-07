@@ -21,7 +21,7 @@ export default function WarnsSection(props: {
     <Flex direction="column">
       <Headline extraBold size="small">
         <Link target="_blank" href={`/users/view_user_warns/${props.userId}`} inherited>
-          {MESSAGES.warnsV2} ({warns.filter(warn => warn.active).length})
+          {locales.warnsV2} ({warns.filter(warn => warn.active).length})
         </Link>
       </Headline>
       <Accordion spacing="none" allowMultiple className="author-warns">

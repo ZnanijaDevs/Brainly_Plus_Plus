@@ -2,6 +2,7 @@ plugins:
 - stylelint-scss
 ignoreFiles:
 - './build'
+- './dist'
 extends:
 - stylelint-config-standard
 - stylelint-config-standard-scss

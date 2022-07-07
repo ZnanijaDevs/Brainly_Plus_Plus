@@ -74,10 +74,9 @@ class BrainlyApi {
     });
   }
 
-  async ProlongTicket(
-    taskId: number,
-    ticketId: number
-  ) {
+  async ProlongTicket({
+    taskId, ticketId, minutes
+  }: { taskId: number; ticketId: number; minutes: 5 | 10 | 15 }) {
     return await this.Req<{
       id: number;
       time_left: 300 | 600 | 900;
@@ -86,7 +85,7 @@ class BrainlyApi {
       model_id: taskId,
       model_type_id: 1,
       ticket_id: ticketId,
-      time: 60 * 15 // 15 minutes
+      time: 60 * minutes
     });
   }
 

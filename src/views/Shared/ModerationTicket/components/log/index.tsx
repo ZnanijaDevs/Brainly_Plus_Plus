@@ -9,7 +9,7 @@ export default function LogSection(props: {
   return (
     <Flex marginTop="m" direction="column" className="question-log">
       <Flex alignItems="center" className="gap-s">
-        <Headline extraBold size="small">{MESSAGES.questionLog}</Headline>
+        <Headline extraBold size="small">{locales.questionLog}</Headline>
       </Flex>
       <Flex direction="column" marginTop="xs">
         {Object.keys(props.entries).map((date, i) => 

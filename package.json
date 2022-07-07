@@ -1,10 +1,11 @@
 {
+  "author": "vlaex <vlaex7@gmail.com>",
   "name": "brainly_plus_plus",
   "version": "1.0.0",
   "description": "Ultimate extension for Znanija.com moderators",
   "scripts": {
-    "watch": "webpack --mode=development --watch",
-    "dist": "del-cli build/ && webpack --mode=production && del-cli build/styles/*/index.js"
+    "build:prod": "ts-node build-scripts/build-production.ts && bestzip prod_build.zip dist/*",
+    "build:dev": "ts-node build-scripts/build-dev.ts"
   },
   "repository": {
     "type": "git",
@@ -14,7 +15,6 @@
     "znanija",
     "знания"
   ],
-  "author": "andrewss <andrewss.krlv@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vlaex/BrainlyPlusPlus/issues"
@@ -23,28 +23,26 @@
   "devDependencies": {
     "@types/jquery": "^3.5.14",
     "@types/js-cookie": "^3.0.2",
+    "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.5",
     "@types/webextension-polyfill": "^0.9.0",
-    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.1",
-    "del-cli": "^4.0.1",
+    "bestzip": "^2.2.1",
+    "esbuild": "^0.14.48",
+    "esbuild-plugin-copy": "^1.3.0",
+    "esbuild-plugin-json-merge": "^0.0.3",
+    "esbuild-sass-plugin": "^2.2.6",
     "eslint": "^7.32.0",
-    "mini-css-extract-plugin": "^2.6.1",
+    "npm": "^8.13.2",
     "path": "^0.12.7",
     "sass": "^1.52.3",
-    "sass-loader": "^13.0.0",
     "stylelint": "^14.9.1",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-config-standard-scss": "^4.0.0",
     "stylelint-scss": "^4.2.0",
-    "ts-loader": "^9.3.0",
-    "tsconfig-paths-webpack-plugin": "^3.5.2",
-    "typescript": "^4.7.3",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.9.2"
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
   },
   "dependencies": {
     "brainly-style-guide": "^214.0.1",
