@@ -1,5 +1,6 @@
 import Moment from "react-moment";
 import "moment-timezone";
+import "moment/locale/ru";
 
 const DATE_FORMAT = "DD.MM.YYYY";
 const TIMEZONE = "Europe/Moscow";

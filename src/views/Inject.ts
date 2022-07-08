@@ -37,8 +37,9 @@ class Core {
 
     if (this.Path(/\/task\/\d+/)) {
       ReplaceModerationButtons();
+
       this.addInjectedFiles([
-        // "content-scripts/Task/index.js",
+        "content-scripts/Task/index.js",
         "styles/Task/index.css"
       ]);
     }
