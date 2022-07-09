@@ -4,12 +4,15 @@
   "version": "1.0.0",
   "description": "Ultimate extension for Znanija.com moderators",
   "scripts": {
-    "build:prod": "ts-node build-scripts/build-production.ts && bestzip prod_build.zip dist/*",
-    "build:dev": "ts-node build-scripts/build-dev.ts"
+    "zip": "cd dist/ && bestzip ../production-build.zip *",
+    "build:prod": "ts-node build-scripts/build-production.ts && npm run zip",
+    "build:dev": "ts-node build-scripts/build-dev.ts",
+    "lint:ts": "eslint ./src --ext .ts,.tsx",
+    "lint:scss": "stylelint ./src/**/*.scss"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vlaex/BrainlyPlusPlus.git"
+    "url": "git+https://github.com/vlaex/Brainly_Plus_Plus.git"
   },
   "keywords": [
     "znanija",
@@ -17,9 +20,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vlaex/BrainlyPlusPlus/issues"
+    "url": "https://github.com/vlaex/Brainly_Plus_Plus/issues"
   },
-  "homepage": "https://github.com/vlaex/BrainlyPlusPlus#readme",
+  "homepage": "https://github.com/vlaex/Brainly_Plus_Plus#readme",
   "devDependencies": {
     "@types/jquery": "^3.5.14",
     "@types/js-cookie": "^3.0.2",
