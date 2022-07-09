@@ -41,7 +41,7 @@ const buildOptions: BuildOptions = {
     "./src/locales/index.ts",
     "./src/locales/marketConfig.ts",
   ],
-  legalComments: "linked"
+  legalComments: "eof"
 };
 
 export default buildOptions;
