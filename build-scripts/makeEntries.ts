@@ -13,7 +13,7 @@ export default (
   withSubfolders = false
 ) => {
   let sourcePath = `./src/${src}`;
-  let foundFiles = glob.sync(sourcePath);
+  let foundFiles: string[] = glob.sync(sourcePath);
 
   let entries = {};
 
@@ -27,8 +27,9 @@ export default (
     let outFileName = file.match(/(?<=\/)\w+(?=\.)/);
     bundlePath += `/${outFileName}`;
 
-    if (!entries[bundlePath]) entries[bundlePath] = [];
-    entries[bundlePath].push(file);
+    let entryFiles: string[] = (entries[bundlePath] || []).concat(file);
+
+    entries[bundlePath] = entryFiles;
   }
 
   return entries;

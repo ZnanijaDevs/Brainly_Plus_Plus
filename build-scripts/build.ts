@@ -40,7 +40,6 @@ const buildOptions: BuildOptions = {
   inject: [
     "./src/locales/index.ts",
     "./src/locales/marketConfig.ts",
-    "./src/typings/react-shim.ts"
   ],
   legalComments: "linked"
 };
