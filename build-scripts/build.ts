@@ -3,6 +3,7 @@ import type { BuildOptions } from "esbuild";
 import { sassPlugin } from "esbuild-sass-plugin";
 import { copy } from "esbuild-plugin-copy";
 import jsonMerge from "esbuild-plugin-json-merge";
+import stylesPlugin from "@hyrious/esbuild-plugin-style";
 
 import makeEntries from "./makeEntries";
 import { version, author } from "../package.json";
@@ -21,6 +22,7 @@ const buildOptions: BuildOptions = {
     ".tsx": "tsx"
   },
   plugins: [
+    stylesPlugin(),
     sassPlugin({ filter: /\.scss$/ }),
     copy({
       assets: [

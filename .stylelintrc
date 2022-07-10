@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "extends": [
+    "stylelint-config-standard", 
+    "stylelint-config-standard-scss"
+  ],
+  "ignoreFiles": [
+    "./build", 
+    "./dist"
+  ],
+  "rules": {
+    "selector-class-pattern": "^([A-Za-z]*(-|_|$))*",
+    "selector-id-pattern": "^([A-Za-z]*(-|$))*",
+    "no-descending-specificity": null
+  }
+}

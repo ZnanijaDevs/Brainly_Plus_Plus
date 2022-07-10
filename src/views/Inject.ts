@@ -49,7 +49,7 @@ class Core {
       "styles/ModerationTicket/index.css"
     ]);
 
-    addWindowLoadedListener(this.injectFilesWhenPageLoaded.bind(this));
+    addWindowLoadedListener(this.injectFiles.bind(this));
 
   
     /*if (this.Path(/\/users\/user_content\/[1-9]\d*\/?/)) {
@@ -103,7 +103,7 @@ class Core {
     );
   }
 
-  injectFilesWhenPageLoaded() {
+  injectFiles() {
     if (this.cssFiles.length) ToBackground("InjectStyles", this.cssFiles);
     ToBackground("InjectScripts", this.jsFiles);
 

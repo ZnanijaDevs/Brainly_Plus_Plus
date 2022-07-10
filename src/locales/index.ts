@@ -34,5 +34,10 @@ export const locales = {
   "answers": "Ответы",
   "questions": "Вопросы",
   "comments": "Комментарии",
-  "minutes": "минут"
+  "minutes": "минут",
+  "previousAttachment": "Предыдущее вложение",
+  "nextAttachment": "Следующее вложение",
+  "unknownFileExtension": "Неизвестный тип файла",
+  "youCanDownloadFile": "Вы можете скачать файл",
+  "here": "здесь"
 };

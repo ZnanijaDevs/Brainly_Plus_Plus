@@ -80,6 +80,8 @@ export default async function OpenTicket(
     ticketRoot.render(
       <Ticket questionId={questionId} context={context} expiryTime={time} root={ticketRoot} />
     );
+
+    document.body.style.overflow = "hidden";
   } catch (err) {
     console.error(err);
     if (options.showFlashOnError) Flash("default", err.message);

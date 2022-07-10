@@ -72,7 +72,7 @@ export default function ModerationTicketNode({ data }: {
           <Flex className="sg-flex--margin-left-auto gap-s" alignItems="center">
             {!!data.points && <LabelWithPoints text={data.points} />}
             {data.modelType === "answer" && <>
-              <Label iconType="heart" color="red" type="solid">{data.thanksCount}</Label>
+              <Label iconType="heart" type="solid" className="thanks-label">{data.thanksCount}</Label>
               <Label hidden={!data.isBest} className="label-with-no-text" title={locales.bestAnswer} iconType="crown" color="yellow" type="solid"> </Label>
               <AdaptiveButton classList="check-for-plagiarism" onClick={_ => {
                 let answerContent = data.content;

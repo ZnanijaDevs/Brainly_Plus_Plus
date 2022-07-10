@@ -35,7 +35,9 @@ export default function Ticket(props: {
     if (expire) _API.ExpireTicket(questionId);
 
     props.root.unmount();
+
     document.getElementById("moderation-ticket-popup").remove();
+    document.body.style.overflow = "auto";
   };
 
   return (

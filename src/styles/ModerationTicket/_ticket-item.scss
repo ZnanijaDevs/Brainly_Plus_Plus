@@ -19,12 +19,16 @@
   }
 
   &.sent-for-correction {
-    border-color: #8599ff;
+    border-color: #b1beff;
     background-color: rgb(133 153 255 / 12%);
   }
 
   & > div:last-child {
     margin: 10px;
+  }
+
+  .thanks-label.sg-label {
+    background: #ff7f6f;
   }
 
   .sg-label.label-with-no-text {

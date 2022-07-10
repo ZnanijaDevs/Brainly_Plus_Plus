@@ -22,7 +22,7 @@
       "scripts/jquery-3.6.0.min.js",
       "content-scripts/Inject.js"
     ],
-    "run_at": "document_start"
+    "run_at": "document_idle"
   }],
   "background": {
     "service_worker": "background/index.js"

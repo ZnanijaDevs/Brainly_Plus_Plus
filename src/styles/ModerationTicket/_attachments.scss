@@ -17,7 +17,7 @@
     cursor: pointer;
   }
 
-  & > div:last-child {
+  &[data-is-image="false"] > div:last-child {
     height: 90px;
     background-color: white;
 
@@ -26,5 +26,28 @@
     }
 
     @include flex($align-items: center, $justify-content: center);
+  }
+}
+
+.attachment-preview-iframe-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgb(82 82 82 / 29%);
+
+  @include flex($align-items: center, $justify-content: center);
+
+  & > .sg-box {
+    position: relative;
+    width: auto;
+
+    > .sg-button {
+      position: absolute;
+      right: -20px;
+      top: -20px;
+    }
   }
 }
