@@ -13,7 +13,9 @@ export default function CommentsSection(props: {
 }) {
   const [hidden, setHidden] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
+
   const [comments, setComments] = useState(props.comments);
+  const [ignoredComments, setIgnoredComments] = useState<number[]>([]);
 
   const deleteComment = async (commentId: number, withWarn: boolean) => {
     try {
@@ -30,13 +32,13 @@ export default function CommentsSection(props: {
     }
   };
 
-  const deleteAllComments = () => {
+  const deleteAllComments = async () => {
     if (!confirm(locales.doYouWantToDeleteAllComments)) return;
 
     setIsDeleting(true);
   
-    notDeletedComments.forEach((comment, thisCommentIndex) => {
-      deleteComment(comment.id, false);
+    notDeletedComments.forEach(async (comment, thisCommentIndex) => {
+      if (!ignoredComments.includes(comment.id)) await deleteComment(comment.id, false);
 
       let lastCommentIndex = notDeletedComments.length - 1;
       if (thisCommentIndex === lastCommentIndex) setIsDeleting(false);
@@ -65,7 +67,20 @@ export default function CommentsSection(props: {
       </Flex>
       <Flex className="moderation-ticket-comments-list" disabled={isDeleting} hidden={hidden} marginTop="xs" direction="column">
         {comments.map(comment => 
-          <Comment onDelete={deleteComment} data={comment} key={comment.id} />
+          <Comment 
+            onIgnore={(id, ignored) => {
+              if (!ignored) {
+                setIgnoredComments(prevState => 
+                  prevState.filter(commentId => commentId !== id)
+                );
+              } else {
+                setIgnoredComments(prevState => [...prevState, id]);
+              }
+            }}
+            onDelete={deleteComment} 
+            data={comment} 
+            key={comment.id} 
+          />
         )}
       </Flex>
     </Flex>

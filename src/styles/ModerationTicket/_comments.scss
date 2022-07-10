@@ -9,12 +9,12 @@
   }
 }
 
+.comment-with-stripes {
+  background: repeating-linear-gradient(45deg, $white, $white 10px, #ececec 10px, #e0e0e0 20px);
+}
+
 .moderation-ticket-comment {
   @include smooth-transition;
-
-  &.comment-with-stripes {
-    background: repeating-linear-gradient(45deg, $white, $white 10px, #ececec 10px, #e0e0e0 20px);
-  }
 
   & > div {
     display: grid;
