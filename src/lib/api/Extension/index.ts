@@ -17,7 +17,7 @@ export type UserContentDataType = {
 };
 
 class ServerReq {
-  private readonly serverApiURL = "https://ext.br-helper.com/api";
+  private readonly serverApiURL = "https://app.br-helper.com/api";
 
   private me: User;
   private authToken: string;
@@ -41,54 +41,9 @@ class ServerReq {
       
     const res = await response.json();
 
-    if (response.status !== 200) throw Error(res?.detail);
+    if (response.status !== 200) throw Error(res?.error);
 
     return res;
-  }
-
-  async DetectImagesFromCalculators(urlList: string[]) {
-    return await this.Req("POST", "ai/predict/calculators", {
-      urlList
-    });
-  }
-
-  async GetUsers({
-    lastId = null, 
-    includeDeactivated = false, 
-    limit = 25
-  }: Partial<{
-    lastId: string;
-    includeDeactivated: boolean;
-    limit: number;
-  }>) {
-    return await this.Req<User>(
-      "GET", 
-      `users?include_deactivated=${includeDeactivated}&limit=${limit}&last_id=${lastId}`
-    );
-  }
-
-  async SearchUser(nick: string) {
-    return await this.Req<User[]>("GET", `users/search/${nick}`);
-  }
-
-  async EditUser(user: {
-    id: string;
-    deactivated: boolean;
-    privileges: number[];
-  }) {
-    return await this.Req<User>("PUT", `users/${user.id}`, {
-      deactivated: user.deactivated,
-      privileges: user.privileges
-    });
-  }
-
-  async AddUser({ 
-    id, privileges 
-  }: { id: number; privileges: number[]; }) {
-    return await this.Req<User>("POST", "users/add", {
-      id,
-      privileges
-    });
   }
 
   async GetMe() {
@@ -98,8 +53,48 @@ class ServerReq {
     return this.me;
   }
 
-  async GetUserByBrainlyID(id: number) {
-    return await this.Req<User>("GET", `users/get_by_brainly_id?id=${id}`);
+  async GetUsers({ cursor, limit }: {
+    cursor?: string;
+    limit?: string;
+  }) {
+    return await this.Req<{
+      cursor?: string;
+      count: number;
+      users: User[];
+    }>(
+      "GET",
+      `users?limit=${limit ?? 25}${cursor ? `&cursor=${cursor}` : ""}`
+    );
+  }
+
+  async GetMyMentees() {
+    return await this.Req<User[]>("GET", "mentees/myMentees");
+  }
+
+  async GetMentees(mentorId: number) {
+    return await this.Req<User[]>("GET", `mentees?mentorId=${mentorId}`);
+  }
+
+  async SearchUser(nick: string) {
+    return await this.Req<User[]>("GET", `users/search/${nick}`);
+  }
+
+  async GetUserByBrainlyId(id: number) {
+    return await this.Req<User>("GET", `users/getByBrainlyId?id=${id}`);
+  }
+
+  async AddUser(data: {
+    id: number;
+    privileges: number[];
+  }) {
+    return await this.Req<User>("POST", "users", data);
+  }
+
+  async DeleteUser(userId: number) {
+    return await this.Req<{
+      deleted: boolean;
+      user: User;
+    }>("DELETE", `users/${userId}`);
   }
 
   async GetUserContent(userId: number) {

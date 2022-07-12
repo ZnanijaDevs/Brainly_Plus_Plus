@@ -85,4 +85,25 @@
       margin-left: 3px;
     }
   }
+
+  .delete-item-section {
+    margin-top: 10px;
+
+    > textarea.sg-textarea {
+      font-size: 15px;
+      line-height: 1.2;
+      border-radius: 10px;
+      resize: vertical;
+      outline: none;
+      margin: 6px 0;
+    }
+
+    .sg-button {
+      margin-right: 12px;
+    }
+
+    .sg-checkbox {
+      margin-right: 10px;
+    }
+  }
 }

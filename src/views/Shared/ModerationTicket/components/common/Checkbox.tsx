@@ -1,7 +1,8 @@
-import { Icon } from "brainly-style-guide";
+import { Icon, Text } from "brainly-style-guide";
 
 export default function Checkbox(props: {
   checked?: boolean;
+  text?: string;
 }) {
   const checkboxId = `checkbox-${(Math.random() + 1).toString(36).substring(5)}`;
 
@@ -11,6 +12,9 @@ export default function Checkbox(props: {
       <div className="sg-checkbox__ghost" aria-hidden="true">
         <Icon color="adaptive" size={16} type="check" />
       </div>
+      {props.text && 
+        <Text weight="bold" size="small" type="span">{props.text}</Text>
+      }
     </label>
   );
 }

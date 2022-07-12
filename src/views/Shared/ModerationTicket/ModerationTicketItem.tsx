@@ -22,6 +22,7 @@ import AdaptiveButton from "./components/common/AdaptiveButton";
 import ReportSection from "./components/report";
 import AnswerCorrectionSection from "./components/correction";
 import AuthorSection from "./components/author";
+import DeleteItemSection from "./components/extra/DeleteItemSection";
 
 // TODO: refactor this component
 
@@ -101,7 +102,7 @@ export default function ModerationTicketNode({ data }: {
             taskId={data.taskId}
           />
         </Flex>
-        {!deleted && <Flex className="gap-s" marginTop="s" alignItems="center">
+        {!deleted && <><Flex className="gap-s" marginTop="s" alignItems="center">
           {approved ? (
             userPrivileges.canUnapprove && 
               <AdaptiveButton icon={{ type: "verified", color: "icon-white" }} onClick={async _ => {
@@ -167,7 +168,9 @@ export default function ModerationTicketNode({ data }: {
               }
             </>}
           </>}
-        </Flex>}
+        </Flex>
+        <DeleteItemSection modelId={data.id} modelTypeId={data.modelTypeId} />
+        </>}
         {!!data.comments?.length && <>
           <SeparatorHorizontal color="gray-50" />
           <CommentsSection comments={data.comments} />
