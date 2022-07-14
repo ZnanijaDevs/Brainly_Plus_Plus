@@ -7,7 +7,6 @@ export interface Warn {
   taskId: number;
   warner: string;
   active: boolean;
-  contentType: string;
 }
 
 export type ModelTypeID = 1 | 2 | 45;
