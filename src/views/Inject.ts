@@ -50,6 +50,13 @@ class Core {
       ]);
     }
 
+    if (this.checkRoute(/\/profil\/[A-Za-zа-яА-Я0-9]+-\d+/)) {
+      await InjectToDOM([
+        "content-scripts/UserProfile/index.js",
+        "styles/UserProfile/index.css"
+      ]);
+   }
+
     await InjectToDOM([
       "styles/ModerationTicket/index.css"
     ]);
