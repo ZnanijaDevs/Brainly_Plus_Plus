@@ -10,6 +10,7 @@ export default async (
 
   for (let row of doc.querySelectorAll("tr")) {
     const fields = row.querySelectorAll("td");
+    console.log(fields)
     if (fields.length !== 7) continue;
 
     const warn = {} as Warn;
@@ -19,7 +20,8 @@ export default async (
     warn.taskId = parseInt(fields[3].querySelector("a")?.href.match(/\d+/)[0]);
     warn.warner = fields[4].innerText.trim();
     warn.active = !!fields[5].querySelector(`a[href*="cancel"]`);
-      
+    warn.contentType = fields[6].innerText.replace('\n', '').replace(' ', '');
+
     warns.push(warn);
   }
 
