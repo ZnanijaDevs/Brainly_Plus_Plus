@@ -3,12 +3,11 @@ import {
   Flex, 
   Headline,
   Spinner,
-  Text,
   Link
 } from "brainly-style-guide";
 
 import ServerReq, { UserContentDataType } from "@lib/api/Extension";
-import Checkbox from "../common/Checkbox";
+import Checkbox from "@styleguide/Checkbox";
 
 export default function AuthorUserContent(props: {
   userId: number;

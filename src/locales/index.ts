@@ -39,5 +39,21 @@ export const locales = {
   "nextAttachment": "Следующее вложение",
   "unknownFileExtension": "Неизвестный тип файла",
   "youCanDownloadFile": "Вы можете скачать файл",
-  "here": "здесь"
+  "here": "здесь",
+  "loading": "Загрузка",
+  "plagiarismWithQMark": "Плагиат?",
+  "unapprove": "Снять проверку",
+  "send": "Отправить",
+  "deletionReason": "Причина удаления",
+  "additionalDataForUser": "Дополнительная информация для пользователя",
+  "answerHasBeenSentForCorrection": "Ответ был отправлен на исправление",
+  "takePtsFromAnswerers": "Снять баллы с ответивших",
+  "takePtsFromAsker": "Снять баллы с задающего",
+  "warn": "Предупреждение",
+  "questionHasBeenDeletedInTicket": "Вопрос удалён. Окно закроется через несколько секунд",
+  "actionsInQuestionLog": {
+    "singular": "действие",
+    "plural": "действий",
+    "plural2": "действия"
+  }
 };

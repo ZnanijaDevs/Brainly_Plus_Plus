@@ -1,5 +1,5 @@
 import { Box } from "brainly-style-guide";
-import AdaptiveButton from "../common/AdaptiveButton";
+import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 const IFRAME_VIEW_MULTIPLIERS = {
   height: 0.7,

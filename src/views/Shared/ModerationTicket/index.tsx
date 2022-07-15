@@ -8,7 +8,6 @@ import type { ModerationTicketContextDataType } from "@typings/";
 import { transformNodeInModerationTicket } from "@lib/api/Brainly/transformData";
 import transformQuestionLogEntries from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
 import { gradeById, subjectById } from "@utils/getMarketConfig";
-import getViewer from "@utils/getViewer";
 
 import Ticket from "./Ticket";
 
@@ -21,12 +20,10 @@ export default async function OpenTicket(
   try {
     const [
       data,
-      questionLog,
-      user
+      questionLog
     ] = await Promise.all([
       _API.OpenTicket(questionId),
-      _API.GetQuestionLog(questionId),
-      getViewer()
+      _API.GetQuestionLog(questionId)
     ]);
 
     const {
@@ -63,7 +60,6 @@ export default async function OpenTicket(
       logEntries: transformQuestionLogEntries(questionLog.data, questionLog.users_data),
       grade: gradeById(task.grade_id),
       subject: subjectById(task.subject_id),
-      privileges: user.privileges
     };
 
     console.log(

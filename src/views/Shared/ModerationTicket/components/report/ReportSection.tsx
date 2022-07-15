@@ -4,7 +4,7 @@ import { Box, Flex, Icon, Breadcrumb, Link, Text, SeparatorVertical } from "brai
 import type { ReportDataInModerationTicket } from "@typings/";
 import GetUserProfile, { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
 
-import DateTime from "../common/DateTime";
+import DateTime from "@styleguide/DateTime";
 import ReportIconWithText from "./ReportIconWithText";
 
 export default function ReportSection(props: {

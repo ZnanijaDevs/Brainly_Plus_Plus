@@ -1,5 +1,6 @@
 import type { QuestionLogEntry, UserDataType } from "@typings/Brainly";
 import createProfileLink from "@utils/createProfileLink";
+import { getShortenedReason } from "@utils/getMarketConfig";
 
 export type EntriesByDateDataType = {
   [x: string]: QuestionLogEntry[];
@@ -32,7 +33,7 @@ export default (
       });
 
     if (entry.class === "deleted") {
-      let deletionReason = "Причина"; // TODO: get short deletion reason
+      let deletionReason = getShortenedReason(entry.descriptions?.[0]?.text)?.title;
   
       if (deletionReason) 
         textPieces.push(

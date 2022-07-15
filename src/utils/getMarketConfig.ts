@@ -1,16 +1,12 @@
-type MarketConfig = {
-  subjects: typeof MARKET.subjects;
-  grades: typeof MARKET.grades;
-};
+export const gradeById = (id: number) => System.grades[id.toString()];
 
-export default (): MarketConfig => {
-  return {
-    subjects: MARKET.subjects,
-    grades: MARKET.grades
-  };
-};
+export const subjectById = (id: number) =>
+  System.subjects.find(subject => subject.id === id);
 
-export const gradeById = (id: number): string => MARKET.grades[id.toString()];
-export const subjectById = (id: number): { 
-  name: string; icon: string; 
-} => MARKET.subjects[id.toString()];
+export const getShortenedReason = (fullText: string) => {
+  for (let reason of System.deletionReasons) {
+    if (!fullText.includes(reason.matchText)) continue;
+
+    return reason;
+  }
+};

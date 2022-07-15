@@ -1,7 +1,7 @@
 import ext from "webextension-polyfill";
 
 import type { AttachmentDataInModerationTicket } from "@typings/";
-import AdaptiveButton from "../common/AdaptiveButton";
+import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function Attachment(props: {
   onOpen: (attachment: AttachmentDataInModerationTicket) => void;

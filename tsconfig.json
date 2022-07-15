@@ -24,7 +24,9 @@
       "@lib/*": ["./lib/*"],
       "@utils/*": ["./utils/*"],
       "@shared/*": ["./views/Shared/*"],
-      "@typings/*": ["./typings/*", "./typings"]
+      "@typings/*": ["./typings/*", "./typings"],
+      "@locales/*": ["./locales/*"],
+      "@styleguide/*": ["./lib/react-elements/*"]
     }
   }
 }

@@ -39,10 +39,7 @@ const buildOptions: BuildOptions = {
   define: {
     EXTENSION_VERSION: JSON.stringify(version),
   },
-  inject: [
-    "./src/locales/index.ts",
-    "./src/locales/marketConfig.ts",
-  ],
+  inject: ["./src/locales/index.ts"],
   legalComments: "eof"
 };
 

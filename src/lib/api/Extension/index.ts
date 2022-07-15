@@ -1,7 +1,10 @@
+import type { ModelTypeID, Subject } from "@typings/";
 import type { 
   User,
   AnswerDataInUserContent,
-  QuestionDataInUserContent
+  QuestionDataInUserContent,
+  DeletionReason,
+  ViewerDataInPageContext
 } from "@typings/ServerReq";
 import { getUserAuthToken } from "@utils/getViewer";
 
@@ -14,7 +17,25 @@ export type UserContentDataType = {
     count: number;
     items: QuestionDataInUserContent[];
   }
-};
+}
+
+export type PageContextDataType = {
+  timestamp: number;
+  viewer: ViewerDataInPageContext;
+  deletionReasons: {
+    [x in ModelTypeID]: DeletionReason[];
+  };
+  market: {
+    host: string;
+    market: string;
+    subjects: Subject[];
+    grades: {
+      [x: string]: string;
+    };
+    specialRanks: string[];
+    rankings: {id: number; name: string}[];
+  };
+}
 
 class ServerReq {
   private readonly serverApiURL = "https://app.br-helper.com/api";
@@ -99,6 +120,10 @@ class ServerReq {
 
   async GetUserContent(userId: number) {
     return await this.Req<UserContentDataType>("GET", `brainly/user_content/${userId}`);
+  }
+
+  async GetViewerPageContext() {
+    return await this.Req<PageContextDataType>("POST", "me/context");
   }
 }
 

@@ -30,6 +30,32 @@ export interface User {
   isDeveloper: boolean;
 }
 
+export interface DeletionSubcategory {
+  id: number;
+  takePoints: boolean;
+  withWarn: boolean;
+  returnPoints?: boolean;
+  text: string;
+  title: string;
+  matchText: string;
+}
+
+export interface DeletionReason {
+  id: number;
+  text: string;
+  subcategories: DeletionSubcategory[];
+}
+
+export interface ViewerDataInPageContext {
+  brainlyId: number;
+  canDeleteCommentsInBulk: boolean;
+  canSendAnswersForCorrection: boolean;
+  isModerator: boolean;
+  nick: string;
+  privileges: number[];
+  ranks: string[];
+}
+
 export type AnswerDataInUserContent = {
   content: string;
   has_attachments: boolean;

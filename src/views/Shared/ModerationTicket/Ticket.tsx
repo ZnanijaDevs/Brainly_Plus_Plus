@@ -21,7 +21,7 @@ import _API from "@lib/api/Brainly/Legacy";
 import TicketTimer from "./components/extra/TicketTimer";
 import ModerationTicketItem from "./ModerationTicketItem";
 import QuestionLogSection from "./components/log";
-import AdaptiveButton from "./components/common/AdaptiveButton";
+import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function Ticket(props: {
   questionId: number;
