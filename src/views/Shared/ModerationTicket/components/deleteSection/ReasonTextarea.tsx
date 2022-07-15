@@ -1,4 +1,4 @@
-import { Textarea } from "brainly-style-guide";
+import { Textarea, Label, Flex } from "brainly-style-guide";
 
 import { useTicketNode } from "../../hooks";
 
@@ -8,13 +8,22 @@ export default function ReasonTextarea(props: {
 }) {
   const { node } = useTicketNode();
 
-  return (
+  const attachmentsLength = node.attachments?.length;
+
+  return (<>
     <Textarea 
       color={node.isReported ? "white" : "default"}
-      fullWidth 
+      fullWidth
       value={props.defaultReason}
       placeholder={locales.deletionReason}
       onChange={e => props.onChange(e.currentTarget.value)}
     />
-  );
+    {(node.isAnswer && attachmentsLength > 0) &&
+      <Flex title={locales.attachmentsWillBeAddedAutomatically} className="attachments-label">
+        <Label color="gray" iconType="attachment" type="default">
+          {attachmentsLength}
+        </Label>
+      </Flex>
+    }
+  </>);
 }

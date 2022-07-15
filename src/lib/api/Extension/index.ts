@@ -59,10 +59,15 @@ class ServerReq {
         "X-Extension-Version": EXTENSION_VERSION
       }
     });
+
+    let responseStatus = response.status.toString();
+
+    if (responseStatus.startsWith("5") || responseStatus === "404") 
+      throw Error(locales.errors.unexpectedError);
       
     const res = await response.json();
 
-    if (response.status !== 200) throw Error(res?.error);
+    if (!responseStatus.startsWith("2")) throw Error(res?.error);
 
     return res;
   }

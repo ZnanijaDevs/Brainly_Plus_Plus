@@ -63,6 +63,7 @@ export type CommonDataInTicketType = {
   comments?: CommonDataInTicketType[];
   deleted?: boolean;
   report: ReportDataInModerationTicket;
+  isAnswer?: boolean;
 } & Partial<{
   isApproved: boolean;
   isBest: boolean;

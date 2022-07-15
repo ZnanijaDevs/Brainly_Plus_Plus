@@ -87,6 +87,7 @@
     }
   }
 
+  div.sg-textarea,
   textarea.sg-textarea {
     font-size: 15px;
     line-height: 1.2;
@@ -101,24 +102,5 @@
     width: fit-content;
     margin-left: 10px;
     margin-top: 3px;
-  }
-
-  .delete-item-section {
-    > .sg-flex {
-      flex-wrap: wrap;
-    }
-
-    .sg-button {
-      margin-right: 12px;
-    }
-
-    .sg-checkbox,
-    .sg-radio {
-      margin-right: 10px;
-    }
-
-    .sg-radio__label {
-      margin-left: 8px;
-    }
   }
 }

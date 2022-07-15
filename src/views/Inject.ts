@@ -4,7 +4,7 @@ import ServerReq from "@lib/api/Extension";
 import _API from "@lib/api/Brainly/Legacy";
 
 import InjectToDOM from "@lib/InjectToDOM";
-import Flash from "@utils/flashes";
+import flash from "@utils/flashes";
 import { getUserAuthToken } from "@utils/getViewer";
 
 import ReplaceModerationButtons from "./Task/Moderation";
@@ -47,7 +47,7 @@ class Core {
   async AuthUser() {
     const userToken = await getUserAuthToken();
     if (!userToken) {
-      Flash("error", locales.youDoNotHavePermissionToUseThisExt, {
+      flash("error", locales.youDoNotHavePermissionToUseThisExt, {
         sticky: true,
         withIcon: true
       });
@@ -55,42 +55,48 @@ class Core {
       throw Error("Seems like you are not authorized");
     }
 
-    const [pageContext, me] = await Promise.all([ // TODO: handle errors
+    Promise.all([
       ServerReq.GetViewerPageContext(),
       _API.GetMe()
-    ]);
+    ])
+      .then(([pageContext, me]) => {
+        const viewer = pageContext.viewer;
+        const market = pageContext.market;
 
-    const viewer = pageContext.viewer;
-    const market = pageContext.market;
+        const deletionReasons = pageContext.deletionReasons;
+        const deletionReasonsAsArray = [];
 
-    const deletionReasons = pageContext.deletionReasons;
-    const deletionReasonsAsArray = [];
-
-    for (let modelId in deletionReasons) {
-      for (let reason of deletionReasons[modelId]) {
-        deletionReasonsAsArray.push(...reason.subcategories);
-      }
-    }
+        for (let modelId in deletionReasons) {
+          for (let reason of deletionReasons[modelId]) {
+            deletionReasonsAsArray.push(...reason.subcategories);
+          }
+        }
     
-    globalThis.System = {
-      userAvatar: me.user.avatar?.[100],
-      rankings: market.rankings,
-      grades: market.grades,
-      subjects: market.subjects,
-      specialRanks: market.specialRanks,
-      token: userToken,
-      viewer: {
-        ...viewer,
-        canApprove: me.privileges.includes(146) && viewer.isModerator,
-        canAccept: viewer.privileges.includes(16),
-        canUnapprove: me.privileges.includes(147) && viewer.isModerator,
-      },
-      deletionReasonsByModelId: pageContext.deletionReasons,
-      deletionReasons: deletionReasonsAsArray,
-      me,
-    };
+        globalThis.System = {
+          userAvatar: me.user.avatar?.[100],
+          rankings: market.rankings,
+          grades: market.grades,
+          subjects: market.subjects,
+          specialRanks: market.specialRanks,
+          token: userToken,
+          viewer: {
+            ...viewer,
+            canApprove: me.privileges.includes(146) && viewer.isModerator,
+            canAccept: viewer.privileges.includes(16),
+            canUnapprove: me.privileges.includes(147) && viewer.isModerator,
+          },
+          deletionReasonsByModelId: pageContext.deletionReasons,
+          deletionReasons: deletionReasonsAsArray,
+          me,
+        };
 
-    console.log(chalk.bgCyan.black.bold("page context"), System);
+        console.log(chalk.bgCyan.black.bold("page context"), System);
+      })
+      .catch(err => {
+        flash("default", err, { withIcon: true });
+
+        console.error(err);
+      });
   }
 }
 

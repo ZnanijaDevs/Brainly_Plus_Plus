@@ -53,7 +53,8 @@ export function transformNodeInModerationTicket(
     },
     points: (data as Task).points?.ptsForTask,
     deleted: (data as Comment).deleted ?? false,
-    report
+    report,
+    isAnswer: modelType === "answer"
   };
 
   if (modelType === "answer") {

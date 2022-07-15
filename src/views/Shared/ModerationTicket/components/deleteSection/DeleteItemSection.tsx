@@ -46,12 +46,15 @@ export default function DeleteItemSection() {
   }, [activeSubcategory]);
 
   const deleteItem = async () => {
+    let data = { ...deleteOptions };
+
+    let attachmentUrls = node.attachments?.map(attachment => attachment.url);
+    if (node.attachments?.length && node.isAnswer) 
+      data.reason += ` (${attachmentUrls.join(", ")})`;
+
     await _API[
-      node.modelType === "answer" ? "DeleteAnswer" : "DeleteQuestion"
-    ]({
-      ...deleteOptions,
-      id: node.id
-    });
+      node.isAnswer ? "DeleteAnswer" : "DeleteQuestion"
+    ]({ ...data, id: node.id });
 
     updateNode({ deleted: true });
 
@@ -88,7 +91,7 @@ export default function DeleteItemSection() {
         defaultReason={deleteOptions?.reason}
         onChange={value => updateDeleteOptions({ reason: value })}
       />
-      <Flex alignItems="center" marginTop="xs">
+      <Flex alignItems="center" marginTop="xxs">
         <AdaptiveButton type="solid-peach" disabled={activeReason === null} onClick={deleteItem}>
           {locales.delete}
         </AdaptiveButton>

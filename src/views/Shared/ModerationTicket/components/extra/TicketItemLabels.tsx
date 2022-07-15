@@ -23,7 +23,7 @@ export default function TicketItemLabels() {
   return (
     <Flex className="sg-flex--margin-left-auto gap-s" alignItems="center">
       {!!node.points && <LabelWithPoints text={node.points} />}
-      {node.modelType === "answer" && <>
+      {node.isAnswer && <>
         <Label iconType="heart" type="solid" className="thanks-label">{node.thanksCount}</Label>
         <Label hidden={!node.isBest} className="label-with-no-text" title={locales.bestAnswer} iconType="crown" color="yellow" type="solid"> </Label>
         <AdaptiveButton classList="check-for-plagiarism" onClick={checkForPlagiarism}>
