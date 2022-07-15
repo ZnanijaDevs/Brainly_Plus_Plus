@@ -40,6 +40,7 @@
   }
 
   .user-is-moderator.brn-placeholder__animation {
+    width: fit-content;
     margin-bottom: 3px;
     align-items: center;
     border: 2px solid gold;
@@ -86,24 +87,38 @@
     }
   }
 
-  .delete-item-section {
-    margin-top: 10px;
+  textarea.sg-textarea {
+    font-size: 15px;
+    line-height: 1.2;
+    border-radius: 10px;
+    resize: vertical;
+    outline: none;
+    margin: 6px 0;
+    padding: 10px;
+  }
 
-    > textarea.sg-textarea {
-      font-size: 15px;
-      line-height: 1.2;
-      border-radius: 10px;
-      resize: vertical;
-      outline: none;
-      margin: 6px 0;
+  .ok-button {
+    width: fit-content;
+    margin-left: 10px;
+    margin-top: 3px;
+  }
+
+  .delete-item-section {
+    > .sg-flex {
+      flex-wrap: wrap;
     }
 
     .sg-button {
       margin-right: 12px;
     }
 
-    .sg-checkbox {
+    .sg-checkbox,
+    .sg-radio {
       margin-right: 10px;
+    }
+
+    .sg-radio__label {
+      margin-left: 8px;
     }
   }
 }

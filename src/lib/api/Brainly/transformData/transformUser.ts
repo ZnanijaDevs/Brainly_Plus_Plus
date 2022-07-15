@@ -13,6 +13,6 @@ export default function transformUser(user: UserDataType): UserDataInModerationT
     avatar: user.avatars?.[100],
     ranks: user.ranks?.names || [],
     rankColor: user.ranks?.color,
-    isModerator: MARKET.specialRanks.includes(user.ranks?.names?.[0])
+    isModerator: System.specialRanks.includes(user.ranks?.names?.[0])
   };
 }

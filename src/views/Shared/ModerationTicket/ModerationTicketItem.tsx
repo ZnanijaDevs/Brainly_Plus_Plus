@@ -1,181 +1,77 @@
-import { useState, useEffect } from "react";
-import { 
-  Box,
-  Text,
-  Flex,
-  Avatar,
-  Label,
-  SeparatorHorizontal
-} from "brainly-style-guide";
+import { useState } from "react";
+import { Box, Flex, Avatar, Text, SeparatorHorizontal } from "brainly-style-guide";
 
 import type { CommonDataInTicketType } from "@typings/";
-import _API from "@lib/api/Brainly/Legacy";
-import getUserPrivileges, { UserPrivilegesDataType } from "@utils/getUserPrivileges";
-import Flash from "@utils/flashes";
-import ToBackground from "@lib/ToBackground";
+import { TicketNodeContext, useTicketNode } from "./hooks";
 
-import AttachmentsSection from "./components/attachments/AttachmentsSection";
-import DateTime from "./components/common/DateTime";
-import LabelWithPoints from "./components/extra/LabelWithPoints";
-import CommentsSection from "./components/comments/CommentsSection";
-import AdaptiveButton from "./components/common/AdaptiveButton";
-import ReportSection from "./components/report";
-import AnswerCorrectionSection from "./components/correction";
+import ReportSection from "./components/report/ReportSection";
+import WrongReportSection from "./components/correction/WrongReportSection";
 import AuthorSection from "./components/author";
-import DeleteItemSection from "./components/extra/DeleteItemSection";
+import TicketItemLabels from "./components/extra/TicketItemLabels";
+import CommentsSection from "./components/comments/CommentsSection";
+import AttachmentsSection from "./components/attachments/AttachmentsSection";
+import ItemActionsSection from "./components/extra/ItemActionsSection";
 
-// TODO: refactor this component
+import DateTime from "@styleguide/DateTime";
 
-export default function ModerationTicketNode({ data }: { 
-  data: CommonDataInTicketType;
-}) {
-  const [reported, setReported] = useState(data.isReported);
-  const [approved, setApproved] = useState(data.isApproved);
-  const [deleted, setDeleted] = useState(false);
-  const [sentForCorrection, setSentForCorrection] = useState(!!data.correction);
-
-  const [userPrivileges, setUserPrivileges] = useState<UserPrivilegesDataType>();
-
-  useEffect(() => {
-    getUserPrivileges()
-      .then(privileges => setUserPrivileges(privileges))
-      .catch(err => Flash("error", err));
-  }, []);
+const TicketItem = () => {
+  const { node } = useTicketNode();
 
   let itemClassName = "moderation-ticket-item";
 
-  if (approved) 
+  if (node.isApproved) 
     itemClassName += " is-approved";
-  else if (reported) 
+  else if (node.isReported) 
     itemClassName += " is-reported";
-  else if (sentForCorrection)
+  else if (node.correction)
     itemClassName += " sent-for-correction";
-  else if (data.isBest)
+  else if (node.isBest)
     itemClassName += " is-best";
-  
-  return !userPrivileges ? null : (
-    <Box className={itemClassName} border padding="xs" color={deleted ? "red-40" : "transparent"}>
-      {reported && <ReportSection report={data.report} />}
-      {sentForCorrection && 
-        <AnswerCorrectionSection edited={data.edited} correction={data.correction} />
+
+  return (
+    <Box className={itemClassName} border padding="xs" color={node.deleted ? "red-40" : "transparent"}>
+      {node.isReported && <ReportSection report={node.report} />}
+      {!!node.correction && 
+        <WrongReportSection edited={node.edited} correction={node.correction} />
       }
       <div>
         <Flex alignItems="center" marginBottom="s">
-          <a target="_blank" href={data.author.profileLink}>
-            <Avatar size="s" imgSrc={data.author.avatar} />
+          <a target="_blank" href={node.author.profileLink}>
+            <Avatar size="s" imgSrc={node.author.avatar} />
           </a>
           <Flex direction="column" marginLeft="xs">
-            <AuthorSection user={data.author} />
+            <AuthorSection user={node.author} />
             <Text color="text-gray-70" className="extra-data">
-              <DateTime fromNow date={data.created} />
+              <DateTime fromNow date={node.created} />
             </Text>
           </Flex>
-          <Flex className="sg-flex--margin-left-auto gap-s" alignItems="center">
-            {!!data.points && <LabelWithPoints text={data.points} />}
-            {data.modelType === "answer" && <>
-              <Label iconType="heart" type="solid" className="thanks-label">{data.thanksCount}</Label>
-              <Label hidden={!data.isBest} className="label-with-no-text" title={locales.bestAnswer} iconType="crown" color="yellow" type="solid"> </Label>
-              <AdaptiveButton classList="check-for-plagiarism" onClick={_ => {
-                let answerContent = data.content;
-                let windowSelection = window.getSelection().toString();
-
-                if (windowSelection.length) answerContent = windowSelection;
-
-                ToBackground("CheckForPlagiarism", {
-                  date: data.created,
-                  content: answerContent
-                });
-              }}>
-                Плагиат?
-              </AdaptiveButton>
-            </>}
-          </Flex>
+          <TicketItemLabels />
         </Flex>
         <Flex>
-          <Text size="small" dangerouslySetInnerHTML={{ __html: data.content }} />
+          <Text size="small" dangerouslySetInnerHTML={{ __html: node.content }} />
         </Flex>
         <Flex>
-          <AttachmentsSection 
-            attachments={data.attachments} 
-            modelId={data.id}
-            modelTypeId={data.modelTypeId}
-            taskId={data.taskId}
-          />
+          <AttachmentsSection />
         </Flex>
-        {!deleted && <><Flex className="gap-s" marginTop="s" alignItems="center">
-          {approved ? (
-            userPrivileges.canUnapprove && 
-              <AdaptiveButton icon={{ type: "verified", color: "icon-white" }} onClick={async _ => {
-                await _API.UnapproveAnswer(data.id);
-                setApproved(false);
-              }}>Снять проверку</AdaptiveButton>
-          ) : <>
-            <AdaptiveButton 
-              size="m" 
-              type="outline-peach"
-              icon={{ type: "trash", size: 24 }}
-              title={locales.delete}
-            />
-            {((reported || sentForCorrection) && userPrivileges.canAccept) && 
-              <AdaptiveButton
-                title={locales.accept}
-                size="m"
-                type="solid-green"
-                icon={{ type: "check", size: 24 }}
-                onClick={async () => {
-                  await _API.AcceptContent(data.id, data.modelTypeId);
-                  setReported(false);
-                  if (sentForCorrection) setSentForCorrection(false);
-                }}
-              />
-            }
-            {data.modelType === "answer" && <>
-              {!data.author.isModerator && <AdaptiveButton 
-                title={locales.deleteAsSpamWithWarn}
-                size="m" 
-                type="solid-orange"
-                icon={{ type: "close", size: 24 }} 
-                onClick={async _ => {
-                  if (!confirm(locales.doYouWantToDeleteThisAnswerAsSpam)) return;
-
-                  await _API.DeleteAnswer({
-                    id: data.id,
-                    giveWarn: true,
-                    reason: locales.spamAnswerDeletionReason,
-                  });
-
-                  setDeleted(true);
-                }}
-              />}
-              {!sentForCorrection && <AdaptiveButton 
-                title={locales.sendForCorrection}
-                size="m" 
-                type="outline-indigo"
-                icon={{ type: "pencil", color: "icon-indigo-50", size: 24 }} 
-              />}
-              {(!approved && userPrivileges.canApprove) && 
-                <AdaptiveButton 
-                  size="m" 
-                  icon={{ type: "verified", color: "icon-white", size: 24 }}
-                  title={locales.approve}
-                  onClick={async _ => {
-                    await _API.ApproveAnswer(data.id);
-                    setApproved(true);
-                    if (sentForCorrection) setSentForCorrection(false);
-                  }}
-                  type="solid-green"
-                />
-              }
-            </>}
-          </>}
-        </Flex>
-        <DeleteItemSection modelId={data.id} modelTypeId={data.modelTypeId} />
-        </>}
-        {!!data.comments?.length && <>
+        <ItemActionsSection />
+        {!!node.comments?.length && <>
           <SeparatorHorizontal color="gray-50" />
-          <CommentsSection comments={data.comments} />
+          <CommentsSection comments={node.comments} />
         </>}
       </div>
     </Box>
   );
-}
+};
+
+export default (props: {
+  data: CommonDataInTicketType;
+}) => {
+  const [nodeData, setNodeData] = useState(props.data);
+
+  return <TicketNodeContext.Provider value={{
+    node: nodeData,
+    updateNode: setNodeData
+  }}>
+    <TicketItem />
+  </TicketNodeContext.Provider>;
+};

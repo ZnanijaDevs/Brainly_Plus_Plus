@@ -3,8 +3,8 @@ import { Box, Flex, Text, Avatar } from "brainly-style-guide";
 import type { CommonDataInTicketType } from "@typings/";
 
 import _API from "@lib/api/Brainly/Legacy";
-import DateTime from "../common/DateTime";
-import AdaptiveButton from "../common/AdaptiveButton";
+import DateTime from "@styleguide/DateTime";
+import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function Comment(props: {
   data: CommonDataInTicketType;

@@ -51,12 +51,12 @@ class BrainlyApi {
     return r;
   }
 
-  async FetchUser() {
-    const userData = await this.Req<MeDataType>("GET", "api_users/me");
-    this.user = userData.data;
-  }
-
   async GetMe() {
+    if (!this.user) {
+      const userData = await this.Req<MeDataType>("GET", "api_users/me");
+      this.user = userData.data;
+    }
+
     return this.user;
   }
 
@@ -92,7 +92,7 @@ class BrainlyApi {
   async DeleteAnswer(data: {
     id: number;
     giveWarn?: boolean;
-    takePoints?: number;
+    takePoints?: boolean;
     reason?: string;
   }) {
     return await this.Req("POST", "moderation_new/delete_response_content", {
@@ -102,6 +102,24 @@ class BrainlyApi {
       "take_points": data.takePoints ?? true,
       "reason_id": 0,
       "reason": data.reason ?? ""
+    });
+  }
+
+  async DeleteQuestion(data: {
+    id: number;
+    giveWarn?: boolean;
+    takePoints?: boolean;
+    returnPoints?: boolean;
+    reason?: string;
+  }) {
+    return await this.Req("POST", "moderation_new/delete_task_content", {
+      "model_id": data.id,
+      "model_type_id": 1,
+      "give_warning": data.giveWarn ?? false,
+      "take_points": data.takePoints ?? true,
+      "reason_id": 0,
+      "reason": data.reason ?? "",
+      "return_points": data.returnPoints
     });
   }
 
@@ -171,6 +189,5 @@ class BrainlyApi {
 }
 
 const _API = new BrainlyApi();
-_API.FetchUser();
 
 export default _API;

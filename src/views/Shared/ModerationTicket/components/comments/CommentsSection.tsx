@@ -4,9 +4,10 @@ import { Flex, Headline } from "brainly-style-guide";
 import type { CommonDataInTicketType } from "@typings/";
 import _API from "@lib/api/Brainly/Legacy";
 
-import Comment from "./Comment";
-import AdaptiveButton from "../common/AdaptiveButton";
 import Flash from "@utils/flashes";
+
+import Comment from "./Comment";
+import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function CommentsSection(props: {
   comments: CommonDataInTicketType[];
@@ -61,9 +62,11 @@ export default function CommentsSection(props: {
             icon={{ type: hidden ? "arrow_down" : "arrow_up" }}
           />
         </Flex>
-        <AdaptiveButton disabled={isDeleting || !notDeletedComments.length} type="solid-peach" onClick={deleteAllComments}>
-          {locales.deleteAllComments}
-        </AdaptiveButton>
+        {System.viewer.canDeleteCommentsInBulk &&
+          <AdaptiveButton disabled={isDeleting || !notDeletedComments.length} type="solid-peach" onClick={deleteAllComments}>
+            {locales.deleteAllComments}
+          </AdaptiveButton>
+        }
       </Flex>
       <Flex className="moderation-ticket-comments-list" disabled={isDeleting} hidden={hidden} marginTop="xs" direction="column">
         {comments.map(comment => 

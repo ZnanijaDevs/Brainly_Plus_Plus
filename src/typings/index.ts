@@ -1,5 +1,11 @@
 import type { EntriesByDateDataType } from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
 
+export interface Subject {
+  id: number;
+  name: string;
+  icon: string;
+}
+
 export interface Warn {
   time: string;
   reason: string;
@@ -79,9 +85,5 @@ export type ModerationTicketContextDataType = {
   answers: CommonDataInTicketType[];
   logEntries: EntriesByDateDataType;
   grade: string;
-  subject: {
-    name: string;
-    icon: string;
-  };
-  privileges: number[];
+  subject: Subject;
 }

@@ -1,26 +1,15 @@
 import chalk from "chalk";
 
-import ToBackground from "@lib/ToBackground";
+import ServerReq from "@lib/api/Extension";
+import _API from "@lib/api/Brainly/Legacy";
+
+import InjectToDOM from "@lib/InjectToDOM";
 import Flash from "@utils/flashes";
 import { getUserAuthToken } from "@utils/getViewer";
 
 import ReplaceModerationButtons from "./Task/Moderation";
 
-/**
- * Inject files (content scripts and stylesheets) to DOM
- * @param files An array of files
- */
-async function InjectToDOM(files: string[]) {
-  const jsFiles = files.filter(file => file.match(/\.js$/));
-  const cssFiles = files.filter(file => file.match(/\.css$/));
-
-  if (cssFiles.length) await ToBackground("InjectStyles", cssFiles);
-  if (jsFiles.length) await ToBackground("InjectScripts", jsFiles);
-}
-
 class Core {
-  private viewerAuthToken: string;
-
   private path = window.location.href;
 
   private checkRoute(pattern: RegExp): boolean {
@@ -73,8 +62,42 @@ class Core {
       throw Error("Seems like you are not authorized");
     }
 
-    this.viewerAuthToken = userToken;
-    console.log(chalk.bgRed.bold("User token"), userToken);
+    const [pageContext, me] = await Promise.all([ // TODO: handle errors
+      ServerReq.GetViewerPageContext(),
+      _API.GetMe()
+    ]);
+
+    const viewer = pageContext.viewer;
+    const market = pageContext.market;
+
+    const deletionReasons = pageContext.deletionReasons;
+    const deletionReasonsAsArray = [];
+
+    for (let modelId in deletionReasons) {
+      for (let reason of deletionReasons[modelId]) {
+        deletionReasonsAsArray.push(...reason.subcategories);
+      }
+    }
+    
+    globalThis.System = {
+      userAvatar: me.user.avatar?.[100],
+      rankings: market.rankings,
+      grades: market.grades,
+      subjects: market.subjects,
+      specialRanks: market.specialRanks,
+      token: userToken,
+      viewer: {
+        ...viewer,
+        canApprove: me.privileges.includes(146) && viewer.isModerator,
+        canAccept: viewer.privileges.includes(16),
+        canUnapprove: me.privileges.includes(147) && viewer.isModerator,
+      },
+      deletionReasonsByModelId: pageContext.deletionReasons,
+      deletionReasons: deletionReasonsAsArray,
+      me,
+    };
+
+    console.log(chalk.bgCyan.black.bold("page context"), System);
   }
 }
 

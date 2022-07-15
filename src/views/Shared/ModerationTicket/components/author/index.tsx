@@ -4,7 +4,7 @@ import { Flex, Text, Breadcrumb, Link } from "brainly-style-guide";
 import GetUserProfile, { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
 import type { UserDataInModerationTicket } from "@typings/";
 
-import AdaptiveButton from "../common/AdaptiveButton";
+import AdaptiveButton from "@styleguide/AdaptiveButton";
 import AuthorPreviewBox from "./AuthorPreviewBox";
 
 export default function AuthorSection({ user }: {
