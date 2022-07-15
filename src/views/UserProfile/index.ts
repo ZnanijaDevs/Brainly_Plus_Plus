@@ -345,19 +345,19 @@ function setUpSubmit() {
 			banType.toString()
 		;(document.querySelector('#UserBanAddForm') as HTMLFormElement).submit()
 	}
-	function sendMessage(message) {
+	function sendMessage(message: string) {
 		chrome.runtime.sendMessage({
 			type: 'SendPM',
 			data: { userId: userId, message: message },
 		})
 	}
-	function sendToSlack(reason) {
+	function sendToSlack(reason: string) {
 		chrome.runtime.sendMessage({
 			type: 'SendToSlack',
 			data: { link: link, reason: reason },
 		})
 	}
-	function disableButtonTemporarily(btn, duration) {
+	function disableButtonTemporarily(btn: HTMLButtonElement, duration: number) {
 		btn.disabled = true
 		setTimeout(() => (btn.disabled = false), duration)
 	}
@@ -618,15 +618,18 @@ function insertDelPanel() {
 				const responsesForm = document.querySelector(
 					'form[action$=delete_responses]'
 				) as HTMLFormElement
-				const tasksForm = document.querySelector('form[action$=delete_tasks]') as HTMLFormElement
-				const userForm = document.querySelector('form[action*="users/delete/"]') as HTMLFormElement
+				const tasksForm = document.querySelector(
+					'form[action$=delete_tasks]'
+				) as HTMLFormElement
+				const userForm = document.querySelector(
+					'form[action*="users/delete/"]'
+				) as HTMLFormElement
 				if (actionsToDo['Задачи']) await sendForm(tasksForm)
 				if (actionsToDo['Решения']) await sendForm(responsesForm)
 				if (actionsToDo['Комментарии']) await sendForm(commentsForm)
 				if (actionsToDo['Аккаунт']) {
-					;(
-						userForm.querySelector('#DelUserReason') as HTMLFormElement
-					).value = (reasonTextArea as HTMLInputElement).value
+					;(userForm.querySelector('#DelUserReason') as HTMLFormElement).value =
+						(reasonTextArea as HTMLInputElement).value
 					await sendForm(userForm)
 				}
 				window.location.reload()
