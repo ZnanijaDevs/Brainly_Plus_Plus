@@ -4,6 +4,8 @@ import type { MeDataType } from "./Brainly";
 
 declare global {
   const EXTENSION_VERSION: string;
+  const SENTRY_DSN: string;
+
   const locales: typeof import("../locales").locales;
 
   // eslint-disable-next-line no-var

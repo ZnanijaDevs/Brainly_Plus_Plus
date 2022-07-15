@@ -6,7 +6,7 @@ import jsonMerge from "esbuild-plugin-json-merge";
 import stylesPlugin from "@hyrious/esbuild-plugin-style";
 
 import makeEntries from "./makeEntries";
-import { version, author } from "../package.json";
+import { version } from "../package.json";
 
 const entryPoints = {
   ...makeEntries("styles/*/index.scss", "styles", true),
@@ -33,7 +33,7 @@ const buildOptions: BuildOptions = {
     }),
     jsonMerge({
       outfile: "manifest.json",
-      entryPoints: ["manifest.json", { version, author }]
+      entryPoints: ["manifest.json", { version }]
     }),
   ],
   define: {
