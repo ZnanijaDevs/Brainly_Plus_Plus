@@ -59,5 +59,6 @@ export const locales = {
   "errors": {
     "unexpectedError": "Упс, случилась непредвиденная ошибка"
   },
-  "attachmentsWillBeAddedAutomatically": "Ссылки на вложения будут добавлены в причину удаления автоматически"
+  "attachmentsWillBeAddedAutomatically": "Ссылки на вложения будут добавлены в причину удаления автоматически",
+  "other": "Другое"
 };
