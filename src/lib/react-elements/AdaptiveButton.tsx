@@ -39,6 +39,7 @@ type AdaptiveButtonPropsType = React.PropsWithChildren<
     visible: boolean;
     disabled: boolean;
     classList: string;
+    showConfirmMessageOnClick: boolean;
   }>
 >;
 
@@ -60,6 +61,7 @@ const createButtonClassList = (props: AdaptiveButtonPropsType): string => {
 
 export default function AdaptiveButton(props: AdaptiveButtonPropsType) {
   const [loading, setLoading] = useState(false);
+  const [confirmMessageVisible, setConfirmMessageVisible] = useState(false);
 
   let buttonClassList = createButtonClassList(props);
   if (loading) buttonClassList += " sg-button--disabled sg-button--loading";
@@ -67,6 +69,12 @@ export default function AdaptiveButton(props: AdaptiveButtonPropsType) {
   let onClickListener: typeof props.onClick = null;
   if (props.onClick) {
     onClickListener = async e => {
+      if (props.showConfirmMessageOnClick) {
+        if (!confirmMessageVisible) return setConfirmMessageVisible(true);
+
+        setConfirmMessageVisible(false);
+      }
+
       setLoading(true);
 
       try {
@@ -88,7 +96,7 @@ export default function AdaptiveButton(props: AdaptiveButtonPropsType) {
         <Icon size={props.icon.size || 16} type={props.icon.type} color={props.icon.color || "icon-black"} />
       </span>}
       {!!props.children && <span className="sg-button__text">
-        {props.children}
+        {confirmMessageVisible ? locales.areYouSure : props.children}
       </span>}
     </button>
   );

@@ -10,6 +10,7 @@ import { getUserAuthToken } from "@utils/getViewer";
 import ReplaceModerationButtons from "./Task/Moderation";
 
 import type { CustomDeletionReason } from "@typings/";
+import createProfileLink from "@utils/createProfileLink";
 
 const CUSTOM_DELETION_REASONS_CATEGORY_ID = 999;
 
@@ -79,6 +80,8 @@ class Core {
       }
     
       globalThis.System = {
+        marketHost: market.host,
+        marketBaseUrl: `https://${market.host}`,
         userAvatar: me.user.avatar?.[100],
         rankings: market.rankings,
         grades: market.grades,
@@ -94,7 +97,9 @@ class Core {
         deletionReasonsByModelId: pageContext.deletionReasons,
         deletionReasons: deletionReasonsAsArray,
         me,
-        checkP: (privilegeId) => viewer.privileges.includes(privilegeId)
+        userLink: createProfileLink(me.user.id, me.user.nick),
+        checkP: privilegeId => viewer.privileges.includes(privilegeId),
+        banMessage: market.banMessage
       };
 
       console.log(chalk.bgCyan.black.bold("page context"), System);

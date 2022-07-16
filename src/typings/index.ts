@@ -14,6 +14,7 @@ export interface Warn {
   taskId: number;
   warner: string;
   active: boolean;
+  contentType: string;
 }
 
 export type ModelTypeID = 1 | 2 | 45;
@@ -92,3 +93,9 @@ export type ModerationTicketContextDataType = {
 export type CustomDeletionReason = Omit<DeletionSubcategory, "id" | "matchText"> & {
   modelType: ModelTypeID;
 };
+
+export interface BanMessageReason {
+  violator: boolean;
+  title: string;
+  text: string;
+}

@@ -1,17 +1,39 @@
-// TODO: add responsive styles
 .author-preview-box.sg-bubble {
+  $min-height: 30vh;
+  $max-height: 70vh;
+
   padding: 10px;
   position: fixed;
   top: 20vh;
   right: 1vw;
-  min-height: 30vh;
-  max-height: 70vh;
   z-index: 90;
-  left: 45%;
+  width: 50%;
+  min-height: $min-height;
+  max-height: $max-height;
+
+  & .user-ban-count {
+    margin-left: auto;
+    margin-bottom: -18px;
+  }
+
+  & .sg-avatar {
+    flex-shrink: 0;
+  }
 
   & > div {
     display: grid;
-    grid-template-columns: 1fr 125vh;
+    justify-items: baseline;
+    grid-template-columns: auto 1fr;
+    overflow: hidden;
+    min-height: $min-height;
+    max-height: $max-height;
+
+    > div {
+      min-height: $min-height;
+      max-height: calc($max-height - 35px);
+
+      @include modern-overflow;
+    }
   }
 
   & .author-is-banned {
@@ -34,8 +56,15 @@
 
     @include modern-overflow;
 
+    & .sg-horizontal-separator {
+      margin: 0;
+    }
+
     & .warn-content,
     & .warn-reason {
+      @include modern-overflow;
+
+      max-height: 120px;
       font-size: 14px;
       line-height: 1.1;
       word-break: break-word;
@@ -64,13 +93,15 @@
   & .author-user-content {
     border-left: 1px solid #dadada;
     padding-left: 10px;
-    margin-left: 5px;
+    width: calc(100% - 10px);
+    margin-left: 10px;
   }
 
   & .author-user-content-items {
-    max-height: 55vh;
-
-    @include modern-overflow;
+    & ~ .sg-flex {
+      margin-top: auto;
+      padding-top: 10px;
+    }
   }
 
   & .author-user-content-item {
@@ -78,12 +109,29 @@
     align-items: center;
     grid-template-columns: auto 1fr;
     gap: 5px;
-    width: 112vh;
 
     a {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+  }
+
+  & .ban-section {
+    margin-top: auto;
+    padding-top: 6px;
+
+    .sg-select {
+      margin-left: 0 !important;
+      margin-right: 5px;
+
+      > select {
+        width: 100% !important;
+      }
+    }
+
+    > .sg-flex:first-child > .sg-button {
+      width: 38px;
     }
   }
 }

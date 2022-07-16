@@ -1,18 +1,12 @@
-import { useState } from "react";
-import { 
-  Flex, 
-  Avatar, 
-  Text, 
-  Link, 
-  Breadcrumb, 
-  Bubble
-} from "brainly-style-guide";
+import { useState, useEffect } from "react";
+import { Flex, Avatar, Link, Breadcrumb, Bubble, Text } from "brainly-style-guide";
 
 import type { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
 import createProfileLink from "@utils/createProfileLink";
 
 import WarnsSection from "../warns/WarnsSection";
 import AuthorUserContent from "./AuthorContent";
+import BanSection from "./BanSection";
 
 export default function AuthorPreviewBox(props: {
   user: UserDataInProfileType;
@@ -20,6 +14,9 @@ export default function AuthorPreviewBox(props: {
   const user = props.user;
 
   const [activeBan, setActiveBan] = useState(user.activeBan);
+  const [bansCount, setBansCount] = useState(user.bansCount);
+
+  useEffect(() => setBansCount(prevState => ++prevState), [activeBan]);
 
   return (
     <Bubble direction="left" className="author-preview-box">
@@ -36,14 +33,30 @@ export default function AuthorPreviewBox(props: {
               ]} />
               {!!activeBan && 
                 <Text size="xsmall" className="ban-label">
-                  Бан {activeBan.type}. Выдан <b>{activeBan.givenBy.nick}</b>
+                  {locales.ban} {activeBan.type}. {locales.given} <b>{activeBan.givenBy.nick}</b>
                 </Text>
               }
             </Flex>
           </Flex>
+          <Text className="user-ban-count" color="text-gray-70" weight="bold" size="xsmall">
+            {locales.bans}: {bansCount}
+          </Text>
           <WarnsSection userId={user.id} />
+          {user.canBeBanned && 
+            <BanSection 
+              user={user}
+              onBanned={banType => setActiveBan({
+                givenBy: { 
+                  link: System.userLink, 
+                  nick: System.me.user.nick 
+                },
+                expiresIn: null,
+                type: banType
+              })}
+            />
+          }
         </Flex>
-        <Flex alignItems="center" className="author-user-content">
+        <Flex alignItems="center" justifyContent="center" className="author-user-content">
           {<AuthorUserContent userId={user.id} />}
         </Flex>
       </div>

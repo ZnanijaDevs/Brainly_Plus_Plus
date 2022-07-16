@@ -37,6 +37,7 @@ export type UserDataInProfileType = {
   canBeBanned: boolean;
   activeBan?: UserActiveBanDataType;
   banTokens?: UserBanTokensDataType;
+  bansCount: number;
 };
 
 export default async (
@@ -129,6 +130,7 @@ export default async (
     avatar: userAvatar,
     answersCount: +moderationPanelText.match(/(?<=решенных задач:\s)\d+/i),
     warnsCount: +moderationPanelText.match(/(?<=предупреждений:\s)\d+/i),
+    bansCount: +doc.querySelector(".mod-profile-panel").textContent.match(/(?<=баны:\s)\d+/i),
     questionsCount: +moderationPanelText.match(/(?<=заданные задачи:\s)\d+/i),
     bestAnswersCount: +moderationPanelText.match(/(?<=лучшие решения:\s)\d+/i),
     registered: moderationPanelText.match(/(?<=зарегистрирован\s:\s).+/i).toString(),
