@@ -1,10 +1,12 @@
 import ext from "webextension-polyfill";
+import type { CustomDeletionReason } from "@typings/";
 
 export interface ExtensionConfigDataInStorage {
   searchEngine: "yandex" | "google";
   newModPanelEnabled: boolean;
   slackToken: string;
   authToken: string;
+  customDeletionReasons: CustomDeletionReason[];
 }
 
 const get = async <T>(key: keyof ExtensionConfigDataInStorage): Promise<T> => {

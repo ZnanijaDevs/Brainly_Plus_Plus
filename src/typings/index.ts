@@ -1,4 +1,5 @@
 import type { EntriesByDateDataType } from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
+import type { DeletionSubcategory } from "./ServerReq";
 
 export interface Subject {
   id: number;
@@ -64,6 +65,7 @@ export type CommonDataInTicketType = {
   comments?: CommonDataInTicketType[];
   deleted?: boolean;
   report: ReportDataInModerationTicket;
+  isAnswer?: boolean;
 } & Partial<{
   isApproved: boolean;
   isBest: boolean;
@@ -87,3 +89,7 @@ export type ModerationTicketContextDataType = {
   grade: string;
   subject: Subject;
 }
+
+export type CustomDeletionReason = Omit<DeletionSubcategory, "id" | "matchText"> & {
+  modelType: ModelTypeID;
+};

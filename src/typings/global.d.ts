@@ -31,6 +31,7 @@ declare global {
     token: string;
     me: MeDataType;
     userAvatar: string;
+    checkP: (id: number) => boolean;
   };
 }
 

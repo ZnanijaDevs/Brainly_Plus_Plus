@@ -78,7 +78,7 @@ export default function ItemActionsSection() {
             onClick={acceptItem}
           />
         }
-        {node.modelType === "answer" && <>
+        {node.isAnswer && <>
           {!node.author.isModerator && <AdaptiveButton 
             title={locales.deleteAsSpamWithWarn}
             size="m" 

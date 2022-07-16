@@ -3,6 +3,7 @@ import storage, { ExtensionConfigDataInStorage } from "@lib/storage";
 const DEFAULT_CONFIG: Partial<ExtensionConfigDataInStorage> = {
   searchEngine: "google",
   newModPanelEnabled: true,
+  customDeletionReasons: []
 };
 
 export default async () => {

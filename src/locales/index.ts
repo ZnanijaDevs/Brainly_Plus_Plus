@@ -55,5 +55,10 @@ export const locales = {
     "singular": "действие",
     "plural": "действий",
     "plural2": "действия"
-  }
+  },
+  "errors": {
+    "unexpectedError": "Упс, случилась непредвиденная ошибка"
+  },
+  "attachmentsWillBeAddedAutomatically": "Ссылки на вложения будут добавлены в причину удаления автоматически",
+  "other": "Другое"
 };

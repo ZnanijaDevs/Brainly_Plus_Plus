@@ -17,7 +17,10 @@ class BackgroundListener {
     this.bindListener("CheckForPlagiarism", this.checkForPlagiarism);
 
     ext.runtime.onInstalled.addListener(details => {
-      if (details.reason !== "install") return;
+      // If this line is commented out, data in storage will be overwritten with each extension update.
+      // This line should be uncommented in production
+      // if (details.reason !== "install") return;
+
       setConfigOnInstall();
     });
   }

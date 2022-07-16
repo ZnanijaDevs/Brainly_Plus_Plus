@@ -9,6 +9,7 @@ import {
 
 import type { Warn } from "@typings/";
 import replaceTextWithLinks from "@utils/replaceTextWithLinks";
+import { getShortenedReason } from "@utils/getMarketConfig";
 
 export default function WarnEntry({
   warn
@@ -19,7 +20,7 @@ export default function WarnEntry({
       padding="xxs"
       title={<Flex direction="column">
         <Link color="text-black" target="_blank" href={`/task/${warn.taskId}`} size="small" weight="bold">
-          {"Причина" /* TODO: this */}
+          {getShortenedReason(warn.reason)?.title}
         </Link>
         <Text color="text-gray-70" size="xsmall">
           {warn.time}
