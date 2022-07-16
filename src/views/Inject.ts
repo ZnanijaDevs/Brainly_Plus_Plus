@@ -22,7 +22,7 @@ class Core {
 
   async Init() {
     await this.AuthUser();
-
+    
     if (this.checkRoute(/\/$|(predmet\/\w+$)/)) {
       await InjectToDOM([
         "content-scripts/HomePage/index.js",
@@ -44,7 +44,12 @@ class Core {
         "content-scripts/UserProfile/index.js",
         "styles/UserProfile/index.css"
       ]);
-   }
+    }
+
+    await InjectToDOM([
+      "content-scripts/ModerationPanel/index.js",
+      "styles/ModerationPanel/index.css"
+    ]);
 
     await InjectToDOM([
       "styles/ModerationTicket/index.css"

@@ -10,7 +10,6 @@ export default async (
 
   for (let row of doc.querySelectorAll("tr")) {
     const fields = row.querySelectorAll("td");
-    console.log(fields)
     if (fields.length !== 7) continue;
 
     const warn = {} as Warn;
