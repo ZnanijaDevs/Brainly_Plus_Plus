@@ -1,5 +1,5 @@
 import ext from "webextension-polyfill";
-import type { CustomDeletionReason } from "@typings/";
+import type { BanMessageReason, CustomDeletionReason } from "@typings/";
 
 export interface ExtensionConfigDataInStorage {
   searchEngine: "yandex" | "google";
@@ -7,6 +7,7 @@ export interface ExtensionConfigDataInStorage {
   slackToken: string;
   authToken: string;
   customDeletionReasons: CustomDeletionReason[];
+  customBanMessageReasons: BanMessageReason[];
 }
 
 const get = async <T>(key: keyof ExtensionConfigDataInStorage): Promise<T> => {

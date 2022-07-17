@@ -9,7 +9,7 @@ import storage from "@lib/storage";
 import { getUserAuthToken } from "@utils/getViewer";
 import ReplaceModerationButtons from "./Task/Moderation";
 
-import type { CustomDeletionReason } from "@typings/";
+import type { BanMessageReason, CustomDeletionReason } from "@typings/";
 import createProfileLink from "@utils/createProfileLink";
 
 const CUSTOM_DELETION_REASONS_CATEGORY_ID = 999;
@@ -28,6 +28,7 @@ class Core {
   async Init() {
     await this.AuthUser();
     await this.SetUserCustomDeletionReasons();
+    await this.SetUserCustomBanReasons();
 
     if (this.checkRoute(/\/$|(predmet\/\w+$)/)) {
       await InjectToDOM([
@@ -78,7 +79,7 @@ class Core {
           deletionReasonsAsArray.push(...reason.subcategories);
         }
       }
-    
+
       globalThis.System = {
         marketHost: market.host,
         marketBaseUrl: `https://${market.host}`,
@@ -136,6 +137,12 @@ class Core {
         )
       });
     }
+  }
+
+  async SetUserCustomBanReasons() {
+    const reasons = await storage.get<BanMessageReason[]>("customBanMessageReasons");
+
+    System.banMessage.reasons.push(...reasons);
   }
 }
 

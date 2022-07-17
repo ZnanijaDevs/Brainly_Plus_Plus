@@ -5,6 +5,7 @@ import type {
   ModerationTicketDataType, 
   QuestionLogEntry 
 } from "@typings/Brainly";
+import makeDividedMessages from "@utils/makeDividedMessages";
 
 /* eslint-disable camelcase, no-console */
 
@@ -185,6 +186,27 @@ class BrainlyApi {
 
   async GetQuestionLog(questionId: number) {
     return await this.Req<QuestionLogEntry[]>("GET", `api_task_lines/big/${questionId}`);
+  }
+
+  async GetConversationIdByUser(userId: number) {
+    const conversation = await this.Req<{ conversation_id: number }>("POST", "api_messages/check", {
+      user_id: userId
+    });
+
+    return conversation.data.conversation_id;
+  }
+
+  async SendMessage(userId: number, text: string) {
+    const conversationId = await this.GetConversationIdByUser(userId);
+
+    let dividedMessages = makeDividedMessages(text);
+
+    for await (let message of dividedMessages) {
+      await this.Req("POST", "api_messages/send", {
+        conversation_id: conversationId,
+        content: message
+      });
+    }
   }
 }
 

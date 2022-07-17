@@ -19,7 +19,7 @@ class BackgroundListener {
     ext.runtime.onInstalled.addListener(details => {
       // If this line is commented out, data in storage will be overwritten with each extension update.
       // This line should be uncommented in production
-      if (details.reason !== "install") return;
+      //  if (details.reason !== "install") return;
 
       setConfigOnInstall();
     });

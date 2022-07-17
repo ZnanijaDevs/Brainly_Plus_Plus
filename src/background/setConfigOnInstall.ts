@@ -5,6 +5,7 @@ const DEFAULT_CONFIG: Partial<ExtensionConfigDataInStorage> = {
   newModPanelEnabled: true,
   customDeletionReasons: [],
   slackToken: "",
+  customBanMessageReasons: []
 };
 
 export default async () => {

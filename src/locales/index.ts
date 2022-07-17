@@ -68,5 +68,11 @@ export const locales = {
   "bans": "Баны",
   "ban": "Бан",
   "given": "Выдан",
-  "nothingHere": "Ничего нет.."
+  "nothingHere": "Ничего нет..",
+  "messages": {
+    "pleaseCorrectYourAnswer": `Здравствуйте, %nick%!
+    Ваш ответ в задании https://znanija.com/task/%questionId% отправлен на исправление.
+    Указанная причина: %reason%
+    Обратите внимание: неисправленный ответ удалится автоматически через несколько дней.`
+  }
 };

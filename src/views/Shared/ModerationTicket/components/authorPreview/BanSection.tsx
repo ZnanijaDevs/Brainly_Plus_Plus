@@ -4,9 +4,11 @@ import type { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
 
 import AdaptiveButton from "@styleguide/AdaptiveButton";
 
+import _API from "@lib/api/Brainly/Legacy";
 import BanUser, { BanType, BAN_TYPES } from "@lib/api/BrainlyForms/BanUser";
 
 import sendToSlack from "@lib/sendToSlack";
+import makeBanMessage from "@utils/makeBanMessage";
 import createProfileLink from "@utils/createProfileLink";
 
 import type { BanMessageReason } from "@typings/";
@@ -38,7 +40,7 @@ export default function BanSection(props: {
     let { banType, activeReason } = banOptions;
 
     if (activeReason.violator) {
-      await sendToSlack(
+      sendToSlack(
         `${System.marketBaseUrl}${createProfileLink(user.id, user.nick)} ${activeReason.title}`,
         "to-delete"
       );
@@ -48,6 +50,16 @@ export default function BanSection(props: {
       userId: user.id,
       type: banType
     }, user.banTokens);
+
+    await _API.SendMessage(
+      user.id,
+      makeBanMessage({
+        banType,
+        deleteAccount: activeReason.violator,
+        reason: activeReason.title,
+        reasonText: activeReason.text
+      })
+    );
     
     onBanned(BAN_TYPES[banType].title);
   };

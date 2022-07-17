@@ -16,6 +16,16 @@ export default function CorrectItemSection() {
   const sendForCorrection = async () => {
     await _API.AskForCorrection(node.id, reason);
 
+    let author = node.author;
+
+    _API.SendMessage(
+      node.author.id, 
+      locales.messages.pleaseCorrectYourAnswer
+        .replace("%nick%", author.nick)
+        .replace("%questionId%", node.taskId?.toString())
+        .replace("%reason%", reason)
+    );
+
     const moderator = System.me.user;
 
     flash("default", locales.answerHasBeenSentForCorrection);
