@@ -660,3 +660,26 @@ a {
 		margin-left: 15px;
 	}
 }
+
+#answers-link {
+	background-color: #5bb8ff;
+	border-radius: 60px;
+	text-align: center;
+	color: white !important;
+	font-size: larger !important;
+	font-weight: bold;
+	font-family: 'system-ui';
+	border: 2px solid #5bb8ff;
+	float: right;
+	padding: 12px 0;
+	margin-bottom: 10px;
+	width: 100%;
+	display: block;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+
+	&:hover {
+		background-color: white;
+		color: #5bb8ff !important;
+	}
+}

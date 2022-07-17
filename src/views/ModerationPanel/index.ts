@@ -3,6 +3,8 @@ import { ExtensionConfigDataInStorage } from '@lib/storage'
 import GetUserProfile from '@lib/api/Brainly/GetUserProfile'
 import BrainlyApi from '@lib/api/Brainly/Legacy'
 import { User } from '@typings/ServerReq'
+import { MeDataType } from '@typings/Brainly'
+import addToResponsesBtn from '@utils/addToResponsesBtn'
 
 interface LocalUser {
 	avatar: string
@@ -110,33 +112,34 @@ function renderSearchUserContainer() {
 	}
 }
 
-function moderationPanel(me: User) {
-	BrainlyApi.GetMe().then((meData) => {
-		chrome.storage.sync.get((storageE) => {
-			let storage = storageE as ExtensionConfigDataInStorage
-			if (!storage.authToken || !storage.newModPanelEnabled) return
-			let link = '/moderation_new/view_moderator/' + me.brainlyId // !!! mod history doesn't work until: token isn't your | you have mentor privileges
-			let archiveLink = 'http://cbse.brainly.in/strive-for-better/RU/archive/'
-			let spamoutRanks = [
-				'spamout',
-				'антиспамер',
-				'старший антиспамер',
-				'старший спамаут',
-			]
-			let slack = spamoutRanks.includes(me.ranks[0].toLowerCase())
-				? 'spamouts'
-				: 'znanija-mod'
-			let forumLink = `https://${slack}.slack.com`
-			let newModMenu = document.querySelector(
-				'.brn-moderation-panel__list > ul > li:nth-child(2)'
-			)
-			let oldModMenu = document.querySelector('#moderate-functions > ul')
-			let newMenu = document.querySelector('.brn-moderation-panel')
-			let newMVSetted = storage.newModPanelEnabled // ? here was storage.modAllNewDesign, I don't know what option to use
+function moderationPanel(
+	me: User,
+	meData: MeDataType,
+	storage: ExtensionConfigDataInStorage
+) {
+	if (!storage.authToken || !storage.newModPanelEnabled) return
+	let link = '/moderation_new/view_moderator/' + me.brainlyId // !!! mod history doesn't work until: token isn't your | you have mentor privileges
+	let archiveLink = 'http://cbse.brainly.in/strive-for-better/RU/archive/'
+	let spamoutRanks = [
+		'spamout',
+		'антиспамер',
+		'старший антиспамер',
+		'старший спамаут',
+	]
+	let slack = spamoutRanks.includes(me.ranks[0].toLowerCase())
+		? 'spamouts'
+		: 'znanija-mod'
+	let forumLink = `https://${slack}.slack.com`
+	let newModMenu = document.querySelector(
+		'.brn-moderation-panel__list > ul > li:nth-child(2)'
+	)
+	let oldModMenu = document.querySelector('#moderate-functions > ul')
+	let newMenu = document.querySelector('.brn-moderation-panel')
+	let newMVSetted = storage.newModPanelEnabled // !!! here was storage.modAllNewDesign, I don't know what option to use
 
-			if (!newMenu) {
-				// old page
-				let newPanel = `<nav class="extension-panel brn-moderation-panel js-moderation-panel sg-hide-for-small-only">
+	if (!newMenu) {
+		// old page
+		let newPanel = `<nav class="extension-panel brn-moderation-panel js-moderation-panel sg-hide-for-small-only">
 		  <div class="sg-content-box">
 			<div class="sg-content-box__actions sg-content-box__actions--with-elements-to-left js-moderation-panel-toggle">
 			  <button class="brn-moderation-panel__button sg-button sg-button--solid sg-button--s" title="Панель модератора">
@@ -164,102 +167,113 @@ function moderationPanel(me: User) {
 			</div>
 		  </div>
 		</nav>`
-				document.querySelector('#moderate-functions-panel')?.remove()
-				document.body.insertAdjacentHTML('afterbegin', newPanel)
+		document.querySelector('#moderate-functions-panel')?.remove()
+		document.body.insertAdjacentHTML('afterbegin', newPanel)
 
-				let panelContent = document.querySelector(
-					'.brn-moderation-panel__content'
-				)
-				if (storage.newModPanelEnabled) panelContent.classList.remove('hidden')
-				;(
-					document.querySelector(
-						'.extension-panel .brn-moderation-panel__button'
-					) as HTMLButtonElement
-				).onclick = () => {
-					panelContent.classList.toggle('hidden')
-					chrome.storage.local.set({
-						newModPanel_expanded: !panelContent.classList.contains('hidden'),
-					})
-				}
-			} else {
-				// new page
-				newModMenu?.insertAdjacentHTML(
-					'afterend',
-					`
+		let panelContent = document.querySelector('.brn-moderation-panel__content')
+		if (storage.newModPanelEnabled) panelContent.classList.remove('hidden')
+		;(
+			document.querySelector(
+				'.extension-panel .brn-moderation-panel__button'
+			) as HTMLButtonElement
+		).onclick = () => {
+			panelContent.classList.toggle('hidden')
+			chrome.storage.local.set({
+				newModPanel_expanded: !panelContent.classList.contains('hidden'),
+			})
+		}
+	} else {
+		// new page
+		newModMenu?.insertAdjacentHTML(
+			'afterend',
+			`
 		  <li class="sg-menu-list__element history" style="height:auto"><a target="_blank" class="sg-menu-list__link" href="${link}">История действий</a><ul class="students sg-menu-list sg-menu-list--small hidden"></ul><li>
 		  <li class="sg-menu-list__element"><a class="sg-menu-list__link" href="${archiveLink}">Архив</a><li>
 		  <li class="sg-menu-list__element"><a class="sg-menu-list__link" href="${forumLink}">Форум</a></li>`
-				)
+		)
 
-				let oldForumLink = newMenu.querySelectorAll(
-					"a[href*='znanija-mod.slack.com']"
-				)?.[slack === 'spamouts' ? 0 : 1]
-				if (oldForumLink) (oldForumLink.parentNode as HTMLElement).remove()
-			}
+		let oldForumLink = newMenu.querySelectorAll(
+			"a[href*='znanija-mod.slack.com']"
+		)?.[slack === 'spamouts' ? 0 : 1]
+		if (oldForumLink) (oldForumLink.parentNode as HTMLElement).remove()
+	}
 
-			document
-				.querySelector('.action-count')
-				?.insertAdjacentHTML(
-					'beforeend',
-					`  <strong>${meData.user.mod_actions_count ?? '?'}</strong>`
-				)
+	document
+		.querySelector('.action-count')
+		?.insertAdjacentHTML(
+			'beforeend',
+			`  <strong>${meData.user.mod_actions_count ?? '?'}</strong>`
+		)
 
-			// !!! What could be storage.students?
-			// 	if (storage.students?.length) {
-			// 		let ranking = await _API.getModRanking()
-			// 		let me = { id: storage.id, nick: storage.nick }
-			// 		let mods = [me, ...storage.students]
+	// !!! What could be storage.students?
+	// 	if (storage.students?.length) {
+	// 		let ranking = await _API.getModRanking()
+	// 		let me = { id: storage.id, nick: storage.nick }
+	// 		let mods = [me, ...storage.students]
 
-			// 		for (let i = 0, mod; i < mods.length, (mod = mods[i]); i++) {
-			// 			for (modInRanking of ranking.data) {
-			// 				if (mod.id !== modInRanking.user_id) continue
-			// 				mods[mods.indexOf(mod)] = { ...mod, actions: modInRanking.value }
-			// 			}
-			// 		}
+	// 		for (let i = 0, mod; i < mods.length, (mod = mods[i]); i++) {
+	// 			for (modInRanking of ranking.data) {
+	// 				if (mod.id !== modInRanking.user_id) continue
+	// 				mods[mods.indexOf(mod)] = { ...mod, actions: modInRanking.value }
+	// 			}
+	// 		}
 
-			// 		let historyElem = document.querySelector('.history > ul')
-			// 		historyElem.innerHTML = mods
-			// 			.map(
-			// 				(moderator) => `<li class="sg-menu-list__element">
-			//   <a target="_blank" class="sg-menu-list__link" href="/moderation_new/view_moderator/${
-			// 			moderator.id
-			// 		}"> ${moderator.nick} (${moderator.actions ?? '0'})</a>
-			// </li>`
-			// 			)
-			// 			.join('')
-			// 		historyElem.parentNode.querySelector('a').onclick = (event) => {
-			// 			historyElem.classList.toggle('hidden')
-			// 			return false
-			// 		}
-			// 	}
-			if (storage.newModPanelEnabled) renderSearchUserContainer()
+	// 		let historyElem = document.querySelector('.history > ul')
+	// 		historyElem.innerHTML = mods
+	// 			.map(
+	// 				(moderator) => `<li class="sg-menu-list__element">
+	//   <a target="_blank" class="sg-menu-list__link" href="/moderation_new/view_moderator/${
+	// 			moderator.id
+	// 		}"> ${moderator.nick} (${moderator.actions ?? '0'})</a>
+	// </li>`
+	// 			)
+	// 			.join('')
+	// 		historyElem.parentNode.querySelector('a').onclick = (event) => {
+	// 			historyElem.classList.toggle('hidden')
+	// 			return false
+	// 		}
+	// 	}
+	if (storage.newModPanelEnabled) renderSearchUserContainer()
 
-			function clearFlashes() {
-				let oldFlashesContainer = document.querySelector('#flash-msg')
-				let newFlashesContainer = document.querySelector(
-					'.flash-messages-container.js-flash-messages.js-flash-messages-container .sg-flash__message.sg-flash__message--info'
-				)
-				let newFlashes = document.querySelectorAll(
-					'.flash-messages-container.js-flash-messages.js-flash-messages-container>.sg-flash'
-				)
+	function clearFlashes() {
+		let oldFlashesContainer = document.querySelector('#flash-msg')
+		let newFlashesContainer = document.querySelector(
+			'.flash-messages-container.js-flash-messages.js-flash-messages-container .sg-flash__message.sg-flash__message--info'
+		)
+		let newFlashes = document.querySelectorAll(
+			'.flash-messages-container.js-flash-messages.js-flash-messages-container>.sg-flash'
+		)
 
-				if (oldFlashesContainer)
-					[...oldFlashesContainer.children].forEach(removeFlash)
-				if (newFlashesContainer) [...newFlashes].forEach(removeFlash)
-			}
+		if (oldFlashesContainer)
+			[...oldFlashesContainer.children].forEach(removeFlash)
+		if (newFlashesContainer) [...newFlashes].forEach(removeFlash)
+	}
 
-			function removeFlash(element: HTMLElement) {
-				if (
-					element.innerText.match(
-						/Слишком много пользователей отвечает этому критерию|Пользователь был заблокирован/
-					)
-				)
-					element.remove()
-			}
-			clearFlashes()
-		})
-	})
+	function removeFlash(element: HTMLElement) {
+		if (
+			element.innerText.match(
+				/Слишком много пользователей отвечает этому критерию|Пользователь был заблокирован/
+			)
+		)
+			element.remove()
+	}
+	clearFlashes()
 }
 
-if (document.getElementsByClassName('sg-button__text').length > 0)
-	ServerReq.GetMe().then((me) => moderationPanel(me))
+let pageIsMyProfile = /users\/view/.test(window.location.href)
+
+if (
+	document.getElementsByClassName('sg-button__text').length > 0 ||
+	pageIsMyProfile
+)
+	ServerReq.GetMe().then((me) => {
+		if (pageIsMyProfile) {
+			addToResponsesBtn(me.brainlyId)
+			document.getElementById('profile-mod-panel').classList.remove('hidden') // only in own profile 'Подробнее' doesn't act
+		}
+		BrainlyApi.GetMe().then((meData) =>
+			chrome.storage.sync.get((storage) =>
+				moderationPanel(me, meData, storage as ExtensionConfigDataInStorage)
+			)
+		)
+	})

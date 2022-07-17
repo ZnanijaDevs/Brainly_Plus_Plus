@@ -1,6 +1,7 @@
 import ServerReq from '@lib/api/Extension'
 import GetWarns from '@lib/api/Brainly/GetWarns'
 import { Warn } from '@typings/'
+import addToResponsesBtn from '@utils/addToResponsesBtn'
 
 class UserProfile {
 	userId: number = +window.location.pathname.match(/(?<=-)\d+/)
@@ -414,15 +415,6 @@ function setUpSubmit() {
 }
 
 function miscStaff(userId: number) {
-	function addBtnToResponses(userId: number) {
-		document
-			.querySelector('#main-right')
-			.insertAdjacentHTML(
-				'afterbegin',
-				`<a id="answers-link" href="/users/user_content/${userId}/responses">Перейти к ответам пользователя</a>`
-			)
-	}
-
 	function limits() {
 		const warnsTxt = document.querySelector(
 			'.fright > span.orange > a'
@@ -510,7 +502,7 @@ function miscStaff(userId: number) {
 			)
 	}
 
-	addBtnToResponses(userId)
+	addToResponsesBtn(userId)
 	limits()
 	showBan()
 }
