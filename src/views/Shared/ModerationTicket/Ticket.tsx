@@ -41,7 +41,7 @@ export default function Ticket(props: {
   };
 
   return (
-    <div id="moderation-ticket-back" onClick={() => closeTicket()}>
+    <div id="moderation-ticket-back" onClick={e => closeTicket(e.isTrusted)}>
       <TopLayer splashScreen size="medium" onClick={e => e.stopPropagation()}>
         <ContentBox>
           <ContentBoxHeader spacedBottom="large" className="moderation-ticket-header">
