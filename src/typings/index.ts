@@ -93,3 +93,9 @@ export type ModerationTicketContextDataType = {
 export type CustomDeletionReason = Omit<DeletionSubcategory, "id" | "matchText"> & {
   modelType: ModelTypeID;
 };
+
+export interface BanMessageReason {
+  violator: boolean;
+  title: string;
+  text: string;
+}

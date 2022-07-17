@@ -4,7 +4,8 @@ export default function Loader() {
   return <ContentLoader 
     title={locales.loading}
     style={{
-      padding: "15px"
+      height: "100%",
+      width: "100%"
     }}
   />;
 }

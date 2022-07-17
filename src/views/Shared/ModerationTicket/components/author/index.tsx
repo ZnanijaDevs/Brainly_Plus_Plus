@@ -5,7 +5,7 @@ import GetUserProfile, { UserDataInProfileType } from "@lib/api/Brainly/GetUserP
 import type { UserDataInModerationTicket } from "@typings/";
 
 import AdaptiveButton from "@styleguide/AdaptiveButton";
-import AuthorPreviewBox from "./AuthorPreviewBox";
+import AuthorPreviewBox from "../authorPreview/AuthorPreviewBox";
 
 export default function AuthorSection({ user }: {
   user: UserDataInModerationTicket;

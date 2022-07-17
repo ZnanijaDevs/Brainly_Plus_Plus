@@ -44,6 +44,20 @@
         margin-right: 8px;
       }
     }
+
+    .sg-select {
+      margin-left: 10px;
+
+      > .sg-select__icon {
+        top: 10px;
+      }
+
+      > select.sg-select__element {
+        height: 36px;
+        width: 118px;
+        font-size: 15px;
+      }
+    }
   }
 
   @include flex;

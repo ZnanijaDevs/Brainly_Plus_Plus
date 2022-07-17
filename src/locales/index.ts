@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 export const locales = {
+  "areYouSureYouWantToDeleteAnswersAsSpam": "Вы уверены, что хотите удалить выбранные ответы как спам с предупреждением?",
   "youDoNotHavePermissionToUseThisExt": "Нет разрешения на использование этого расширения",
   "doYouWantToDeleteAllComments": "Вы уверены, что хотите удалить все комментарии без предупреждения?",
   "doYouWantToDeleteThisAnswerAsSpam": "Вы действительно хотите удалить этот ответ как спам с предупреждением?",
@@ -60,5 +61,12 @@ export const locales = {
     "unexpectedError": "Упс, случилась непредвиденная ошибка"
   },
   "attachmentsWillBeAddedAutomatically": "Ссылки на вложения будут добавлены в причину удаления автоматически",
-  "other": "Другое"
+  "other": "Другое",
+  "openInNewTab": "Открыть в новой вкладке",
+  "deleteAsSpam": "Удалить как спам",
+  "areYouSure": "Вы уверены?",
+  "bans": "Баны",
+  "ban": "Бан",
+  "given": "Выдан",
+  "nothingHere": "Ничего нет.."
 };

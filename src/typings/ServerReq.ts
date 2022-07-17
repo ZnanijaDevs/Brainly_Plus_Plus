@@ -56,17 +56,18 @@ export interface ViewerDataInPageContext {
   ranks: string[];
 }
 
-export type AnswerDataInUserContent = {
+export interface UserAnswerData {
   content: string;
-  has_attachments: boolean;
-  is_approved: boolean;
-  is_reported: boolean;
-  task_id: number;
-}
-
-export type QuestionDataInUserContent = {
-  content: string;
-  has_attachments: boolean;
+  hasAttachments: boolean;
   id: number;
-  is_reported: boolean;
+  isApproved: boolean;
+  isBest: boolean;
+  isReported: boolean;
+  rating: number;
+  thanksCount: number;
+  question: {
+    id: string;
+    databaseId: number;
+    link: string;
+  }
 }

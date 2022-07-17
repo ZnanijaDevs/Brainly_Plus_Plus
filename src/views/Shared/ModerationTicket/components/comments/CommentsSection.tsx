@@ -34,16 +34,13 @@ export default function CommentsSection(props: {
   };
 
   const deleteAllComments = async () => {
-    if (!confirm(locales.doYouWantToDeleteAllComments)) return;
-
     setIsDeleting(true);
-  
-    notDeletedComments.forEach(async (comment, thisCommentIndex) => {
-      if (!ignoredComments.includes(comment.id)) await deleteComment(comment.id, false);
 
-      let lastCommentIndex = notDeletedComments.length - 1;
-      if (thisCommentIndex === lastCommentIndex) setIsDeleting(false);
-    });
+    for await (let comment of notDeletedComments) {
+      if (!ignoredComments.includes(comment.id)) await deleteComment(comment.id, false);
+    }
+  
+    setIsDeleting(false);
   };
 
   const notDeletedComments = comments.filter(comment => !comment.deleted);
@@ -63,7 +60,7 @@ export default function CommentsSection(props: {
           />
         </Flex>
         {System.viewer.canDeleteCommentsInBulk &&
-          <AdaptiveButton disabled={isDeleting || !notDeletedComments.length} type="solid-peach" onClick={deleteAllComments}>
+          <AdaptiveButton showConfirmMessageOnClick={true} disabled={isDeleting || !notDeletedComments.length} type="solid-peach" onClick={deleteAllComments}>
             {locales.deleteAllComments}
           </AdaptiveButton>
         }

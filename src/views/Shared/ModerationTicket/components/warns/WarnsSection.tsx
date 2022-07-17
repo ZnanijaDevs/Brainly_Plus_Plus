@@ -17,6 +17,12 @@ export default function WarnsSection(props: {
 
   if (!warns) return <Spinner size="xsmall" />;
 
+  if (!warns?.length) return (
+    <Headline style={{ alignSelf: "baseline" }} size="small" color="text-red-60">
+      {locales.nothingHere}
+    </Headline>
+  );
+
   return (
     <Flex direction="column">
       <Headline extraBold size="small">

@@ -1,6 +1,7 @@
 import type { DeletionReason, DeletionSubcategory, ViewerDataInPageContext } from "./ServerReq";
 import type { ModelTypeID, Subject } from "./";
 import type { MeDataType } from "./Brainly";
+import type { PageContextDataType } from "@lib/api/Extension";
 
 declare global {
   const EXTENSION_VERSION: string;
@@ -10,6 +11,8 @@ declare global {
 
   // eslint-disable-next-line no-var
   var System: {
+    marketHost: string;
+    marketBaseUrl: string;
     grades: {
       [x: string]: string;
     };
@@ -32,6 +35,8 @@ declare global {
     me: MeDataType;
     userAvatar: string;
     checkP: (id: number) => boolean;
+    userLink: string;
+    banMessage: PageContextDataType["market"]["banMessage"];
   };
 }
 

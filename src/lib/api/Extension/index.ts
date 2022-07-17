@@ -1,23 +1,11 @@
-import type { ModelTypeID, Subject } from "@typings/";
+import type { ModelTypeID, Subject, BanMessageReason } from "@typings/";
 import type { 
   User,
-  AnswerDataInUserContent,
-  QuestionDataInUserContent,
   DeletionReason,
-  ViewerDataInPageContext
+  ViewerDataInPageContext,
+  UserAnswerData
 } from "@typings/ServerReq";
 import { getUserAuthToken } from "@utils/getViewer";
-
-export type UserContentDataType = {
-  answers: {
-    count: number;
-    items: AnswerDataInUserContent[];
-  };
-  questions: {
-    count: number;
-    items: QuestionDataInUserContent[];
-  }
-}
 
 export type PageContextDataType = {
   timestamp: number;
@@ -34,7 +22,20 @@ export type PageContextDataType = {
     };
     specialRanks: string[];
     rankings: {id: number; name: string}[];
+    banMessage: {
+      reminders: string[];
+      accountWillBeDeleted: string;
+      endings: string[];
+      greetings: string[];
+      reasons: BanMessageReason[];
+    }
   };
+}
+
+export type UserAnswersDataType = {
+  count: number;
+  fetchedCount: number;
+  answers: UserAnswerData[];
 }
 
 class ServerReq {
@@ -123,8 +124,8 @@ class ServerReq {
     }>("DELETE", `users/${userId}`);
   }
 
-  async GetUserContent(userId: number) {
-    return await this.Req<UserContentDataType>("GET", `brainly/user_content/${userId}`);
+  async GetUserAnswers(userId: number) {
+    return await this.Req<UserAnswersDataType>("GET", `brainly/userContent/answers/${userId}`);
   }
 
   async GetViewerPageContext() {
