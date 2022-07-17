@@ -2,7 +2,6 @@ import type { BuildOptions } from "esbuild";
 
 import { sassPlugin } from "esbuild-sass-plugin";
 import { copy } from "esbuild-plugin-copy";
-import jsonMerge from "esbuild-plugin-json-merge";
 import stylesPlugin from "@hyrious/esbuild-plugin-style";
 
 import makeEntries from "./makeEntries";
@@ -30,10 +29,6 @@ const buildOptions: BuildOptions = {
         { from: "./src/icons/*", to: "./icons/*" },
         { from: "./src/scripts/*", to: "./scripts/*" },
       ]
-    }),
-    jsonMerge({
-      outfile: "manifest.json",
-      entryPoints: ["manifest.json", { version }]
     }),
   ],
   define: {
