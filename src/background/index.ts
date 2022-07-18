@@ -1,6 +1,7 @@
 import ext from "webextension-polyfill";
 
 import storage from "@lib/storage";
+import { getUserAuthToken } from "@utils/getViewer";
 import setConfigOnInstall from "./setConfigOnInstall";
 
 class BackgroundListener {
@@ -8,7 +9,21 @@ class BackgroundListener {
   private messageData;
 
   constructor() {
+    this.checkUserAuthed();
     this.bindListeners();
+  }
+
+  private async checkUserAuthed() {
+    const userToken = await getUserAuthToken();
+
+    if (!userToken) {
+      console.warn("User not authed");
+      return;
+    }
+
+    ext.action.setIcon({ 
+      path: { 128: "/icons/icon.png" } 
+    });
   }
 
   private bindListeners() {

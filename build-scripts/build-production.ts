@@ -5,7 +5,7 @@ import jsonMerge from "esbuild-plugin-json-merge";
 
 import buildOptions from "./build";
 
-import { version, author } from "../package.json";
+import { version, author, name } from "../package.json";
 import { content_scripts } from "../manifest.json";
 
 // Add Sentry
@@ -20,7 +20,8 @@ buildOptions.plugins.push(
     entryPoints: ["manifest.json", {
       content_scripts,
       version,
-      author
+      author,
+      short_name: name
     }]
   })
 );

@@ -6,7 +6,7 @@
     "128": "icons/icon.png"
   },
   "action": {
-    "default_icon": "icons/icon.png",
+    "default_icon": "icons/icon-gray.png",
     "default_popup": "popup/index.html"
   },
   "host_permissions": [

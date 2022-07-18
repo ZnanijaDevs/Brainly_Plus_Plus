@@ -12,6 +12,7 @@ const entryPoints = {
   ...makeEntries("views/*/index.t{s,sx}", "content-scripts", true),
   ...makeEntries("views/Inject.ts", "content-scripts"),
   ...makeEntries("background/index.ts", "background"),
+  ...makeEntries("popup/scripts/index.ts", "popup")
 };
 
 const buildOptions: BuildOptions = {
@@ -28,6 +29,7 @@ const buildOptions: BuildOptions = {
         { from: "LICENSE.md", to: "./" },
         { from: "./src/icons/*", to: "./icons/*" },
         { from: "./src/scripts/*", to: "./scripts/*" },
+        { from: "./src/popup/index.html", to: "./popup/*" }
       ]
     }),
   ],
