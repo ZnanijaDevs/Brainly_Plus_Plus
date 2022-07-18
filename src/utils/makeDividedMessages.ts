@@ -39,5 +39,5 @@ export default (
     tail = tail.slice(450);
   }
 
-  return messages;
+  return messages.map(text => `\u00AD${text}`);
 };
