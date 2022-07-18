@@ -26,6 +26,8 @@ class Core {
   }
 
   async Init() {
+    if (document.getElementById("cf-error-details")) return;
+
     await this.AuthUser();
     await this.SetUserCustomDeletionReasons();
     await this.SetUserCustomBanReasons();
@@ -44,6 +46,10 @@ class Core {
         "content-scripts/Task/index.js",
         "styles/Task/index.css"
       ]);
+    }
+
+    if (this.checkRoute(/\/messages(\/\d+|\/|$)/)) {
+      await InjectToDOM(["content-scripts/Messages/index.js"]);
     }
 
     await InjectToDOM([

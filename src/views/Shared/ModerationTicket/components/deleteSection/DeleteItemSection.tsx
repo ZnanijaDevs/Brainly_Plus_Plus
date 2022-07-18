@@ -9,6 +9,7 @@ import { useTicketNode } from "../../hooks";
 import AdaptiveButton from "@styleguide/AdaptiveButton";
 import Checkbox from "@styleguide/Checkbox";
 import ReasonTextarea from "./ReasonTextarea";
+import SubcategoryButton from "./SubcategoryButton";
 
 type DeletionOptionsType = {
   giveWarn: boolean;
@@ -50,7 +51,7 @@ export default function DeleteItemSection() {
 
     let attachmentUrls = node.attachments?.map(attachment => attachment.url);
     if (node.attachments?.length && node.isAnswer) 
-      data.reason += ` (${attachmentUrls.join(", ")})`;
+      data.reason += ` ${attachmentUrls.join(" ")}`;
 
     await _API[
       node.isAnswer ? "DeleteAnswer" : "DeleteQuestion"
@@ -80,11 +81,11 @@ export default function DeleteItemSection() {
       </Flex>
       {activeReason && <Flex marginTop="xxs">
         {reasons.find(reason => reason.id === activeReason).subcategories.map(category =>
-          <Radio
-            name={`subcategory-${modelId}`} 
-            key={category.id}
-            onChange={_ => setActiveSubcategory(category)}
-          >{category.title}</Radio>
+          <SubcategoryButton 
+            category={category}
+            selected={category?.id === activeSubcategory?.id}
+            onSelect={() => setActiveSubcategory(category)} 
+          />
         )}
       </Flex>}
       <ReasonTextarea 

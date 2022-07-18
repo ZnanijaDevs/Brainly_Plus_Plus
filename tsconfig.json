@@ -26,7 +26,8 @@
       "@shared/*": ["./views/Shared/*"],
       "@typings/*": ["./typings/*", "./typings"],
       "@locales/*": ["./locales/*"],
-      "@styleguide/*": ["./lib/react-elements/*"]
+      "@styleguide/*": ["./lib/react-elements/*"],
+      "@components": ["./components"]
     }
   }
 }
