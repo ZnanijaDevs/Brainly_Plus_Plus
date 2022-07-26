@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Flex, Select } from "brainly-style-guide";
-import type { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
+import type { UserDataInProfileType } from "@api/Brainly/GetUserProfile";
 
 import AdaptiveButton from "@styleguide/AdaptiveButton";
 
-import _API from "@lib/api/Brainly/Legacy";
-import BanUser, { BanType, BAN_TYPES } from "@lib/api/BrainlyForms/BanUser";
+import _API from "@api/Brainly/Legacy";
+import BanUser, { BanType, BAN_TYPES } from "@api/BrainlyForms/BanUser";
 
 import sendToSlack from "@lib/sendToSlack";
 import makeBanMessage from "@utils/makeBanMessage";

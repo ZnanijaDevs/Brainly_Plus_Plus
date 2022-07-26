@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Flex, Headline, Spinner, Accordion, Link } from "brainly-style-guide";
 
 import type { Warn } from "@typings/";
-import GetWarns from "@lib/api/Brainly/GetWarns";
+import GetWarns from "@api/Brainly/GetWarns";
 
 import WarnEntry from "./WarnEntry";
 

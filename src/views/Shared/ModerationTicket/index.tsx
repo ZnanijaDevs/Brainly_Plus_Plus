@@ -1,12 +1,12 @@
 import chalk from "chalk";
 import { createRoot } from "react-dom/client";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import Flash from "@utils/flashes";
 
 import type { ModerationTicketContextDataType } from "@typings/";
-import { transformNodeInModerationTicket } from "@lib/api/Brainly/transformData";
-import transformQuestionLogEntries from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
+import { transformNodeInModerationTicket } from "@api/Brainly/transformData";
+import transformQuestionLogEntries from "@api/Brainly/transformData/transformQuestionLogEntries";
 import { gradeById, subjectById } from "@utils/getMarketConfig";
 
 import Ticket from "./Ticket";

@@ -1,105 +1,40 @@
+import chalk from "chalk";
 import ext from "webextension-polyfill";
 
-import storage from "@lib/storage";
-import { getUserAuthToken } from "@utils/getViewer";
-import setConfigOnInstall from "./setConfigOnInstall";
+import ServerReq from "@api/Extension";
+import setDefaultConfigInStorage from "./setDefaultConfigInStorage";
+import BackgroundListener from "./backgroundListener";
 
-class BackgroundListener {
-  private tabId: number;
-  private messageData;
+class Background {
+  private userToken: string;
+  private authed = false;
 
   constructor() {
-    this.checkUserAuthed();
-    this.bindListeners();
+    this.Init();
   }
 
-  private async checkUserAuthed() {
-    const userToken = await getUserAuthToken();
+  async Init() {
+    setDefaultConfigInStorage();
 
-    if (!userToken) {
-      console.warn("User not authed");
-      return;
+    await this.CheckUserAuthed();
+
+    new BackgroundListener(); // Init background listeners
+  }
+
+  async CheckUserAuthed() {
+    try {
+      const me = await ServerReq.GetMyAuthData();
+
+      console.log(chalk.green.bold("User authed"), me);
+
+      this.authed = true;
+      this.userToken = ServerReq.userToken;
+
+      ext.action.setIcon({ path: { 128: "/icons/icon.png" } });
+    } catch (err) {
+      console.log(chalk.red.bold("User not authed. All features are turned off!"));
     }
-
-    ext.action.setIcon({ 
-      path: { 128: "/icons/icon.png" } 
-    });
-  }
-
-  private bindListeners() {
-    this.bindListener("InjectStyles", this.injectStyles);
-    this.bindListener("InjectScripts", this.injectScripts);
-    this.bindListener("CheckForPlagiarism", this.checkForPlagiarism);
-
-    ext.runtime.onInstalled.addListener(details => {
-      // If this line is commented out, data in storage will be overwritten with each extension update.
-      // This line should be uncommented in production
-      //  if (details.reason !== "install") return;
-
-      setConfigOnInstall();
-    });
-  }
-
-  private bindListener(type: string, func: () => Promise<unknown>) {
-    ext.runtime.onMessage.addListener((message, sender) => {
-      if (message.type !== type) return;
-
-      this.messageData = message.data;
-      this.tabId = sender.tab.id;
-
-      console.debug(`[${type}] Got a message from tab ${this.tabId}`, this.messageData);
-    
-      return func.bind(this)();
-    });
-  }
-
-  private async injectStyles() {
-    return await ext.scripting.insertCSS({ 
-      files: this.messageData, 
-      target: { tabId: this.tabId }
-    });
-  }
-
-  private async injectScripts() {
-    return await ext.scripting.executeScript({ 
-      files: this.messageData, 
-      target: { tabId: this.tabId } 
-    });
-  }
-
-  private async checkForPlagiarism() {
-    let { 
-      date, 
-      content 
-    } = this.messageData as { date: string; content: string; };
-  
-    content = content
-      .replace(/\r?\n?(відповідь|ответ|пояснення|(пошаговое\s)?объяснение):/gi, "")
-      .replace(/<\/?\w+\s?\/?>/g, " ")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-
-    const splittedDate = date.split("T")[0].split("-");
-
-    let searchEngine = await storage.get("searchEngine");
-    let url;
-
-    if (searchEngine === "yandex") {
-      let encodedQuery = encodeURIComponent(`"${content}" date<${splittedDate.join("")}`);
-      url = `https://yandex.ru/search/?text=${encodedQuery}`;
-    } else {
-      let d = new Date(splittedDate.join("/"));
-      d.setDate(d.getDate() - 1);
-
-      let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
-
-      url = encodeURI(
-        `https://google.com/search?q="${content}"&tbs=cdr:1,cd_min:,cd_max:${formattedDate}`
-      );
-    }
-    
-    ext.tabs.create({ url });
   }
 }
 
-new BackgroundListener();
+new Background();

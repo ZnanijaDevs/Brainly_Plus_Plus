@@ -25,7 +25,7 @@ export default function TicketItemLabels() {
       {!!node.points && <LabelWithPoints text={node.points} />}
       {node.isAnswer && <>
         <Label iconType="heart" type="solid" className="thanks-label">{node.thanksCount}</Label>
-        <Label hidden={!node.isBest} className="label-with-no-text" title={locales.bestAnswer} iconType="crown" color="yellow" type="solid"> </Label>
+        <Label hidden={!node.isBest} className="label-with-no-text" title={locales.bestAnswer} iconType="crown" color="yellow"> </Label>
         <AdaptiveButton classList="check-for-plagiarism" onClick={checkForPlagiarism}>
           {locales.plagiarismWithQMark}
         </AdaptiveButton>

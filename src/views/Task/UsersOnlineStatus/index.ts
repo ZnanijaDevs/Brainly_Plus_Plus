@@ -1,4 +1,4 @@
-import GetUserProfile from "@lib/api/Brainly/GetUserProfile";
+import GetUserProfile from "@api/Brainly/GetUserProfile";
 
 let questionData = JSON.parse(
   $(".js-main-question").attr("data-z")

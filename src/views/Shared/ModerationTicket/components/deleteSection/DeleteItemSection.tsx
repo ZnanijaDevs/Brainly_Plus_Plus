@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Flex, Radio } from "brainly-style-guide";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import type { DeletionSubcategory } from "@typings/ServerReq";
 import flash from "@utils/flashes";
 

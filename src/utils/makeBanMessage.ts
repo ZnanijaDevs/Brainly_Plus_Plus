@@ -1,4 +1,4 @@
-import { BanType, BAN_TYPES } from "@lib/api/BrainlyForms/BanUser";
+import { BanType, BAN_TYPES } from "@api/BrainlyForms/BanUser";
 
 const random = (arr: string[]) => {
   let len = arr?.length;

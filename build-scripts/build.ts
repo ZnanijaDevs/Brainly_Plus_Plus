@@ -6,20 +6,23 @@ import stylesPlugin from "@hyrious/esbuild-plugin-style";
 
 import makeEntries from "./makeEntries";
 import { version } from "../package.json";
+import { version as styleguideVersion } from "brainly-style-guide/package.json";
 
 const entryPoints = {
   ...makeEntries("styles/*/index.scss", "styles", true),
   ...makeEntries("views/*/index.t{s,sx}", "content-scripts", true),
   ...makeEntries("views/Inject.ts", "content-scripts"),
   ...makeEntries("background/index.ts", "background"),
-  ...makeEntries("popup/scripts/index.ts", "popup")
+  "popup/script": `./src/popup/scripts/index.ts`,
+  "popup/style": `./src/popup/styles/index.scss`
 };
 
 const buildOptions: BuildOptions = {
   entryPoints,
   bundle: true,
   loader: {
-    ".tsx": "tsx"
+    ".tsx": "tsx",
+    ".html": "file"
   },
   plugins: [
     stylesPlugin(),
@@ -35,8 +38,11 @@ const buildOptions: BuildOptions = {
   ],
   define: {
     EXTENSION_VERSION: JSON.stringify(version),
+    STYLEGUIDE_VERSION: JSON.stringify(styleguideVersion),
   },
-  inject: ["./src/locales/index.ts"],
+  inject: [
+    "./src/locales/index.ts"
+  ],
   legalComments: "eof"
 };
 

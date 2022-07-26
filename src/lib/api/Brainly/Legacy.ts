@@ -7,7 +7,7 @@ import type {
 } from "@typings/Brainly";
 import makeDividedMessages from "@utils/makeDividedMessages";
 
-/* eslint-disable camelcase, no-console */
+/* eslint-disable no-console */
 
 type LegacyApiSuccessResponse<T> = {
   data: T;

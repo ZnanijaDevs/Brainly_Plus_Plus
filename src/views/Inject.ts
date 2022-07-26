@@ -1,7 +1,7 @@
 import chalk from "chalk";
 
-import ServerReq from "@lib/api/Extension";
-import _API from "@lib/api/Brainly/Legacy";
+import ServerReq from "@api/Extension";
+import _API from "@api/Brainly/Legacy";
 
 import InjectToDOM from "@lib/InjectToDOM";
 import flash from "@utils/flashes";
@@ -9,7 +9,7 @@ import storage from "@lib/storage";
 import { getUserAuthToken } from "@utils/getViewer";
 import ReplaceModerationButtons from "./Task/Moderation";
 
-import type { BanMessageReason, CustomDeletionReason } from "@typings/";
+import type { CustomDeletionReason } from "@typings/";
 import createProfileLink from "@utils/createProfileLink";
 
 const CUSTOM_DELETION_REASONS_CATEGORY_ID = 999;
@@ -50,6 +50,12 @@ class Core {
 
     if (this.checkRoute(/\/messages(\/\d+|\/|$)/)) {
       await InjectToDOM(["content-scripts/Messages/index.js"]);
+    }
+
+    if (this.checkRoute(/\/question\/add\?reported-content/)) {
+      await InjectToDOM([
+        "content-scripts/ReportedContent/index.js"
+      ]);
     }
 
     await InjectToDOM([
@@ -118,7 +124,7 @@ class Core {
   }
 
   async SetUserCustomDeletionReasons() {
-    const reasons = await storage.get<CustomDeletionReason[]>("customDeletionReasons");
+    const reasons = await storage.get("customDeletionReasons");
     if (!reasons?.length || !System.checkP(6)) return;
 
     const reasonsByModelId = System.deletionReasonsByModelId;
@@ -146,7 +152,7 @@ class Core {
   }
 
   async SetUserCustomBanReasons() {
-    const reasons = await storage.get<BanMessageReason[]>("customBanMessageReasons");
+    const reasons = await storage.get("customBanMessageReasons");
 
     System.banMessage.reasons.push(...reasons);
   }

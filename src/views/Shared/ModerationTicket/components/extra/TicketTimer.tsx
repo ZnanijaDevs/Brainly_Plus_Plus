@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTimer } from "react-timer-hook";
 import { Flex, Text, Select } from "brainly-style-guide";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 
 import AdaptiveButton from "@styleguide/AdaptiveButton";
 

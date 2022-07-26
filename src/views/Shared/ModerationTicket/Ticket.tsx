@@ -16,7 +16,7 @@ import {
 } from "brainly-style-guide";
 
 import type { ModerationTicketContextDataType } from "@typings/";
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 
 import TicketTimer from "./components/extra/TicketTimer";
 import ModerationTicketItem from "./ModerationTicketItem";

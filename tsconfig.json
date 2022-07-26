@@ -27,7 +27,9 @@
       "@typings/*": ["./typings/*", "./typings"],
       "@locales/*": ["./locales/*"],
       "@styleguide/*": ["./lib/react-elements/*"],
-      "@components": ["./components"]
+      "@components": ["./components"],
+      "@extension-ws/*": ["./lib/api/Extension/ws/*"],
+      "@api/*": ["./lib/api/*"]
     }
   }
 }

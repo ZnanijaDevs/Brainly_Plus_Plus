@@ -1,4 +1,4 @@
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import storage from "@lib/storage";
 import Build from "@lib/styleguide/Build";
 import { MeDataType } from "@typings/Brainly";

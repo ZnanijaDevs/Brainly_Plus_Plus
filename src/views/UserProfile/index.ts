@@ -1,4 +1,4 @@
-import ServerReq from "@lib/api/Extension";
+import ServerReq from "@api/Extension";
 
 class UserProfile {
   userId: number = +window.location.pathname.match(/(?<=-)\d+/);
@@ -8,7 +8,7 @@ class UserProfile {
   }
 
   async FetchUserFromExtensionServer() {
-    const user = await ServerReq.GetUserByBrainlyID(this.userId);
+    const user = await ServerReq.GetUserByBrainlyId(this.userId);
   
     console.debug("user", user);
   }

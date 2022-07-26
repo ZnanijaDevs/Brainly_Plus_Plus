@@ -1,5 +1,5 @@
 import type { UserAnswerData } from "@typings/ServerReq";
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function DeleteUserAnswersButton(props: {

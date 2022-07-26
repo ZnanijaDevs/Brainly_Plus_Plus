@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import moment from "moment";
 import { Flex, Textarea } from "brainly-style-guide";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import createProfileLink from "@utils/createProfileLink";
 import flash from "@utils/flashes";
 

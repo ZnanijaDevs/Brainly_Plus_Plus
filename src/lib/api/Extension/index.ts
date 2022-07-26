@@ -38,11 +38,24 @@ export type UserAnswersDataType = {
   answers: UserAnswerData[];
 }
 
+type AuthDataType = {
+  privileges: number[];
+  brainlyId: number;
+  isDeveloper: boolean;
+  isMentor: boolean;
+  isModerator: boolean;
+  isSeniorMentor: boolean;
+}
+
 class ServerReq {
-  private readonly serverApiURL = "https://app.br-helper.com/api";
+  private readonly serverApiURL = `${API_SERVER}/api`;
 
   private me: User;
   private authToken: string;
+
+  get userToken() {
+    return this.authToken;
+  }
 
   private async Req<T>(
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
@@ -78,6 +91,10 @@ class ServerReq {
       this.me = await this.Req<User>("GET", "me");
 
     return this.me;
+  }
+
+  async GetMyAuthData() {
+    return await this.Req<AuthDataType>("GET", "me/privileges");
   }
 
   async GetUsers({ cursor, limit }: {

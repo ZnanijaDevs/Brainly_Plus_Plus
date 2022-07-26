@@ -39,7 +39,7 @@
     "space-infix-ops": "error",
     "no-await-in-loop": "error",
     "space-before-blocks": "error",
-    "camelcase": "error",
+    "camelcase": "off",
     "jsx-quotes": "error",
     "quotes": ["error", "double", {
       "allowTemplateLiterals": true

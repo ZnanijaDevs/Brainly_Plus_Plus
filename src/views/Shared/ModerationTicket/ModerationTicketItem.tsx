@@ -1,4 +1,5 @@
 import { useState } from "react";
+import clsx from "clsx";
 import { Box, Flex, Avatar, Text, SeparatorHorizontal } from "brainly-style-guide";
 
 import type { CommonDataInTicketType } from "@typings/";
@@ -17,19 +18,18 @@ import DateTime from "@styleguide/DateTime";
 const TicketItem = () => {
   const { node } = useTicketNode();
 
-  let itemClassName = "moderation-ticket-item";
-
-  if (node.isApproved) 
-    itemClassName += " is-approved";
-  else if (node.isReported) 
-    itemClassName += " is-reported";
-  else if (node.correction)
-    itemClassName += " sent-for-correction";
-  else if (node.isBest)
-    itemClassName += " is-best";
-
   return (
-    <Box className={itemClassName} border padding="xs" color={node.deleted ? "red-40" : "transparent"}>
+    <Box 
+      className={clsx("moderation-ticket-item", {
+        "is-approved": node.isApproved,
+        "is-reported": node.isReported,
+        "sent-for-correction": !!node.correction,
+        "is-best": node.isBest && !node.isApproved
+      })} 
+      border 
+      padding="xs" 
+      color={node.deleted ? "red-40" : "transparent"}
+    >
       {node.isReported && <ReportSection report={node.report} />}
       {!!node.correction && 
         <WrongReportSection edited={node.edited} correction={node.correction} />
