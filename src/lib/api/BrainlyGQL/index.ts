@@ -1,26 +1,66 @@
+import { ApolloClient, gql, HttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
 import cookies from "js-cookie";
 
-const GRAPHQL_ENDPOINT_URL = "/graphql/ru";
-const USER_TOKEN_LONG = cookies.get("Zadanepl_cookie[Token][Long]");
+import DELETE_CONTENT_QUERY from "./queries/DeleteContent.gql";
 
-export default async <T>(
-  query: string,
-  variables?: Record<string, unknown>
-): Promise<T> => {
-  const res = await fetch(GRAPHQL_ENDPOINT_URL, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      "X-B-Token-Long": USER_TOKEN_LONG,
-    },
-    body: JSON.stringify({
-      query,
+class GQL {
+  private readonly endpointURL = "/graphql/ru";
+  private userToken: string = cookies.get("Zadanepl_cookie[Token][Long]");
+  
+  private client: ApolloClient<NormalizedCacheObject>;
+
+  constructor() {
+    const client = new ApolloClient({
+      link: new HttpLink({
+        uri: this.endpointURL,
+        useGETForQueries: true,
+        credentials: "include",
+        headers: {
+          "X-B-Token-Long": this.userToken
+        },
+      }),
+      cache: new InMemoryCache(),
+    });
+
+    this.client = client;
+  }
+
+  async Query(query: string, variables: Record<string, unknown>) {
+    return await this.client.query({
+      query: gql(query),
       variables
-    })
-  });
+    });
+  }
+  
+  async Mutate(mutation: string, variables: Record<string, unknown>) {
+    return await this.client.mutate({
+      mutation: gql(mutation),
+      variables
+    });
+  }
 
-  const data = await res.json();
+  async DeleteContent(data: {
+    id: number;
+    contentType: "question" | "answer" | "comment";
+    giveWarn?: boolean;
+    takePoints?: boolean;
+    returnPoints?: boolean;
+    reason?: string;
+  }) {
+    let contentType = data.contentType;
 
-  return data.data;
-};
+    return await this.Mutate(DELETE_CONTENT_QUERY, {
+      input: {
+        contentId: data.id,
+        giveWarning: data.giveWarn,
+        takePoints: data.takePoints,
+        returnPoints: data.returnPoints,
+        reason: data.reason,
+        reasonId: 0,
+        contentType,
+      }
+    });
+  }
+}
+
+export default new GQL();

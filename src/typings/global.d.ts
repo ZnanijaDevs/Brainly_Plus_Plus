@@ -11,6 +11,7 @@ declare global {
   const EVENTS_SERVER: string;
 
   const locales: typeof import("../locales").locales;
+  const flash: typeof import("../utils/flashes").flash;
 
   // eslint-disable-next-line no-var
   var System: {

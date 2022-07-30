@@ -25,6 +25,7 @@
   "homepage": "https://github.com/vlaex/Brainly_Plus_Plus#readme",
   "devDependencies": {
     "@hyrious/esbuild-plugin-style": "^0.3.5",
+    "@types/graphql": "^14.5.0",
     "@types/jquery": "^3.5.14",
     "@types/js-cookie": "^3.0.2",
     "@types/react": "^18.0.15",
@@ -32,6 +33,7 @@
     "@types/webextension-polyfill": "^0.9.0",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
+    "apollo": "^2.34.0",
     "bestzip": "^2.2.1",
     "esbuild": "^0.14.50",
     "esbuild-plugin-copy": "^1.3.0",
@@ -48,10 +50,12 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.9",
     "@sentry/browser": "^7.7.0",
     "brainly-style-guide": "^217.0.0",
     "chalk": "^5.0.1",
     "clsx": "^1.2.1",
+    "graphql": "^16.5.0",
     "js-cookie": "^3.0.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.34",

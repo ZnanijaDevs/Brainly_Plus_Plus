@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { createRoot } from "react-dom/client";
 
 import _API from "@api/Brainly/Legacy";
-import Flash from "@utils/flashes";
 
 import type { ModerationTicketContextDataType } from "@typings/";
 import { transformNodeInModerationTicket } from "@api/Brainly/transformData";
@@ -80,6 +79,6 @@ export default async function OpenTicket(
     document.body.style.overflow = "hidden";
   } catch (err) {
     console.error(err);
-    if (options.showFlashOnError) Flash("default", err.message);
+    if (options.showFlashOnError) flash("default", err.message);
   }
 }

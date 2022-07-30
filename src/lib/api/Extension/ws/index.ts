@@ -1,7 +1,7 @@
 import { getUserAuthToken } from "@utils/getViewer";
 
 /**
- * This class is used to catch and generate real-time user events in the extension.
+ * This class is used to handle and generate real-time user events in the extension.
  */
 class LiveAction {
   private liveServerHost = "http://localhost:8000";

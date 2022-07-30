@@ -18,10 +18,10 @@ import {
 import type { ModerationTicketContextDataType } from "@typings/";
 import _API from "@api/Brainly/Legacy";
 
+import { AdaptiveButton } from "@components";
 import TicketTimer from "./components/extra/TicketTimer";
 import ModerationTicketItem from "./ModerationTicketItem";
 import QuestionLogSection from "./components/log";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function Ticket(props: {
   questionId: number;

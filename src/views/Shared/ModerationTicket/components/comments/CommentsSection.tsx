@@ -4,10 +4,8 @@ import { Flex, Headline } from "brainly-style-guide";
 import type { CommonDataInTicketType } from "@typings/";
 import _API from "@api/Brainly/Legacy";
 
-import Flash from "@utils/flashes";
-
+import { AdaptiveButton } from "@components";
 import Comment from "./Comment";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function CommentsSection(props: {
   comments: CommonDataInTicketType[];
@@ -29,7 +27,7 @@ export default function CommentsSection(props: {
         })
       );
     } catch (err) {
-      Flash("error", err);
+      flash("error", err);
     }
   };
 

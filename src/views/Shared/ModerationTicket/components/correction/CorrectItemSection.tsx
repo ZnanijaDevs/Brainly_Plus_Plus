@@ -4,9 +4,8 @@ import { Flex, Textarea } from "brainly-style-guide";
 
 import _API from "@api/Brainly/Legacy";
 import createProfileLink from "@utils/createProfileLink";
-import flash from "@utils/flashes";
 
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton } from "@components";
 import { useTicketNode } from "../../hooks";
 
 export default function CorrectItemSection() {

@@ -4,7 +4,6 @@ import ServerReq from "@api/Extension";
 import _API from "@api/Brainly/Legacy";
 
 import InjectToDOM from "@lib/InjectToDOM";
-import flash from "@utils/flashes";
 import storage from "@lib/storage";
 import { getUserAuthToken } from "@utils/getViewer";
 import ReplaceModerationButtons from "./Task/Moderation";

@@ -1,8 +1,7 @@
 import { Flex, Label } from "brainly-style-guide";
 
 import { useTicketNode } from "../../hooks";
-import LabelWithPoints from "@styleguide/LabelWithPoints";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton, LabelWithPoints } from "@components";
 import ToBackground from "@lib/ToBackground";
 
 export default function TicketItemLabels() {

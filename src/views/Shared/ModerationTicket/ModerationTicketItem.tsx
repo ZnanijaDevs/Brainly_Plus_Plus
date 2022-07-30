@@ -13,7 +13,7 @@ import CommentsSection from "./components/comments/CommentsSection";
 import AttachmentsSection from "./components/attachments/AttachmentsSection";
 import ItemActionsSection from "./components/extra/ItemActionsSection";
 
-import DateTime from "@styleguide/DateTime";
+import { DateTime } from "@components";
 
 const TicketItem = () => {
   const { node } = useTicketNode();

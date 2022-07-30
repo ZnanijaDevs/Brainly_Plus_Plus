@@ -1,5 +1,6 @@
-import { Checkbox, Separator } from "@components";
+// TODO: replace this with React components
 
+/* import { Checkbox, Separator } from "@components";
 class Messages {
   hideMessages = true;
 
@@ -7,7 +8,7 @@ class Messages {
     this.RenderCheckbox();
     this.AddObserver();
 
-    this.CheckMessages();
+    this.CheckMessa ges();
   }
 
   CheckMessages() {
@@ -42,4 +43,4 @@ class Messages {
   }
 }
 
-new Messages();
+new Messages(); */

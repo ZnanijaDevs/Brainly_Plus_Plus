@@ -1,6 +1,7 @@
 import ext from "webextension-polyfill";
 
-export default (
+/** Show a flash message */
+export const flash = (
   type: "info" | "error" | "success" | "default",
   text: string | Error,
   options?: Partial<{

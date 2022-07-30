@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Icon, IconPropsType, IconType } from "brainly-style-guide";
 
-import Flash from "@utils/flashes";
-
 type ButtonType = 
   | "solid"
   | "solid-inverted"
@@ -80,7 +78,7 @@ export default function AdaptiveButton(props: AdaptiveButtonPropsType) {
       try {
         await props.onClick(e);
       } catch (err) {
-        Flash("error", err);
+        flash("error", err);
       } finally {
         setLoading(false);
       }

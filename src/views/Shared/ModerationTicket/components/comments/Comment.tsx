@@ -4,8 +4,7 @@ import clsx from "clsx";
 
 import type { CommonDataInTicketType } from "@typings/";
 import _API from "@api/Brainly/Legacy";
-import DateTime from "@styleguide/DateTime";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { DateTime, AdaptiveButton } from "@components";
 
 export default function Comment(props: {
   data: CommonDataInTicketType;

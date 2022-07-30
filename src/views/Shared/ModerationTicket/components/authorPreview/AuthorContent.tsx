@@ -8,8 +8,7 @@ import {
 import type { UserAnswerData } from "@typings/ServerReq";
 import ServerReq, { UserAnswersDataType } from "@api/Extension";
 
-import Checkbox from "@styleguide/Checkbox";
-import Loader from "@styleguide/Loader";
+import { Checkbox, Loader } from "@components";
 import DeleteUserAnswersButton from "./DeleteUserAnswersButton";
 import OpenAnswersButton from "./OpenAnswersButton";
 

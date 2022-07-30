@@ -4,10 +4,12 @@ import { Flex, Text, Select } from "brainly-style-guide";
 
 import _API from "@api/Brainly/Legacy";
 
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton } from "@components";
+
+type TicketTime = 5 | 10 | 15;
 
 const addZero = (n: number) => String(n).length < 2 ? `0${n}` : n;
-const PROLONG_TICKET_MINUTES = [5, 10, 15];
+const PROLONG_TICKET_MINUTES: TicketTime[] = [5, 10, 15];
 
 export default function TicketTimer(props: {
   ticketId: number;
@@ -37,9 +39,10 @@ export default function TicketTimer(props: {
         options={PROLONG_TICKET_MINUTES.map(minute => 
           ({ value: minute.toString(), text: `${minute} ${locales.minutes}` })
         )} 
-        onChange={
-          e => setSelectedTime(+e.currentTarget.value as 5 | 10 | 15)
-        }
+        onChange={e => {
+          let value = +(e.currentTarget as HTMLSelectElement).value;
+          setSelectedTime(value as TicketTime);
+        }}
       />
       <AdaptiveButton
         icon={{ type: "plus", color: "icon-indigo-50", size: 16 }}

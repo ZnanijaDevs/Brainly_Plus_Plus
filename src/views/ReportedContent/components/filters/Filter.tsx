@@ -2,8 +2,7 @@ import clsx from "clsx";
 import { Icon, Text, Flex } from "brainly-style-guide";
 import { useState } from "react";
 
-import AdaptiveButton from "@styleguide/AdaptiveButton";
-import Checkbox from "@styleguide/Checkbox";
+import { AdaptiveButton, Checkbox } from "@components";
 
 const CLASS_NAME = "reported-content-filter";
 

@@ -4,7 +4,7 @@ import { Flex, Text, Icon, IconPropsType, IconType } from "brainly-style-guide";
 import type { QuestionLogEntry, QuestionLogEntryClassType } from "@typings/Brainly";
 import replaceTextWithLinks from "@utils/replaceTextWithLinks";
 
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton } from "@components";
 
 const ENTRY_ICONS: Record<
   QuestionLogEntryClassType, { color: IconPropsType["color"], type: IconType; }

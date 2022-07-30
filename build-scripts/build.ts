@@ -22,7 +22,8 @@ const buildOptions: BuildOptions = {
   bundle: true,
   loader: {
     ".tsx": "tsx",
-    ".html": "file"
+    ".html": "file",
+    ".gql": "text"
   },
   plugins: [
     stylesPlugin(),
@@ -41,7 +42,8 @@ const buildOptions: BuildOptions = {
     STYLEGUIDE_VERSION: JSON.stringify(styleguideVersion),
   },
   inject: [
-    "./src/locales/index.ts"
+    "./src/locales/index.ts",
+    "./src/utils/flashes.ts"
   ],
   legalComments: "eof"
 };

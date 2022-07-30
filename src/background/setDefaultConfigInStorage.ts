@@ -13,8 +13,8 @@ export default async () => {
    * Check if the extension storage is empty.
    * Comment out the lines below if you want to update the config on reload.
    */
-  // const bytesInUse = await storage.getBytesInUse();
-  // if (bytesInUse !== 0) return;
+  const bytesInUse = await storage.getBytesInUse();
+  if (bytesInUse !== 0) return;
 
   await storage.set(DEFAULT_CONFIG);
   console.debug("Set default extension config in the storage", DEFAULT_CONFIG);
