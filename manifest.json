@@ -6,24 +6,13 @@
     "128": "icons/icon.png"
   },
   "action": {
-    "default_icon": "icons/icon.png",
+    "default_icon": "icons/icon-gray.png",
     "default_popup": "popup/index.html"
   },
   "host_permissions": [
     "*://znanija.com/*",
     "*://brainly-ru.brainly.tech/*"
   ],
-  "permissions": ["storage", "scripting"],
-  "content_scripts": [{
-    "matches": ["*://znanija.com/*", "*://brainly-ru.brainly.tech/*"],
-    "js": [
-      "scripts/react.production.min.js",
-      "scripts/react-dom.production.min.js",
-      "scripts/jquery-3.6.0.min.js",
-      "content-scripts/Inject.js"
-    ],
-    "run_at": "document_idle"
-  }],
   "background": {
     "service_worker": "background/index.js"
   },
@@ -31,5 +20,26 @@
     "resources": ["icons/*"],
     "matches": ["<all_urls>"],
     "use_dynamic_url": true
-  }]
+  }],
+  "permissions": ["storage", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["*://znanija.com/*", "*://brainly-ru.brainly.tech/*"],
+      "js": [
+        "scripts/react.production.min.js",
+        "scripts/react-dom.production.min.js",
+        "scripts/jquery-3.6.0.min.js",
+        "content-scripts/Inject.js"
+      ],
+      "run_at": "document_idle"
+    }, 
+    {
+      "matches": [
+        "*://znanija.com/question/add?reported-content", 
+        "*://brainly-ru.brainly.tech/question/add?reported-content"
+      ],
+      "run_at": "document_start",
+      "css": ["styles/ReportedContent/index.css"]
+    }
+  ]
 }

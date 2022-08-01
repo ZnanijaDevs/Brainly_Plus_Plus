@@ -2,7 +2,7 @@ import Moment from "react-moment";
 import "moment-timezone";
 import "moment/locale/ru";
 
-const DATE_FORMAT = "DD.MM.YYYY";
+const DATE_FORMAT = "DD.MM.YYYY, HH:mm:ss";
 const TIMEZONE = "Europe/Moscow";
 const LOCALE = "ru";
 

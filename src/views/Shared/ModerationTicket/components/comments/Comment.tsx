@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Box, Flex, Text, Avatar } from "brainly-style-guide";
-import type { CommonDataInTicketType } from "@typings/";
+import { Box, Flex, Text, Avatar, BoxPropsType } from "brainly-style-guide";
+import clsx from "clsx";
 
-import _API from "@lib/api/Brainly/Legacy";
-import DateTime from "@styleguide/DateTime";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import type { CommonDataInTicketType } from "@typings/";
+import _API from "@api/Brainly/Legacy";
+import { DateTime, AdaptiveButton } from "@components";
 
 export default function Comment(props: {
   data: CommonDataInTicketType;
@@ -21,13 +21,20 @@ export default function Comment(props: {
     props.onIgnore(comment.id, commentIgnored);
   }, [commentIgnored]);
 
-  let commentColor = reported ? "red-20" : comment.deleted ? "red-40" : "transparent";
-  let commentClassName = `
-    moderation-ticket-comment ${(commentIgnored && !comment.deleted) ? "comment-with-stripes" : ""}
-  `;
+  let commentColor: BoxPropsType["color"] = reported ? 
+    "red-20" : 
+    comment.deleted ? "red-40" : "transparent";
 
   return (
-    <Box border borderColor={reported ? "red-40" : "gray-20"} padding="xs" color={commentColor} className={commentClassName}>
+    <Box 
+      border 
+      borderColor={reported ? "red-40" : "gray-20"} 
+      padding="xs" 
+      color={commentColor} 
+      className={clsx("moderation-ticket-comment", {
+        "comment-with-stripes": commentIgnored && !comment.deleted
+      })}
+    >
       <div>
         <a href={author.profileLink} title={author.nick} target="_blank">
           <Avatar imgSrc={author.avatar} size="xs" />
@@ -64,6 +71,7 @@ export default function Comment(props: {
             icon={{ type: "dot", size: 24, color: "icon-white" }}
             onClick={_ => setCommentIgnored(prevState => !prevState)}
             classList="ignore-comment"
+            title={locales.ignoreComment}
           />}
         </Flex>
       </div>

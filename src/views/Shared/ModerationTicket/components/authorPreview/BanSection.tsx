@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Flex, Select } from "brainly-style-guide";
-import type { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
+import type { UserDataInProfileType } from "@api/Brainly/GetUserProfile";
 
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton } from "@components";
 
-import BanUser, { BanType, BAN_TYPES } from "@lib/api/BrainlyForms/BanUser";
+import _API from "@api/Brainly/Legacy";
+import BanUser, { BanType, BAN_TYPES } from "@api/BrainlyForms/BanUser";
 
 import sendToSlack from "@lib/sendToSlack";
+import makeBanMessage from "@utils/makeBanMessage";
 import createProfileLink from "@utils/createProfileLink";
 
 import type { BanMessageReason } from "@typings/";
@@ -38,7 +40,7 @@ export default function BanSection(props: {
     let { banType, activeReason } = banOptions;
 
     if (activeReason.violator) {
-      await sendToSlack(
+      sendToSlack(
         `${System.marketBaseUrl}${createProfileLink(user.id, user.nick)} ${activeReason.title}`,
         "to-delete"
       );
@@ -48,6 +50,16 @@ export default function BanSection(props: {
       userId: user.id,
       type: banType
     }, user.banTokens);
+
+    await _API.SendMessage(
+      user.id,
+      makeBanMessage({
+        banType,
+        deleteAccount: activeReason.violator,
+        reason: activeReason.title,
+        reasonText: activeReason.text
+      })
+    );
     
     onBanned(BAN_TYPES[banType].title);
   };
@@ -75,7 +87,8 @@ export default function BanSection(props: {
           options={reasons.map(reason => ({ value: reason.text, text: reason.title }))}
           value={banOptions.activeReason.text}
           onChange={e => {
-            let thisReason = reasons.find(reason => reason.text === e.currentTarget.value);
+            let value = (e.currentTarget as HTMLSelectElement).value;
+            let thisReason = reasons.find(reason => reason.text === value);
             if (!thisReason) return;
 
             let updatedData = { activeReason: thisReason };

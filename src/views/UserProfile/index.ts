@@ -1,7 +1,8 @@
-import ServerReq from '@lib/api/Extension'
 import GetWarns from '@lib/api/Brainly/GetWarns'
 import { Warn } from '@typings/'
 import addToResponsesBtn from '@utils/addToResponsesBtn'
+
+import ServerReq from "@api/Extension";
 
 class UserProfile {
 	userId: number = +window.location.pathname.match(/(?<=-)\d+/)
@@ -10,10 +11,12 @@ class UserProfile {
 		this.FetchUserFromExtensionServer()
 	}
 
-	async FetchUserFromExtensionServer() {
-		const user = await ServerReq.GetUserByBrainlyId(this.userId)
-		console.debug('user', user)
-	}
+
+  async FetchUserFromExtensionServer() {
+    const user = await ServerReq.GetUserByBrainlyId(this.userId);
+  
+    console.debug("user", user);
+  }
 }
 
 interface template {

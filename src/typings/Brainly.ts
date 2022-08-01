@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 export type QuestionLogEntryClassType = 
   | "accepted"
   | "added"

@@ -5,3 +5,4 @@ build/
 dist/
 production-build.zip
 .sentry-dsn
+schema-*.graphql

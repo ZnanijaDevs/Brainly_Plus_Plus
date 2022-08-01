@@ -2,14 +2,18 @@
 @use "./mixins";
 
 .sg-toplayer .sg-visually-hidden,
-.sg-toplayer [aria-hidden="true"]:not(use, .sg-avatar__icon, .sg-icon, .sg-checkbox__ghost, .sg-radio__ghost),
+.sg-toplayer [aria-hidden="true"]:not(
+  use,
+  .sg-avatar__icon,
+  .sg-icon,
+  .sg-checkbox__ghost,
+  .sg-radio__ghost,
+  .sg-checkbox__icon,
+  .sg-radio__circle
+),
 .hidden:not(#profile-mod-panel),
 [hidden] {
   display: none !important;
-}
-
-.sg-checkbox {
-  gap: 5px;
 }
 
 .opacity-0 {
@@ -31,13 +35,13 @@
   margin-left: auto;
 }
 
+// Buttons
 .sg-button.sg-button--xs {
   width: 26px;
   height: 26px;
   padding: 1px;
 }
 
-// Buttons
 $new-button-styles: (
   "peach": ("color": $peach, "onActive": $peach-dark),
   "orange": ("color": $orange, "onActive": $orange-dark),

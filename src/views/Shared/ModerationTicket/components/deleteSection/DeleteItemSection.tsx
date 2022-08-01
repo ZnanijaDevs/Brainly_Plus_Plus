@@ -1,21 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Flex, Radio } from "brainly-style-guide";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import type { DeletionSubcategory } from "@typings/ServerReq";
-import flash from "@utils/flashes";
 
 import { useTicketNode } from "../../hooks";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
-import Checkbox from "@styleguide/Checkbox";
+import { Checkbox, AdaptiveButton } from "@components";
 import ReasonTextarea from "./ReasonTextarea";
-
-type DeletionOptionsType = {
-  giveWarn: boolean;
-  reason: string;
-  returnPoints?: boolean;
-  takePoints: boolean;
-};
+import SubcategoryButton from "./SubcategoryButton";
 
 export default function DeleteItemSection() {
   const { node, updateNode } = useTicketNode();
@@ -26,35 +18,21 @@ export default function DeleteItemSection() {
   const [activeReason, setActiveReason] = useState<number>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<DeletionSubcategory>(null);
 
-  const [deleteOptions, setDeleteOptions] = useState<DeletionOptionsType>();
-
-  const updateDeleteOptions = (options: Partial<DeletionOptionsType>) => {
-    setDeleteOptions(prevState => 
-      ({ ...prevState, ...options })
-    );
-  };
-
-  useEffect(() => {
-    if (!activeSubcategory) return;
-
-    setDeleteOptions({
-      giveWarn: activeSubcategory.withWarn,
-      takePoints: activeSubcategory.takePoints,
-      returnPoints: activeSubcategory.returnPoints,
-      reason: activeSubcategory.text
-    });
-  }, [activeSubcategory]);
-
   const deleteItem = async () => {
-    let data = { ...deleteOptions };
+    let data = {
+      id: node.id,
+      takePoints: activeSubcategory.takePoints,
+      reason: activeSubcategory.text,
+      returnPoints: activeSubcategory.returnPoints,
+      giveWarn: activeSubcategory.withWarn,
+    };
 
     let attachmentUrls = node.attachments?.map(attachment => attachment.url);
-    if (node.attachments?.length && node.isAnswer) 
-      data.reason += ` (${attachmentUrls.join(", ")})`;
+    if (node.attachments?.length && node.isAnswer) data.reason += ` ${attachmentUrls.join(" ")}`;
 
     await _API[
       node.isAnswer ? "DeleteAnswer" : "DeleteQuestion"
-    ]({ ...data, id: node.id });
+    ](data);
 
     updateNode({ deleted: true });
 
@@ -65,6 +43,12 @@ export default function DeleteItemSection() {
 
       setTimeout(() => document.getElementById("moderation-ticket-back").click(), 3000);
     }
+  };
+
+  const setSubcategory = (data: Partial<DeletionSubcategory>) => {
+    setActiveSubcategory(category => 
+      ({ ...category, ...data })
+    );
   };
 
   return (
@@ -80,37 +64,37 @@ export default function DeleteItemSection() {
       </Flex>
       {activeReason && <Flex marginTop="xxs">
         {reasons.find(reason => reason.id === activeReason).subcategories.map(category =>
-          <Radio
-            name={`subcategory-${modelId}`} 
-            key={category.id}
-            onChange={_ => setActiveSubcategory(category)}
-          >{category.title}</Radio>
+          <SubcategoryButton 
+            category={category}
+            selected={category?.id === activeSubcategory?.id}
+            onSelect={() => setSubcategory(category)} 
+          />
         )}
       </Flex>}
       <ReasonTextarea 
-        defaultReason={deleteOptions?.reason}
-        onChange={value => updateDeleteOptions({ reason: value })}
+        defaultReason={activeSubcategory?.text}
+        onChange={value => setSubcategory({ text: value })}
       />
       <Flex alignItems="center" marginTop="xxs">
-        <AdaptiveButton type="solid-peach" disabled={activeReason === null} onClick={deleteItem}>
+        <AdaptiveButton type="solid-peach" disabled={!activeSubcategory} onClick={deleteItem}>
           {locales.delete}
         </AdaptiveButton>
         <Checkbox 
           text={locales.takePtsFromAnswerers}
           checked={activeSubcategory?.takePoints}
-          onChange={checked => updateDeleteOptions({ takePoints: checked })}
+          onChange={checked => setSubcategory({ takePoints: checked })}
         />
         {node.modelType === "question" && 
           <Checkbox 
             text={locales.takePtsFromAsker}
             checked={!activeSubcategory?.returnPoints} 
-            onChange={checked => updateDeleteOptions({ returnPoints: !checked })}
+            onChange={checked => setSubcategory({ returnPoints: !checked })}
           />
         }
         <Checkbox 
           text={locales.warn}
           checked={activeSubcategory?.withWarn} 
-          onChange={checked => updateDeleteOptions({ giveWarn: checked })}
+          onChange={checked => setSubcategory({ withWarn: checked })}
         />
       </Flex>
     </Flex>

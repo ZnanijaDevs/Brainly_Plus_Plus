@@ -1,10 +1,9 @@
 import chalk from "chalk";
 
-import ServerReq from "@lib/api/Extension";
-import _API from "@lib/api/Brainly/Legacy";
+import ServerReq from "@api/Extension";
+import _API from "@api/Brainly/Legacy";
 
 import InjectToDOM from "@lib/InjectToDOM";
-import flash from "@utils/flashes";
 import storage from "@lib/storage";
 import { getUserAuthToken } from "@utils/getViewer";
 import ReplaceModerationButtons from "./Task/Moderation";
@@ -26,9 +25,12 @@ class Core {
   }
 
   async Init() {
+    if (document.getElementById("cf-error-details")) return;
+
     await this.AuthUser();
     await this.SetUserCustomDeletionReasons();
-    
+    await this.SetUserCustomBanReasons();
+
     if (this.checkRoute(/\/$|(predmet\/\w+$)/)) {
       await InjectToDOM([
         "content-scripts/HomePage/index.js",
@@ -51,13 +53,19 @@ class Core {
         "styles/UserProfile/index.css"
       ]);
     }
+    
+    if (this.checkRoute(/\/messages(\/\d+|\/|$)/)) {
+      await InjectToDOM(["content-scripts/Messages/index.js"]);
+    }
+
+    if (this.checkRoute(/\/question\/add\?reported-content/)) {
+      await InjectToDOM([
+        "content-scripts/ReportedContent/index.js"
+      ]);
+    }
 
     await InjectToDOM([
       "content-scripts/ModerationPanel/index.js",
-      "styles/ModerationPanel/index.css"
-    ]);
-
-    await InjectToDOM([
       "styles/ModerationTicket/index.css"
     ]);
   }
@@ -90,7 +98,7 @@ class Core {
           deletionReasonsAsArray.push(...reason.subcategories);
         }
       }
-    
+
       globalThis.System = {
         marketHost: market.host,
         marketBaseUrl: `https://${market.host}`,
@@ -123,7 +131,7 @@ class Core {
   }
 
   async SetUserCustomDeletionReasons() {
-    const reasons = await storage.get<CustomDeletionReason[]>("customDeletionReasons");
+    const reasons = await storage.get("customDeletionReasons");
     if (!reasons?.length || !System.checkP(6)) return;
 
     const reasonsByModelId = System.deletionReasonsByModelId;
@@ -148,6 +156,12 @@ class Core {
         )
       });
     }
+  }
+
+  async SetUserCustomBanReasons() {
+    const reasons = await storage.get("customBanMessageReasons");
+
+    System.banMessage.reasons.push(...reasons);
   }
 }
 

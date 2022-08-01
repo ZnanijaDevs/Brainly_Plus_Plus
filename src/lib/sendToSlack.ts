@@ -6,7 +6,7 @@ export default async function sendToSlack(
   message: string,
   channel: string
 ) {
-  const slackToken = await storage.get<string>("slackToken");
+  const slackToken = await storage.get("slackToken");
 
   const data = {
     channel,

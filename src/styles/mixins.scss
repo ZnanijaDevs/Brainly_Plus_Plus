@@ -44,3 +44,11 @@
 @mixin smooth-transition($time: 0.3s) {
   transition-duration: $time;
 }
+
+@mixin shadow {
+  box-shadow: -1px 3px 16px 1px rgb(2 10 27 / 15%);
+}
+
+@mixin no-padding {
+  padding: 0 !important;
+}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Flex } from "brainly-style-guide";
 import Viewer from "react-viewer";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import { useTicketNode } from "../..//hooks";
 
 import Attachment from "./Attachment";

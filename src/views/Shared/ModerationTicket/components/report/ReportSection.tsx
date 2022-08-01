@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Box, Flex, Icon, Breadcrumb, Link, Text, SeparatorVertical } from "brainly-style-guide";
 
 import type { ReportDataInModerationTicket } from "@typings/";
-import GetUserProfile, { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
+import GetUserProfile, { UserDataInProfileType } from "@api/Brainly/GetUserProfile";
 
-import DateTime from "@styleguide/DateTime";
+import { DateTime } from "@components";
 import ReportIconWithText from "./ReportIconWithText";
 
 export default function ReportSection(props: {

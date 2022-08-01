@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "api": "https://app.br-helper.com",
+    "events": "http://localhost:8000"
+  },
+  "production": {
+    "api": "https://app.br-helper.com",
+    "events": "https://app-live.br-helper.com"
+  }
+}

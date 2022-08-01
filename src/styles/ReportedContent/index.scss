@@ -1,0 +1,19 @@
+@import "../mixins";
+@import "../colors";
+@import "./filters";
+
+.sg-layout__content,
+.sg-layout__aside-content,
+div[class*="Header-module__subnav"] {
+  display: none !important;
+}
+
+.js-main-container.sg-layout__container {
+  margin: 0;
+  max-width: 100vw;
+  flex-direction: column;
+}
+
+.sg-layout > .brn-header-container {
+  padding-top: 75px;
+}

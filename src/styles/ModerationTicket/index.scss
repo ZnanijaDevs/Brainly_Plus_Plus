@@ -58,6 +58,31 @@
         font-size: 15px;
       }
     }
+
+    .sg-radio {
+      margin-right: 12px;
+
+      .sg-radio__element {
+        width: auto;
+      }
+    }
+
+    .sg-checkbox,
+    .sg-radio {
+      @include no-padding;
+
+      .sg-checkbox__element,
+      .sg-radio__element {
+        height: auto;
+      }
+
+      .sg-checkbox__label,
+      .sg-radio__label {
+        @include no-padding;
+
+        font-size: 15px;
+      }
+    }
   }
 
   @include flex;

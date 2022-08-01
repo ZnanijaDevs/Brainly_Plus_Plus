@@ -1,4 +1,4 @@
-import type { EntriesByDateDataType } from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
+import type { EntriesByDateDataType } from "@api/Brainly/transformData/transformQuestionLogEntries";
 import type { DeletionSubcategory } from "./ServerReq";
 
 export interface Subject {

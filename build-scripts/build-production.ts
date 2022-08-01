@@ -1,12 +1,12 @@
-/* eslint-disable camelcase */
 import fs from "fs";
 import { build } from "esbuild";
 import jsonMerge from "esbuild-plugin-json-merge";
 
 import buildOptions from "./build";
 
-import { version, author } from "../package.json";
+import { version, author, name } from "../package.json";
 import { content_scripts } from "../manifest.json";
+import servers from "./servers.json";
 
 // Add Sentry
 const SENTRY_DSN = fs.readFileSync(".sentry-dsn", "utf-8");
@@ -20,12 +20,15 @@ buildOptions.plugins.push(
     entryPoints: ["manifest.json", {
       content_scripts,
       version,
-      author
+      author,
+      short_name: name
     }]
   })
 );
 
 buildOptions.define["SENTRY_DSN"] = JSON.stringify(SENTRY_DSN);
+buildOptions.define["API_SERVER"] = JSON.stringify(servers.production.api);
+buildOptions.define["EVENTS_SERVER"] = JSON.stringify(servers.production.events);
  
 build({
   ...buildOptions,

@@ -3,11 +3,8 @@ import { Flex, Text } from "brainly-style-guide";
 
 import type { QuestionLogEntry } from "@typings/Brainly";
 
-import AdaptiveButton from "@styleguide/AdaptiveButton";
-import DateTime from "@styleguide/DateTime";
+import { AdaptiveButton, DateTime } from "@components";
 import LogEntry from "./LogEntry";
-
-
 
 export default function EntriesSection(props: {
   date: string;

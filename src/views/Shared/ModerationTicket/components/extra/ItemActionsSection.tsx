@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Flex } from "brainly-style-guide";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import { useTicketNode } from "../../hooks";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton } from "@components";
 
 import DeleteItemSection from "../deleteSection/DeleteItemSection";
 import CorrectItemSection from "../correction/CorrectItemSection";

@@ -1,7 +1,7 @@
 import { Box, Icon, Flex, Text, Link } from "brainly-style-guide";
 import type { AnswerCorrectionDataType } from "@typings/";
 
-import DateTime from "@styleguide/DateTime";
+import { DateTime } from "@components";
 
 export default function WrongReportSection(props: {
   correction: AnswerCorrectionDataType;

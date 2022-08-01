@@ -1,6 +1,6 @@
 {
   "include": ["./src"],
-  "exclude": ["node_modules/", "build/", "dist/"],
+  "exclude": ["node_modules/", "build/", "dist/", "__old__/"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
@@ -10,23 +10,17 @@
     "outDir": "./build",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": [
-      "ES5", 
-      "ES6", 
-      "DOM", 
-      "DOM.Iterable", 
-      "ES2016.Array.Include", 
-      "ES2016",
-      "ESNext.String",
-      "ESNext"
-    ],
+    "lib": ["ES5", "ES6", "DOM", "DOM.Iterable", "ES2016.Array.Include", "ES2016", "ESNext.String", "ESNext"],
     "paths": {
       "@lib/*": ["./lib/*"],
       "@utils/*": ["./utils/*"],
       "@shared/*": ["./views/Shared/*"],
       "@typings/*": ["./typings/*", "./typings"],
       "@locales/*": ["./locales/*"],
-      "@styleguide/*": ["./lib/react-elements/*"]
+      "@components": ["./components"],
+      "@extension-ws/*": ["./lib/api/Extension/ws/*"],
+      "@api/*": ["./lib/api/*"],
+      "@BrainlyGQL": ["./lib/api/BrainlyGQL/"]
     }
   }
 }

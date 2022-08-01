@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import moment from "moment";
 import { Flex, Textarea } from "brainly-style-guide";
 
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 import createProfileLink from "@utils/createProfileLink";
-import flash from "@utils/flashes";
 
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton } from "@components";
 import { useTicketNode } from "../../hooks";
 
 export default function CorrectItemSection() {
@@ -15,6 +14,16 @@ export default function CorrectItemSection() {
 
   const sendForCorrection = async () => {
     await _API.AskForCorrection(node.id, reason);
+
+    let author = node.author;
+
+    _API.SendMessage(
+      node.author.id, 
+      locales.messages.pleaseCorrectYourAnswer
+        .replace("%nick%", author.nick)
+        .replace("%questionId%", node.taskId?.toString())
+        .replace("%reason%", reason)
+    );
 
     const moderator = System.me.user;
 

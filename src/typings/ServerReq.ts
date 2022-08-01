@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 export interface User {
   createdAt: string;
   updatedAt: string;

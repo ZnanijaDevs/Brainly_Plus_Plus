@@ -16,12 +16,12 @@ import {
 } from "brainly-style-guide";
 
 import type { ModerationTicketContextDataType } from "@typings/";
-import _API from "@lib/api/Brainly/Legacy";
+import _API from "@api/Brainly/Legacy";
 
+import { AdaptiveButton } from "@components";
 import TicketTimer from "./components/extra/TicketTimer";
 import ModerationTicketItem from "./ModerationTicketItem";
 import QuestionLogSection from "./components/log";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
 
 export default function Ticket(props: {
   questionId: number;
@@ -41,7 +41,7 @@ export default function Ticket(props: {
   };
 
   return (
-    <div id="moderation-ticket-back" onClick={() => closeTicket()}>
+    <div id="moderation-ticket-back" onClick={e => closeTicket(e.isTrusted)}>
       <TopLayer splashScreen size="medium" onClick={e => e.stopPropagation()}>
         <ContentBox>
           <ContentBoxHeader spacedBottom="large" className="moderation-ticket-header">

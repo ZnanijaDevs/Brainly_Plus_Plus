@@ -1,5 +1,5 @@
 import type { UserAnswerData } from "@typings/ServerReq";
-import AdaptiveButton from "@styleguide/AdaptiveButton";
+import { AdaptiveButton } from "@components";
 
 export default function OpenAnswersButton(props: {
   selectedAnswers: UserAnswerData[];

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import clsx from "clsx";
 import { Flex, Avatar, Link, Breadcrumb, Bubble, Text } from "brainly-style-guide";
 
-import type { UserDataInProfileType } from "@lib/api/Brainly/GetUserProfile";
+import type { UserDataInProfileType } from "@api/Brainly/GetUserProfile";
 import createProfileLink from "@utils/createProfileLink";
 
 import WarnsSection from "../warns/WarnsSection";
@@ -22,7 +23,7 @@ export default function AuthorPreviewBox(props: {
     <Bubble direction="left" className="author-preview-box">
       <div>
         <Flex direction="column" alignItems="center">
-          <Flex alignItems="center" marginBottom="xs" className={activeBan ? "author-is-banned" : ""}>
+          <Flex alignItems="center" marginBottom="xs" className={clsx(activeBan && "author-is-banned")}>
             <Avatar imgSrc={user.avatar} size="xs" />
             <Flex marginLeft="xs" direction="column">
               <Breadcrumb elements={[

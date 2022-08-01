@@ -1,6 +1,6 @@
 import { Headline, Flex } from "brainly-style-guide";
 
-import type { EntriesByDateDataType } from "@lib/api/Brainly/transformData/transformQuestionLogEntries";
+import type { EntriesByDateDataType } from "@api/Brainly/transformData/transformQuestionLogEntries";
 import EntriesSection from "./EntriesSection";
 
 export default function LogSection(props: {
