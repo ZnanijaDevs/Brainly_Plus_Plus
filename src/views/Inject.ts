@@ -29,7 +29,7 @@ class Core {
 
     await this.AuthUser();
     await this.SetUserCustomDeletionReasons();
-    await this.SetUserCustomBanReasons();
+    // await this.SetUserCustomBanReasons();
 
     if (this.checkRoute(/\/$|(predmet\/\w+$)/)) {
       await InjectToDOM([
@@ -64,9 +64,15 @@ class Core {
       ]);
     }
 
+    if (this.checkRoute(/\/tasks\/archive_mod/)) {
+      await InjectToDOM([
+        "content-scripts/ViolationDetect/index.js"
+      ])
+    }
+
     await InjectToDOM([
       "content-scripts/ModerationPanel/index.js",
-      "styles/ModerationTicket/index.css"
+      "styles/ModerationPanel/index.css"
     ]);
   }
 

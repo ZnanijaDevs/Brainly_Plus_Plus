@@ -118,7 +118,7 @@ function moderationPanel(
 	storage: ExtensionConfigDataInStorage
 ) {
 	if (!storage.authToken || !storage.newModPanelEnabled) return
-	let link = '/moderation_new/view_moderator/' + me.brainlyId // !!! mod history doesn't work until: token isn't your | you have mentor privileges
+	let link = '/moderation_new/view_moderator/' + me.brainlyId // !!! mod history doesn't work until: token isn't your | you don't have mentor privileges
 	let archiveLink = 'http://cbse.brainly.in/strive-for-better/RU/archive/'
 	let spamoutRanks = [
 		'spamout',
