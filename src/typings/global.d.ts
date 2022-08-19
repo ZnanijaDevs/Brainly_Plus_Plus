@@ -9,6 +9,7 @@ declare global {
   const STYLEGUIDE_VERSION: string;
   const API_SERVER: string;
   const EVENTS_SERVER: string;
+  const ENV: "production" | "development";
 
   const locales: typeof import("../locales").locales;
   const flash: typeof import("../utils/flashes").flash;

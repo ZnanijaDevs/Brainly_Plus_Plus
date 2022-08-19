@@ -26,6 +26,7 @@
     {
       "matches": ["*://znanija.com/*", "*://brainly-ru.brainly.tech/*"],
       "js": [
+        "sentry/index.js",
         "scripts/react.production.min.js",
         "scripts/react-dom.production.min.js",
         "scripts/jquery-3.6.0.min.js",
