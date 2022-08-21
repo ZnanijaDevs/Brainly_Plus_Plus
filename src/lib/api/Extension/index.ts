@@ -1,35 +1,35 @@
 import type { ModelTypeID, Subject, BanMessageReason } from "@typings/";
-import type { 
-  User,
-  DeletionReason,
-  ViewerDataInPageContext,
-  UserAnswerData
-} from "@typings/ServerReq";
+import { User, DeletionReason, UserAnswerData, Candidate } from "@typings/ServerReq";
 import { getUserAuthToken } from "@utils/getViewer";
 
 export type PageContextDataType = {
-  timestamp: number;
-  viewer: ViewerDataInPageContext;
+  viewer: User;
   deletionReasons: {
     [x in ModelTypeID]: DeletionReason[];
   };
-  market: {
-    host: string;
-    market: string;
-    subjects: Subject[];
-    grades: {
-      [x: string]: string;
-    };
-    specialRanks: string[];
-    rankings: {id: number; name: string}[];
-    banMessage: {
-      reminders: string[];
-      accountWillBeDeleted: string;
-      endings: string[];
-      greetings: string[];
-      reasons: BanMessageReason[];
-    }
+  subjects: Subject[];
+  grades: {
+    [x: string]: string;
   };
+  specialRanks: string[];
+  rankings: {id: number; name: string}[];
+  banMessage: {
+    reminders: string[];
+    accountWillBeDeleted: string;
+    endings: string[];
+    greetings: string[];
+    reasons: BanMessageReason[];
+  };
+  server: {
+    timestamp: string;
+    timezone: string;
+  };
+  market: {
+    contentClassificationRestEndpoint: string;
+    graphqlEndpointURL: string;
+    host: string;
+    legacyAPIEndpointURL: string;
+  }
 }
 
 export type UserAnswersDataType = {
@@ -48,7 +48,7 @@ type AuthDataType = {
 }
 
 class ServerReq {
-  private readonly serverApiURL = `https://app.br-helper.com/api`;
+  private readonly serverURL = `https://app.br-helper.com`;
 
   private me: User;
   private authToken: string;
@@ -65,7 +65,7 @@ class ServerReq {
     if (!this.authToken)
       this.authToken = await getUserAuthToken();
 
-    const response = await fetch(`${this.serverApiURL}/${apiMethod}`, {
+    const response = await fetch(`${this.serverURL}/${apiMethod}`, {
       method,
       body: data ? JSON.stringify(data) : null,
       headers: {
@@ -116,7 +116,7 @@ class ServerReq {
   }
 
   async GetMentees(mentorId: number) {
-    return await this.Req<User[]>("GET", `mentees?mentorId=${mentorId}`);
+    return await this.Req<User[]>("GET", `mentees/${mentorId}`);
   }
 
   async SearchUser(nick: string) {
@@ -134,11 +134,17 @@ class ServerReq {
     return await this.Req<User>("POST", "users", data);
   }
 
+  async UpdateUser(data: {
+    userId: number;
+    privileges: number[];
+  }) {
+    return await this.Req<User>("PUT", `users/${data.userId}`, {
+      privileges: data.privileges
+    });
+  }
+
   async DeleteUser(userId: number) {
-    return await this.Req<{
-      deleted: boolean;
-      user: User;
-    }>("DELETE", `users/${userId}`);
+    return await this.Req<{ deleted: boolean; user: User }>("DELETE", `users/${userId}`);
   }
 
   async GetUserAnswers(userId: number) {
@@ -146,7 +152,15 @@ class ServerReq {
   }
 
   async GetViewerPageContext() {
-    return await this.Req<PageContextDataType>("POST", "me/context");
+    return await this.Req<PageContextDataType>("GET", "me/context");
+  }
+
+  async GetCandidates() {
+    return await this.Req<Candidate[]>("GET", "candidates");
+  }
+
+  async GetCandidateById(id: number) {
+    return await this.Req<{ candidate?: Candidate }>("GET", `candidates/${id}`);
   }
 }
 

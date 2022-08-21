@@ -11,15 +11,10 @@ export interface User {
     monthly: number[];
     weekly: number[];
   };
-  previousNicks: string[];
-  notes: unknown[]; // TODO: add notes
   brainlyData: {
-    id: string;
-    databaseId: number;
     gender: "MALE" | "FEMALE";
-    points: number;
-    grade: string;
-    thanksCount: number;
+    created: string;
+    isCommunityContributor: boolean;
   };
   mentorId?: number;
   _id: string;
@@ -45,16 +40,6 @@ export interface DeletionReason {
   subcategories: DeletionSubcategory[];
 }
 
-export interface ViewerDataInPageContext {
-  brainlyId: number;
-  canDeleteCommentsInBulk: boolean;
-  canSendAnswersForCorrection: boolean;
-  isModerator: boolean;
-  nick: string;
-  privileges: number[];
-  ranks: string[];
-}
-
 export interface UserAnswerData {
   content: string;
   hasAttachments: boolean;
@@ -69,4 +54,11 @@ export interface UserAnswerData {
     databaseId: number;
     link: string;
   }
+}
+
+export interface Candidate {
+  znanijaId: number;
+  id: string;
+  nick: string;
+  status: string;
 }

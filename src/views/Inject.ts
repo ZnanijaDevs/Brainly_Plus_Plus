@@ -80,7 +80,6 @@ class Core {
       ]);
 
       const viewer = pageContext.viewer;
-      const market = pageContext.market;
 
       const deletionReasons = pageContext.deletionReasons;
       const deletionReasonsAsArray = [];
@@ -92,13 +91,13 @@ class Core {
       }
 
       globalThis.System = {
-        marketHost: market.host,
-        marketBaseUrl: `https://${market.host}`,
+        marketHost: pageContext.market.host,
+        marketBaseUrl: `https://${pageContext.market.host}`,
         userAvatar: me.user.avatar?.[100],
-        rankings: market.rankings,
-        grades: market.grades,
-        subjects: market.subjects,
-        specialRanks: market.specialRanks,
+        rankings: pageContext.rankings,
+        grades: pageContext.grades,
+        subjects: pageContext.subjects,
+        specialRanks: pageContext.specialRanks,
         token: userToken,
         viewer: {
           ...viewer,
@@ -111,7 +110,7 @@ class Core {
         me,
         userLink: createProfileLink(me.user.id, me.user.nick),
         checkP: privilegeId => viewer.privileges.includes(privilegeId),
-        banMessage: market.banMessage
+        banMessage: pageContext.banMessage
       };
 
       console.log(chalk.bgCyan.black.bold("page context"), System);
