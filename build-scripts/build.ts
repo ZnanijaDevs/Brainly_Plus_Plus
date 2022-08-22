@@ -59,7 +59,7 @@ const buildOptions: BuildOptions = {
     "./src/locales/index.ts",
     "./src/utils/flashes.ts"
   ],
-  legalComments: "eof"
+  legalComments: "eof",
 };
 
 export default buildOptions;

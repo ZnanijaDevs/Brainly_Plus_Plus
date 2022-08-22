@@ -1,5 +1,5 @@
 import OpenTicket from "@shared/ModerationTicket";
-import { disableButton, enableButton } from "@utils/elementsVisibility";
+import { disableButton, enableButton } from "@utils/ElementsVisibility";
 
 export default () => {
   const intervalId = setInterval(() => {

@@ -12,3 +12,25 @@
     opacity: 0.6;
   }
 }
+
+.candidate-label {
+  border: 2px solid #55ab80;
+  background: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  margin-top: -16px;
+  margin-left: 15px;
+  position: absolute;
+  font-size: 12px;
+}
+
+.candidate-not-exists a .sg-text.sg-text--small {
+  color: #146e3d;
+}

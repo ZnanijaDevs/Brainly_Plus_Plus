@@ -1,6 +1,5 @@
-// TODO: replace this with React components
+import { AdaptiveButton } from "@components";
 
-/* import { Checkbox, Separator } from "@components";
 class Messages {
   hideMessages = true;
 
@@ -8,7 +7,7 @@ class Messages {
     this.RenderCheckbox();
     this.AddObserver();
 
-    this.CheckMessa ges();
+    this.CheckMessages();
   }
 
   CheckMessages() {
@@ -20,7 +19,13 @@ class Messages {
   }
 
   RenderCheckbox() {
-    $(".brn-messages__conversations h2").append([
+    $(".brn-messages__conversations h2").append(
+      <div>
+        <div className="sg-horizontal-separator" />
+        <input type="checkbox" onChange={e => console.log(e)}></input>
+      </div>
+    );
+    /*$(".brn-messages__conversations h2").append([
       Separator("vertical"),
       Checkbox({
         checked: true,
@@ -30,7 +35,7 @@ class Messages {
           this.CheckMessages();
         }
       })
-    ]);
+    ]);*/
   }
 
   AddObserver() {
@@ -43,4 +48,4 @@ class Messages {
   }
 }
 
-new Messages(); */
+new Messages();

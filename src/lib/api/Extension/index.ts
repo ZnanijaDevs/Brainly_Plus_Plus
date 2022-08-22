@@ -48,7 +48,7 @@ type AuthDataType = {
 }
 
 class ServerReq {
-  private readonly serverURL = `https://app.br-helper.com`;
+  private readonly serverURL = "https://app.br-helper.com";
 
   private me: User;
   private authToken: string;
